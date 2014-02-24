@@ -1,0 +1,23 @@
+{
+  "name": "shelly.cli",
+  "version": "0.0.0",
+  "authors": [
+    "jeremija <jerko.steiner@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "src/bower",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "expect": "~0.3.1"
+  },
+  "dependencies": {
+    "requirejs": "~2.1.11",
+    "extendable.js": "~0.0.3"
+  }
+}
