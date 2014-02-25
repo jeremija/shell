@@ -15,21 +15,16 @@ define(['cli/output', 'events/events'], function(output, events) {
         });
 
         describe('init()', function() {
-            it('should listen to events', function() {
+            it('should be a function', function() {
+                expect(output.init).to.be.a('function');
+            });
+            it('should start listening to events', function() {
                 output.init(element);
 
-                expect(events._listeners['output-prefix'][0].callback).to.be(
-                    output._onOutputPrefix);
                 expect(events._listeners.output[0].callback).to.be(
                     output._onOutput);
                 expect(events._listeners['output-error'][0].callback).to.be(
                     output._onOutputError);
-            });
-        });
-        describe('event `output-prefix`', function() {
-            it('should set the _prefix varaible', function() {
-                events.dispatch('output-prefix', 'abcd');
-                expect(output._prefix).to.be('abcd');
             });
         });
         describe('event `output`', function() {
@@ -42,7 +37,7 @@ define(['cli/output', 'events/events'], function(output, events) {
                 expect(element.childNodes.length).to.be(1);
                 var p = element.childNodes[0];
                 expect(p.tagName).to.be('P');
-                expect(p.innerHTML).to.be('abcd$ test output');
+                expect(p.innerHTML).to.be('test output');
             });
         });
         describe('event `output-error`', function() {
@@ -56,7 +51,7 @@ define(['cli/output', 'events/events'], function(output, events) {
                 var p = element.childNodes[0];
                 expect(p.tagName).to.be('P');
                 expect(p.className).to.be('error');
-                expect(p.innerHTML).to.be('abcd$ test error output');
+                expect(p.innerHTML).to.be('test error output');
             });
         });
         describe('event `clear`', function() {

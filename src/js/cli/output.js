@@ -6,12 +6,9 @@ define(['events/events'], function(events) {
 
     var exports = {
         _prefixes: undefined,
-        _onOutputPrefix: function(prefix) {
-            this._prefix = prefix;
-        },
         _createTextElement: function(text) {
             var p = document.createElement('p');
-            p.innerHTML = this._prefix + '$ ' + text;
+            p.innerHTML = text;
             return p;
         },
         _onOutput: function(text) {
@@ -29,7 +26,6 @@ define(['events/events'], function(events) {
         init: function(element) {
             this._element = element;
 
-            events.listen('output-prefix', this._onOutputPrefix, this);
             events.listen('output', this._onOutput, this);
             events.listen('output-error', this._onOutputError, this);
             events.listen('output-clear', this._onOutputClear, this);

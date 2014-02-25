@@ -7,11 +7,15 @@ define(['events/events'], function(events) {
     var exports = {
         stack: undefined,
         shell: undefined,
+        /**
+         * @param  {Object} params
+         * @param  {cli/Shell} params.shell
+         */
         init: function(params) {
             this.shell = params.shell;
             this.stack = [];
 
-            events.dispatch('output-prefix', this.shell.name);
+            events.dispatch('active-program', this.shell.name);
 
             events.listen('input', this._onInput, this);
             events.listen('init', this._onInit, this);
@@ -24,7 +28,7 @@ define(['events/events'], function(events) {
             // add new program to stack
             this.stack.push(program);
 
-            events.dispatch('output-prefix', program.name);
+            events.dispatch('active-program', program.name);
             program.init.apply(program, args);
         },
         _onExit: function() {
@@ -32,10 +36,15 @@ define(['events/events'], function(events) {
             this.stack.pop();
 
             var program = this.getActiveProgram();
-            events.dispatch('output-prefix', program.name);
+            events.dispatch('active-program', program.name);
         },
-        _onInput: function(text) {
+        _onInput: function(text, autocomplete) {
             var program = this.getActiveProgram();
+            if (autocomplete) {
+                var suggestions = program.autocomplete(text);
+                events.dispatch('autocomplete', suggestions);
+                return;
+            }
             program.input(text);
         },
     };

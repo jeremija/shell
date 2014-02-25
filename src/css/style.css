@@ -1,0 +1,55 @@
+@import url('fonts.css');
+
+/*#console-input {
+	display: table;
+	width: 100%;
+}*/
+
+/*#console-input > div {
+	display: table-cell;
+}
+
+#console-input .prefix {
+	width: 0.001%;
+}*/
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.pre {
+	white-space: pre-wrap;
+}
+
+#cursor {
+	display: inline-block;
+	background-color: lime;
+}
+
+#cursor.hidden {
+	visibility: hidden;
+}
+
+body {
+	background-color: #222;
+}
+
+body * {
+	font-family: 'fsex300-webfont';
+	background-color: #222;
+	color: lime;
+	font-size: 16px;
+}
+
+p.error {
+	color: red;
+}
+
+input {
+	border: none;
+}
+
+p, input {
+	margin: 0;
+	padding: 0;
+}

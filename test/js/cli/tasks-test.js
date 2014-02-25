@@ -1,14 +1,17 @@
 define(['cli/tasks', 'events/events', 'cli/Shell'],
     function(tasks, events, Shell) {
 
-    describe('test/js/cli/input-test.js', function() {
-        var outputPrefix, shell, program1, program2,
-        shellInput, input1, input2, initArgs1, initArgs2;
+    describe('test/js/cli/tasks-test.js', function() {
+        var activeProgram, shell, program1, program2,
+        shellInput, input1, input2, initArgs1, initArgs2, suggestions;
         before(function() {
             events.clear();
 
-            events.listen('output-prefix', function(prefix) {
-                outputPrefix = prefix;
+            events.listen('active-program', function(name) {
+                activeProgram = name;
+            });
+            events.listen('autocomplete', function(sugg) {
+                suggestions = sugg;
             });
 
             shell = new Shell({
@@ -18,6 +21,9 @@ define(['cli/tasks', 'events/events', 'cli/Shell'],
             // mock shell input
             shell.input = function(text) {
                 shellInput = text;
+            };
+            shell.autocomplete = function(text) {
+                return ['a', 'b'];
             };
 
             program1 = {
@@ -38,7 +44,7 @@ define(['cli/tasks', 'events/events', 'cli/Shell'],
                 init: function(/* variable args */) {
                     initArgs2 = arguments;
                 }
-            }
+            };
         });
         after(function() {
             events.clear();
@@ -49,6 +55,9 @@ define(['cli/tasks', 'events/events', 'cli/Shell'],
         });
 
         describe('init()', function() {
+            it('should be a function', function() {
+                expect(tasks.init).to.be.a('function');
+            });
             it('should set the shell', function() {
                 tasks.init({
                     shell: shell
@@ -59,8 +68,8 @@ define(['cli/tasks', 'events/events', 'cli/Shell'],
             it('should set the stack', function() {
                 expect(tasks.stack).to.be.an('array');
             });
-            it('should dispatch `output-prefix` event', function() {
-                expect(outputPrefix).to.be('shellName');
+            it('should dispatch `active-program` event', function() {
+                expect(activeProgram).to.be('shellName');
             });
             it('should start listening to events', function() {
                 expect(events._listeners.input[0].callback).to.be(
@@ -76,6 +85,7 @@ define(['cli/tasks', 'events/events', 'cli/Shell'],
                 shellInput = undefined;
                 input1 = undefined;
                 input2 = undefined;
+                suggestions = undefined;
             });
             it('should issue commands to the shell', function() {
                 events.dispatch('input', 'abcdefgh');
@@ -83,6 +93,11 @@ define(['cli/tasks', 'events/events', 'cli/Shell'],
                 expect(shellInput).to.be('abcdefgh');
                 expect(input1).to.be(undefined);
                 expect(input2).to.be(undefined);
+                expect(suggestions).to.be(undefined);
+            });
+            it('should dispatch `autocomplete` event', function() {
+                events.dispatch('input', 'abcde', true);
+                expect(suggestions).to.be.an('array');
             });
         });
         describe('event `init`', function() {
