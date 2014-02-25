@@ -15,7 +15,7 @@ define(['cli/Program'], function(Program) {
         default: function(arg) {
             var theme = document.getElementById('theme');
             if (theme) {
-                theme.remove();
+                document.getElementsByTagName('head')[0].removeChild(theme);
                 return;
             }
             createTheme();
