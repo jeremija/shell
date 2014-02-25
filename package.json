@@ -1,0 +1,21 @@
+{
+  "name": "shelly.cli",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "requirejs": "~2.1.11",
+    "jsdoc": "~3.3.0-alpha4",
+    "http-server": "~0.6.1",
+    "jshint": "~2.4.4",
+    "mocha-phantomjs": "~3.3.2"
+  }
+}

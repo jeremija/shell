@@ -185,7 +185,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         args: {
             '--help': function() {
                 this.output('about: This program outputs various information ' +
-                    'about the author.')
+                    'about the author.');
             }
         }
     });

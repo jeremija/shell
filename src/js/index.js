@@ -1,4 +1,4 @@
-define(['cli/input', 'cli/output', 'cli/tasks',
+require(['cli/input', 'cli/output', 'cli/tasks',
     'programs/defaultShell', 'programs/all', 'events/link'],
     function(input, output, tasks, defaultShell, allPrograms, link) {
 

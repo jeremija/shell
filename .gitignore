@@ -1,2 +1,5 @@
 node_modules/
 src/bower/
+dist/
+
+snippets/02google-analytics.snippet
