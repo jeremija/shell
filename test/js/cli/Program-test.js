@@ -27,8 +27,8 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             before(function() {
                 params = {
                     name: 'test',
-                    default: function(text) {
-                        this.data.defaultText = text;
+                    default: function() {
+                        this.data.defaultArguments = arguments;
                     },
                     args: {
                         '--help': function() {
@@ -68,17 +68,19 @@ define(['cli/Program', 'events/events'], function(Program, events) {
                 expect(program.init).to.be.a('function');
             });
             it('should call default() if defined', function() {
-                initText = 'test --help testArg A B';
-                program.init(initText);
-                expect(program.data.defaultText).to.be(initText);
+                // initText = 'test --help testArg A B';
+                program.init('--help', 'testArg', 'A', 'B');
+                expect(program.data.defaultArguments).to.be.ok();
+                expect(program.data.defaultArguments[0]).to.be('--help');
+                expect(program.data.defaultArguments[1]).to.be('testArg');
             });
             it('should call args `--help` callback', function() {
                 expect(outputs.length).to.be(1);
-                expect(outputs[0]).to.be('test$ ' + 'usage: test ask-me');
+                expect(outputs[0]).to.be('usage: test ask-me');
             });
             it('should call `testArg` callback', function() {
                 expect(errors.length).to.be(1);
-                expect(errors[0]).to.be('test$ ' + 'an error messageAB');
+                expect(errors[0]).to.be('an error messageAB');
             });
             it('should exit because no commands & no prompts def', function() {
                 expect(exited).to.be(true);
@@ -106,7 +108,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             it('should fail to call command', function() {
                 program.input('non-existing-command');
                 expect(errors.length).to.be(1);
-                expect(errors[0]).to.be('test$ invalid command: ' +
+                expect(errors[0]).to.be('invalid command: ' +
                     'non-existing-command');
             });
         });
@@ -117,7 +119,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             it('should fire `output` event', function() {
                 program.output('test123');
                 expect(outputs.length).to.be(1);
-                expect(outputs[0]).to.be(program.name + '$ test123');
+                expect(outputs[0]).to.be('test123');
             });
         });
         describe('error()', function() {
@@ -127,7 +129,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             it('should fire `output-error` message', function() {
                 program.error('error123');
                 expect(errors.length).to.be(1);
-                expect(errors[0]).to.be(program.name + '$ error123');
+                expect(errors[0]).to.be('error123');
             });
         });
         describe('init() with commands', function() {
@@ -187,7 +189,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
                 expect(program.questions.length).to.be(1);
 
                 expect(outputs.length).to.be(1);
-                expect(outputs[0]).to.be('test$ choose a number between one ' +
+                expect(outputs[0]).to.be('choose a number between one ' +
                     'and two');
             });
             it('autocomplete() should suggest answers', function() {
@@ -211,7 +213,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             });
             it('input() should call commands afterwards', function() {
                 program.input('copy');
-                expect(outputs[2]).to.be('test$ copy1');
+                expect(outputs[2]).to.be('copy1');
             });
         });
     });

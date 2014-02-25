@@ -28,8 +28,8 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
         this.commands = params.commands;
         this.args = params.args;
 
-        this.data = undefined;
-        this.questions = undefined;
+        this.data = {};
+        this.questions = [];
     }
 
     var ProgramPrototype = {
@@ -67,22 +67,22 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
         },
         /**
          * Initializes the program.
-         * @param  {String} text   arguments with which the program was started.
-         * The first part of the string should be the executable itself.
+         * @param  {String...} arguments       with which the program was
+         * started. The first part of the string should be the executable
+         * itself.
          */
-        init: function(text) {
-            text = text || this.name;
-
+        init: function(/* variable arguments */) {
             this.data = {};
             this.questions = [];
 
             if (this.default) {
-                this.default(text);
+                this.default.apply(this, arguments);
             }
 
-            var args = this._getArgsFromText(text);
+            // var args = this._getArgsFromText(text);
+            var args = [].slice.call(arguments);
 
-            for (var i = 1; i < args.length; i++) {
+            for (var i = 0; i < args.length; i++) {
                 this._callArgCallback(args, i);
             }
 
@@ -160,7 +160,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
          * @fires {module:events/events#output}
          */
         output: function(message) {
-            events.dispatch('output', this.name + '$ ' + message);
+            events.dispatch('output', message);
         },
         /**
          * Output error message
@@ -168,7 +168,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
          * @fires {module:events/events#output-error}
          */
         error: function(message) {
-            events.dispatch('output-error', this.name + '$ ' + message);
+            events.dispatch('output-error', message);
         },
         /**
          * Ask the use a question. If an array of valid answers is specified,
