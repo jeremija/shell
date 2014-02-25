@@ -44,10 +44,9 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
             var arg = args[index];
 
             var callback;
-            for (var i in this.args) {
-                var possibleArg = this.args[i];
-                if (arg === possibleArg.name) {
-                    callback = possibleArg.callback;
+            for (var argName in this.args) {
+                if (arg === argName) {
+                    callback = this.args[argName];
                     break;
                 }
             }
@@ -114,10 +113,9 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
             if (!commands) {
                 return suggestions;
             }
-            for(var i in commands) {
-                var command = commands[i];
-                if (command.name.match(regexp)) {
-                    suggestions.push(command.name);
+            for(var commandName in commands) {
+                if (commandName.match(regexp)) {
+                    suggestions.push(commandName);
                 }
             }
             return suggestions;
@@ -206,21 +204,20 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
         _callCommand: function(text) {
             var args = this._getArgsFromText(text);
             // first string is command
-            var commandName = args.splice(0, 1)[0];
+            var name = args.splice(0, 1)[0];
 
-            var command, found, commands = this.commands;
-            for(var i in commands) {
-                var command = commands[i];
-                if (commandName === command.name) {
-                    found = true;
+            var command, commands = this.commands;
+            for(var commandName in commands) {
+                if (name === commandName) {
+                    command = commands[commandName];
                     break;
                 }
             }
-            if (!found) {
-                this.error('invalid command: ' + commandName);
+            if (!command) {
+                this.error('invalid command: ' + name);
                 return;
             }
-            command.callback.apply(this, args);
+            command.apply(this, args);
         }
     };
 

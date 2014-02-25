@@ -30,17 +30,14 @@ define(['cli/Program', 'events/events'], function(Program, events) {
                     default: function(text) {
                         this.data.defaultText = text;
                     },
-                    args: [{
-                        name: '--help',
-                        callback: function() {
+                    args: {
+                        '--help': function() {
                             this.output('usage: test ask-me');
-                        }
-                    }, {
-                        name: 'testArg',
-                        callback: function(arg1, arg2) {
+                        },
+                        'testArg': function(arg1, arg2) {
                             this.error('an error message' + arg1 + arg2);
                         }
-                    }]
+                    }
                 };
             });
             it('should create a new instance', function() {
@@ -138,25 +135,20 @@ define(['cli/Program', 'events/events'], function(Program, events) {
                 exited = false;
                 outputs = [];
                 errors = [];
-                program.commands = [{
-                    name: 'command',
-                    callback: function(a, b) {
+                program.commands = {
+                    'command': function(a, b) {
                         this.data.command = {
                             a: a,
                             b: b
                         };
-                    }
-                }, {
-                    name: 'copy',
-                    callback: function() {
+                    },
+                    'copy': function() {
                         this.output('copy1');
-                    }
-                }, {
-                    name: 'order',
-                    callback: function() {
+                    },
+                    'order': function() {
                         this.output('order1');
                     }
-                }];
+                };
             });
             it('should not exit if there are available commands', function() {
                 program.init('test');
