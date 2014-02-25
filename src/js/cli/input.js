@@ -11,6 +11,9 @@ define(['events/events'], function(events) {
     var DOWN_KEY = 40;
 
     var exports = {
+        _scrollToBottom: function() {
+            window.scrollTo(0,document.body.scrollHeight);
+        },
         history: undefined,
         historyIndex: -1,
         _activeProgramName: undefined,
@@ -76,6 +79,7 @@ define(['events/events'], function(events) {
             var character = String.fromCharCode(keyCode);
             var text = this._displayElement.innerHTML || '';
             this._displayElement.innerHTML = text + character;
+            this._scrollToBottom();
         },
         _onAutocomplete: function(suggestions) {
             var displayElement = this._displayElement;
@@ -89,6 +93,7 @@ define(['events/events'], function(events) {
             }
             this._output(displayElement.innerHTML);
             events.dispatch('output', suggestions.join('   '));
+            this._scrollToBottom();
         },
         _onActiveProgram: function(name) {
             this._activeProgramName = name;
@@ -99,11 +104,13 @@ define(['events/events'], function(events) {
             var text = displayElement.innerHTML  || '';
             text = text.slice(0, text.length - 1);
             displayElement.innerHTML = text;
+            this._scrollToBottom();
         },
         _onTab: function() {
             var text = this._displayElement.innerHTML;
             // trigger input event with autocomplete
             events.dispatch('input', text, true);
+            this._scrollToBottom();
         },
         _output: function(text) {
             events.dispatch('output', this._activeProgramName + '$ ' + text);
@@ -113,8 +120,10 @@ define(['events/events'], function(events) {
             var text = displayElement.innerHTML;
             displayElement.innerHTML = '';
 
-            this.history.push(text);
-            this.historyIndex = this.history.length;
+            if (text && text.length) {
+                this.history.push(text);
+                this.historyIndex = this.history.length;
+            }
 
             this._output(text);
             events.dispatch('input', text);
@@ -127,6 +136,7 @@ define(['events/events'], function(events) {
             var index = this.historyIndex;
             var text = this.history[index];
             this._displayElement.innerHTML = text || '';
+            this._scrollToBottom();
         },
         _onDown: function() {
             var length = this.history.length;
@@ -137,6 +147,7 @@ define(['events/events'], function(events) {
             var index = this.historyIndex;
             var text = this.history[index];
             this._displayElement.innerHTML = text || '';
+            this._scrollToBottom();
         }
     };
 

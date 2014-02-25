@@ -198,11 +198,11 @@ define(['cli/Program', 'events/events'], function(Program, events) {
                 expect(suggestions[0]).to.be('number one');
                 expect(suggestions[1]).to.be('number two');
             });
-            it('input() should give error on invalid answer', function() {
+            it('input() should give error on invalid input', function() {
                 program.input('bla');
                 expect(outputs.length).to.be(2);
                 expect(errors.length).to.be(1);
-                expect(errors[0].match(/invalid answer/)).to.be.ok();
+                expect(errors[0].match(/invalid input/)).to.be.ok();
                 // same question should be asked again
                 expect(outputs[1]).to.be(outputs[0]);
             });

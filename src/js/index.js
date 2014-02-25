@@ -1,6 +1,6 @@
 define(['cli/input', 'cli/output', 'cli/tasks',
-    'programs/defaultShell', 'programs/all'],
-    function(input, output, tasks, defaultShell, allPrograms) {
+    'programs/defaultShell', 'programs/all', 'events/link'],
+    function(input, output, tasks, defaultShell, allPrograms, link) {
 
     window.onblur = function() {
         document.getElementById('cursor').className = 'hidden';
@@ -10,8 +10,16 @@ define(['cli/input', 'cli/output', 'cli/tasks',
         document.getElementById('cursor').className = '';
     };
 
+    var realInput = document.getElementById('real-input');
+    realInput.focus();
+
+    document.onclick = function(event) {
+        event.preventDefault();
+        realInput.focus();
+    }
+
     input.init({
-        listenElement: document,
+        listenElement: realInput,
         prefixElement: document.getElementById('input-prefix'),
         displayElement: document.getElementById('input-display')
     });

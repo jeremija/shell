@@ -1,7 +1,7 @@
 define([
     'programs/help',
     'programs/invert',
-    'programs/bio'],
+    'programs/about'],
 
     function(/**/) {
 

@@ -5,6 +5,9 @@
 define(['events/events'], function(events) {
 
     var exports = {
+        _scrollToBottom: function() {
+            window.scrollTo(0,document.body.scrollHeight);
+        },
         _prefixes: undefined,
         _createTextElement: function(text) {
             var p = document.createElement('p');
@@ -14,11 +17,15 @@ define(['events/events'], function(events) {
         _onOutput: function(text) {
             var p = this._createTextElement(text);
             this._element.appendChild(p);
+
+            this._scrollToBottom();
         },
         _onOutputError: function(text) {
             var p = this._createTextElement(text);
             p.className = 'error';
             this._element.appendChild(p);
+
+            this._scrollToBottom();
         },
         _onOutputClear: function() {
             this._element.innerHTML = '';

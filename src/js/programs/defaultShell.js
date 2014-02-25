@@ -18,8 +18,17 @@ define(['cli/Shell', 'events/events'], function(Shell, events) {
                     this.output('ls: lists registered programs');
                     return;
                 }
-                var programs = this.programs.join('   ');
-                this.output(programs);
+
+                var programs = this.programs;
+                if (arg === '-l') {
+                    for (var i in programs) {
+                        var program = programs[i];
+                        this.output(program);
+                    }
+                    return;
+                }
+
+                this.output(programs.join('   '));
             },
         }
     });

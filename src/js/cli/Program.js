@@ -189,7 +189,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
             if (answers && answers.indexOf(text) < 0) {
                 // question again if answer is invalid
                 var allAnswers = answers.join(', ');
-                this.error('invalid answer, expected: [' + allAnswers + ']');
+                this.error('invalid input, expected: [' + allAnswers + ']');
                 this.output(question.text);
                 return;
             }
@@ -202,6 +202,9 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
          * @param  {String} text
          */
         _callCommand: function(text) {
+            if (text === '') {
+                return;
+            }
             var args = this._getArgsFromText(text);
             // first string is command
             var name = args.splice(0, 1)[0];

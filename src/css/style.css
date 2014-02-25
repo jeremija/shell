@@ -30,6 +30,13 @@
 	visibility: hidden;
 }
 
+#real-input {
+	position: fixed;
+	left: -9999px;
+	opacity: 0;
+	/*visibility: hidden;*/
+}
+
 body {
 	background-color: #222;
 }
