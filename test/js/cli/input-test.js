@@ -7,15 +7,15 @@ define(['cli/input', 'events/events'], function(input, events) {
     var DOWN_KEY = 40;
 
     describe('test/js/cli/input-test.js', function() {
-        var listenElement, prefixElement, displayElement,
-        lastInput, lastInputAutocomplete, lastOutput;
+        var inputElement, prefixElement, formElement,
+            lastInput, lastInputAutocomplete, lastOutput;
         before(function() {
             events.clear();
 
-            listenElement = document.createElement('input');
-            listenElement.setAttribute('type', 'text');
+            inputElement = document.createElement('input');
+            inputElement.setAttribute('type', 'text');
             prefixElement = document.createElement('span');
-            displayElement = document.createElement('span');
+            formElement = document.createElement('form');
 
             events.listen('input', function(text, autocomplete) {
                 lastInput = text;
@@ -30,14 +30,14 @@ define(['cli/input', 'events/events'], function(input, events) {
         });
 
         function fakeKeyDown(keyCode) {
-            listenElement.onkeydown({
+            inputElement.onkeydown({
                 keyCode: keyCode,
                 preventDefault: function() {}
             });
         }
 
         function fakeKeyPress(keyCode) {
-            listenElement.onkeypress({
+            inputElement.onkeypress({
                 keyCode: keyCode,
                 preventDefault: function() {}
             });
@@ -53,13 +53,13 @@ define(['cli/input', 'events/events'], function(input, events) {
             });
             it('should set the elements properties', function() {
                 input.init({
-                    listenElement: listenElement,
+                    inputElement: inputElement,
                     prefixElement: prefixElement,
-                    displayElement: displayElement
+                    formElement: formElement
                 });
-                expect(input._listenElement).to.be(listenElement);
+                expect(input._inputElement).to.be(inputElement);
                 expect(input._prefixElement).to.be(prefixElement);
-                expect(input._displayElement).to.be(displayElement);
+                expect(input._formElement).to.be(formElement);
             });
             it('should listen to `active-program` event', function() {
                 events.dispatch('active-program', 'abcd');
@@ -69,81 +69,71 @@ define(['cli/input', 'events/events'], function(input, events) {
                 lastOutput = undefined;
 
                 events.dispatch('autocomplete', ['abcdef']);
-                expect(input._displayElement.innerHTML).to.be('abcdef');
+                expect(input._inputElement.value).to.be('abcdef');
                 expect(lastOutput).to.be(undefined);
 
-                input._displayElement.innerHTML = '';
+                input._inputElement.value = '';
 
                 events.dispatch('autocomplete', ['abcd', 'ef']);
-                expect(input._displayElement.innerHTML).to.be('');
+                expect(input._inputElement.value).to.be('');
                 expect(lastOutput).to.be('abcd   ef');
             });
         });
-        describe('listenElement onkeydown event', function() {
+        describe('inputElement onkeydown event', function() {
             it('should trigger the `input` event on enter key', function() {
-                displayElement.innerHTML = '0';
-                fakeKeyDown(ENTER_KEY);
+                inputElement.value = '0';
+                formElement.onsubmit({
+                    preventDefault: function() {}
+                });
                 expect(lastInput).to.be('0');
                 expect(lastOutput).to.be('abcd$ 0');
-                expect(displayElement.innerHTML).to.be('');
+                expect(inputElement.value).to.be('');
 
-                displayElement.innerHTML = '1';
-                fakeKeyDown(ENTER_KEY);
+                inputElement.value = '1';
+                formElement.onsubmit({
+                    preventDefault: function() {}
+                });
                 expect(lastInput).to.be('1');
                 expect(lastOutput).to.be('abcd$ 1');
 
-                displayElement.innerHTML = '2';
-                fakeKeyDown(ENTER_KEY);
+                inputElement.value = '2';
+                formElement.onsubmit({
+                    preventDefault: function() {}
+                });
                 expect(lastInput).to.be('2');
             });
             it('should cycle previous inputs on up/down keys', function() {
                 fakeKeyDown(UP_KEY);
-                expect(displayElement.innerHTML).to.be('2');
+                expect(inputElement.value).to.be('2');
                 fakeKeyDown(UP_KEY);
-                expect(displayElement.innerHTML).to.be('1');
+                expect(inputElement.value).to.be('1');
 
                 fakeKeyDown(DOWN_KEY);
-                expect(displayElement.innerHTML).to.be('2');
+                expect(inputElement.value).to.be('2');
                 fakeKeyDown(DOWN_KEY);
-                expect(displayElement.innerHTML).to.be('');
+                expect(inputElement.value).to.be('');
                 fakeKeyDown(DOWN_KEY);
-                expect(displayElement.innerHTML).to.be('');
+                expect(inputElement.value).to.be('');
                 fakeKeyDown(DOWN_KEY);
-                expect(displayElement.innerHTML).to.be('');
+                expect(inputElement.value).to.be('');
 
                 fakeKeyDown(UP_KEY);
-                expect(displayElement.innerHTML).to.be('2');
+                expect(inputElement.value).to.be('2');
                 fakeKeyDown(UP_KEY);
-                expect(displayElement.innerHTML).to.be('1');
+                expect(inputElement.value).to.be('1');
                 fakeKeyDown(UP_KEY);
-                expect(displayElement.innerHTML).to.be('0');
+                expect(inputElement.value).to.be('0');
                 fakeKeyDown(UP_KEY);
-                expect(displayElement.innerHTML).to.be('0');
+                expect(inputElement.value).to.be('0');
                 fakeKeyDown(UP_KEY);
-                expect(displayElement.innerHTML).to.be('0');
+                expect(inputElement.value).to.be('0');
                 fakeKeyDown(DOWN_KEY);
-                expect(displayElement.innerHTML).to.be('1');
+                expect(inputElement.value).to.be('1');
             });
             it('should trigger `input` w/ autucomplete on tab key', function() {
-                displayElement.innerHTML = 'a';
+                inputElement.value = 'a';
                 fakeKeyDown(TAB_KEY);
                 expect(lastInputAutocomplete).to.be(true);
-            });
-            it('should remove last character on backspace key', function() {
-                displayElement.innerHTML = 'abcdef';
-                fakeKeyDown(BACKSPACE_KEY);
-                expect(displayElement.innerHTML).to.be('abcde');
-            });
-        });
-        describe('listenElement `onkeypress event', function() {
-            it('should update displayElement with characters', function() {
-                displayElement.innerHTML = '';
-                // char A
-                fakeKeyPress(65);
-                expect(displayElement.innerHTML).to.be('A');
-                fakeKeyPress(66);
-                fakeKeyPress(67);
-                expect(displayElement.innerHTML).to.be('ABC');
             });
         });
     });

@@ -108,7 +108,10 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         },
         'resume': function() {
             // TODO download link
-            events.dispatch('link', 'http://www.google.com');
+            var link = 'http://www.google.com';
+            exports.output('If you have a popup blocker, click on the link below');
+            exports.output('<a href="' + link + '">' + link + '</a>');
+            window.open(link, '_blank');
             return true;
         },
         'clear': function() {
@@ -170,13 +173,21 @@ define(['cli/Program', 'events/events'], function(Program, events) {
 
     var exports = new Program({
         name: 'about',
-        default: function() {
+        default: function(args) {
+            if (args) {
+                return;
+            }
             this.output('This program outputs various information about the author.');
 
             printChoices();
             askForChoice();
         },
-        args: {}
+        args: {
+            '--help': function() {
+                this.output('about: This program outputs various information ' +
+                    'about the author.')
+            }
+        }
     });
 
     return exports;

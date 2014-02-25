@@ -1,16 +1,26 @@
+/**
+ * Listens to link event and opens a link in a new window
+ * @module events/link
+ */
 define(['events/events'], function(events) {
 
-    events.listen('link', function(link) {
-        var a = document.createElement('a');
-        a.id = 'link-event';
-        a.style.position = 'fixed';
-        a.style.left = '-9999px';
-        a.innerHTML = 'a link';
-        a.setAttribute('href', link);
-        a.setAttribute('target', '_blank');
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-    });
+    var exports = {
+        openLink: function(href) {
+            window.open(href, '_blank');
+        },
+        _onLink: function(href) {
+            events.dispatch('output',
+                'Attempting to open a window with link: ' +
+                '<a href="' + href + '">' + href + '</a>');
+            events.dispatch('output',
+                'If you have a popup blocker, click on the link above');
+            this.openLink(href);
+        },
+        init: function() {
+            events.listen('link', this._onLink, this);
+        }
+    };
+
+    return exports;
 
 });

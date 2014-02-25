@@ -1,18 +1,5 @@
 @import url('fonts.css');
 
-/*#console-input {
-	display: table;
-	width: 100%;
-}*/
-
-/*#console-input > div {
-	display: table-cell;
-}
-
-#console-input .prefix {
-	width: 0.001%;
-}*/
-
 .nowrap {
 	white-space: nowrap;
 }
@@ -21,20 +8,30 @@
 	white-space: pre-wrap;
 }
 
-#cursor {
-	display: inline-block;
-	background-color: lime;
+#console-input {
+	display: table;
 }
 
-#cursor.hidden {
-	visibility: hidden;
+
+#console-input #input-prefix {
+	width: 0.001%;
+	display: table-cell;
 }
 
-#real-input {
+#console-input #input-form {
+	display: table-cell;
+	width: 100%;
+}
+
+#console-input #input-form #input {
+	width: 100%;
+}
+
+#console-input #input-form .hidden-submit {
 	position: fixed;
-	left: -9999px;
 	opacity: 0;
-	/*visibility: hidden;*/
+	visibility: hidden;
+	left: -9999px;
 }
 
 body {
@@ -54,6 +51,11 @@ p.error {
 
 input {
 	border: none;
+}
+
+input:focus {
+	border: none;
+	outline: none;
 }
 
 p, input {

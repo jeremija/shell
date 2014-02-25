@@ -2,6 +2,7 @@
 <html>
 
 <head>
+	<title>interactive shell</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<!-- CUSTOM SNIPPETS -->
 
@@ -15,16 +16,18 @@
 
 <body>
 
-	<input type="text" id="real-input">
+	<!-- <input type="text" id="real-input" autofocus> -->
 
 	<div id="console-output" class="pre"></div>
 
 	<div id="console-input">
-		<span id="input-prefix"></span><span>$ </span>
-		<span id="input-display" class="pre"></span><span id="cursor">&nbsp;</span>
+		<span id="input-prefix"></span><span>$&nbsp;</span>
+		<!--<span id="input-display" class="pre"></span><span id="cursor">&nbsp;</span>-->
+		<form id="input-form">
+			<input type="text" id="input">
+			<input type="submit" class="hidden-submit">
+		</form>
 	</div>
 
-
 </body>
-
 </html>

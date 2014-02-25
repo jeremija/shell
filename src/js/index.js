@@ -2,26 +2,19 @@ define(['cli/input', 'cli/output', 'cli/tasks',
     'programs/defaultShell', 'programs/all', 'events/link'],
     function(input, output, tasks, defaultShell, allPrograms, link) {
 
-    window.onblur = function() {
-        document.getElementById('cursor').className = 'hidden';
-    };
+    link.init();
 
-    window.onfocus = function() {
-        document.getElementById('cursor').className = '';
-    };
-
-    var realInput = document.getElementById('real-input');
-    realInput.focus();
+    var inputElement = document.getElementById('input');
+    inputElement.focus();
 
     document.onclick = function(event) {
-        event.preventDefault();
-        realInput.focus();
-    }
+        inputElement.focus();
+    };
 
     input.init({
-        listenElement: realInput,
+        inputElement: inputElement,
+        formElement: document.getElementById('input-form'),
         prefixElement: document.getElementById('input-prefix'),
-        displayElement: document.getElementById('input-display')
     });
     output.init(document.getElementById('console-output'));
 

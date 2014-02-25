@@ -6,6 +6,7 @@ var tests = [
 
     // events
     'test/js/events/events-test',
+    'test/js/events/link-test',
 
     'test/js/cli/Program-test',
     'test/js/cli/Shell-test',
