@@ -40,14 +40,18 @@ build:
 		include="index" \
 		mainConfigFile="./src/js/require/config.js" \
 		out="dist/js/shell.js" \
-		preserveLicenseComments=false \
-		optimize=none
+		preserveLicenseComments=false
 
 	@echo running r.js optimizer for css
 	@$(RJS) -o optimizeCss=standard \
 		preserveLicenseComments=false \
 		cssIn="src/css/style.css" \
 		out="dist/css/style.css"
+
+	@$(RJS) -o optimizeCss=standard \
+		preserveLicenseComments=false \
+		cssIn="src/css/white-theme.css" \
+		out="dist/css/white-theme.css"
 
 	@echo copying fonts
 	@cp -r src/fonts dist/

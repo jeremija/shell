@@ -1,5 +1,9 @@
 define(['cli/Program', 'events/events'], function(Program, events) {
 
+    function link(href, text) {
+        return '<a href="' + href + '" target="_blank">' + text + '</a>';
+    }
+
     handlers = {
         'contact': function() {
             exports.output('CONTACT INFO');
@@ -7,9 +11,9 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             exports.output('Jerko Steiner');
             exports.output('Zagreb, Croatia');
             exports.output('You can contact me via:');
-            exports.output(' * <a href="http://github.com/jeremija">Github</a>');
-            exports.output(' * <a href="http://www.linkedin.com/in/jerkosteiner">Linkedin</a>');
-            exports.output(' * <a href="http://plus.google.com/105805964399795379989/">Google+</a>');
+            exports.output(' * ' + link('http://github.com/jeremija', 'GitHub'));
+            exports.output(' * ' + link('http://www.linkedin.com/in/jerkosteiner', 'LinkedIn'));
+            exports.output(' * ' + link('http://plus.google.com/105805964399795379989/', 'Google+'));
             return true;
         },
         'work': function() {
@@ -34,11 +38,11 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             exports.output('=========');
             exports.output('2009 - 2011');
             exports.output('Master of Science in Electric Engineering and IT');
-            exports.output('University of Zagreb: <a href="http://www.fer.hr">FER</a>');
+            exports.output('University of Zagreb: ' + link('http://www.fer.hr', 'FER'));
             exports.output(' ');
             exports.output('2006 - 2009');
             exports.output('Bachelor of Science in Electric Engineering and IT');
-            exports.output('University of Zagreb: <a href="http://www.fer.hr">FER</a>');
+            exports.output('University of Zagreb: ' + link('http://www.fer.hr', 'FER'));
             return true;
         },
         'skills': function() {
@@ -77,10 +81,10 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         'references': function() {
             exports.output('REFERENCES');
             exports.output('==========');
-            exports.output(' * <a href="http://steinerize.com/snake">Snake</a>');
-            exports.output(' * <a href="http://github.com/jeremija">Github</a>');
-            exports.output(' * <a href="http://cromedicor.com">CroMedicor</a>');
-            exports.output(' * <a href="http://www.linkedin.com/in/jerkosteiner">LinkedIn</a>');
+            exports.output(' * ' + link('http://steinerize.com/snake', 'Snake'));
+            exports.output(' * ' + link('http://github.com/jeremija', 'Github'));
+            exports.output(' * ' + link('http://cromedicor.com', 'CroMedicor'));
+            exports.output(' * ' + link('http://www.linkedin.com/in/jerkosteiner', 'LinkedIn'));
             return true;
         },
         'all': function() {
@@ -107,10 +111,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             return true;
         },
         'resume': function() {
-            var link = 'data/steiner-resume.pdf';
-            exports.output('If you have a popup blocker, click on the link below');
-            exports.output('<a href="' + link + '">' + link + '</a>');
-            window.open(link, '_blank');
+            events.dispatch('link', 'data/steiner-resume.pdf');
             return true;
         },
         'clear': function() {

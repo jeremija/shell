@@ -11,7 +11,7 @@ define(['events/events'], function(events) {
         _onLink: function(href) {
             events.dispatch('output',
                 'Attempting to open a window with link: ' +
-                '<a href="' + href + '">' + href + '</a>');
+                '<a href="' + href + '" target="_blank">' + href + '</a>');
             events.dispatch('output',
                 'If you have a popup blocker, click on the link above');
             this.openLink(href);
