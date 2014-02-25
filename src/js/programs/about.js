@@ -107,8 +107,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             return true;
         },
         'resume': function() {
-            // TODO download link
-            var link = 'http://www.google.com';
+            var link = 'data/steiner-resume.pdf';
             exports.output('If you have a popup blocker, click on the link below');
             exports.output('<a href="' + link + '">' + link + '</a>');
             window.open(link, '_blank');

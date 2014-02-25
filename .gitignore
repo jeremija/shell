@@ -1,5 +1,6 @@
 node_modules/
 src/bower/
 dist/
+src/data/*.pdf
 
 snippets/02google-analytics.snippet

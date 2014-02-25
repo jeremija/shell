@@ -51,6 +51,8 @@ build:
 
 	@echo copying fonts
 	@cp -r src/fonts dist/
+	@echo copying data
+	@cp -r src/data dist/
 
 	@echo copying index.html
 	@cp src/index.html dist/index.src.html

@@ -2,7 +2,8 @@ define([
     'programs/help',
     'programs/invert',
     'programs/about',
-    'programs/snake'],
+    'programs/snake',
+    'programs/view-source'],
 
     function(/**/) {
 

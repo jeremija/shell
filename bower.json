@@ -1,5 +1,5 @@
 {
-  "name": "shelly.cli",
+  "name": "shell",
   "version": "0.0.0",
   "authors": [
     "jeremija <jerko.steiner@gmail.com>"
@@ -12,6 +12,7 @@
     "test",
     "tests"
   ],
+  "private": true,
   "devDependencies": {
     "mocha": "~1.17.1",
     "expect": "~0.3.1",
