@@ -12,11 +12,6 @@ define(['cli/Program', 'events/events'], function(Program, events) {
 
     var ShellPrototype = {
         registerProgram: function(program) {
-            if (program instanceof Program === false) {
-                this.error('invalid program instance');
-                return;
-            }
-
             if (program.name in this.commands) {
                 this.error('program ' + program.name + ' + already registered');
                 return;

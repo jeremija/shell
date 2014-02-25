@@ -18,17 +18,17 @@ define(['cli/output', 'events/events'], function(output, events) {
             it('should listen to events', function() {
                 output.init(element);
 
-                expect(events._listeners.prefix[0].callback).to.be(
-                    output._onPrefix);
+                expect(events._listeners['output-prefix'][0].callback).to.be(
+                    output._onOutputPrefix);
                 expect(events._listeners.output[0].callback).to.be(
                     output._onOutput);
                 expect(events._listeners['output-error'][0].callback).to.be(
                     output._onOutputError);
             });
         });
-        describe('event `prefix`', function() {
+        describe('event `output-prefix`', function() {
             it('should set the _prefix varaible', function() {
-                events.dispatch('prefix', 'abcd');
+                events.dispatch('output-prefix', 'abcd');
                 expect(output._prefix).to.be('abcd');
             });
         });
@@ -67,7 +67,7 @@ define(['cli/output', 'events/events'], function(output, events) {
                 events.dispatch('output-clear');
                 expect(element.innerHTML).to.be('');
             });
-        })
+        });
     });
 
 });

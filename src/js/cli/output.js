@@ -1,8 +1,12 @@
+/**
+ * Handles and writes output
+ * @module cli/output
+ */
 define(['events/events'], function(events) {
 
     var exports = {
         _prefixes: undefined,
-        _onPrefix: function(prefix) {
+        _onOutputPrefix: function(prefix) {
             this._prefix = prefix;
         },
         _createTextElement: function(text) {
@@ -25,7 +29,7 @@ define(['events/events'], function(events) {
         init: function(element) {
             this._element = element;
 
-            events.listen('prefix', this._onPrefix, this);
+            events.listen('output-prefix', this._onOutputPrefix, this);
             events.listen('output', this._onOutput, this);
             events.listen('output-error', this._onOutputError, this);
             events.listen('output-clear', this._onOutputClear, this);

@@ -10,5 +10,8 @@ var tests = [
     'test/js/cli/Program-test',
     'test/js/cli/Shell-test',
 
-    'test/js/cli/output-test'
+    'test/js/cli/output-test',
+    'test/js/cli/input-test',
+
+    'test/js/cli/tasks-test'
 ];

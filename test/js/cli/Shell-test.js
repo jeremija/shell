@@ -48,11 +48,6 @@ define(['cli/Shell', 'cli/Program', 'events/events'],
                     initData = arguments;
                 });
             });
-            it('should not register invalid program', function() {
-                shell.registerProgram({});
-                expect(errors.length).to.be(1);
-                expect(errors[0]).to.be('invalid program instance');
-            });
             it('should register program', function() {
                 shell.registerProgram(testProgram);
                 expect(shell.commands['test-program']).to.be.ok();
