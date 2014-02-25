@@ -11,8 +11,8 @@ define(['cli/Program'], function(Program) {
         '  help  - shows this text\n' +
         '  ls    - lists available programs\n' +
         ' \n' +
-        'You use the [TAB] key to autocomplete entry\n' +
-        'You use the [UP] and [DOWN] keys to go through previous commands\n' +
+        'Use the [TAB] key to autocomplete entry\n' +
+        'Use the [UP] and [DOWN] keys to go through previous commands\n' +
         'Most commands accept the standard --help argument for instructions, '+
         'For example: ls --help';
 
