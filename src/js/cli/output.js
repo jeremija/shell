@@ -15,13 +15,15 @@ define(['events/events'], function(events) {
             return p;
         },
         _onOutput: function(text) {
-            var p = this._createTextElement(text);
+            var p = this._createTextElement('p');
+            p.innerHTML = text;
             this._element.appendChild(p);
 
             this._scrollToBottom();
         },
         _onOutputError: function(text) {
-            var p = this._createTextElement(text);
+            var p = this._createTextElement('p');
+            p.innerHTML = text;
             p.className = 'error';
             this._element.appendChild(p);
 
