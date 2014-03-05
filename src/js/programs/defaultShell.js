@@ -38,6 +38,7 @@ define(['cli/Shell', 'events/events'], function(Shell, events) {
                 }
 
                 var programs = this.programs;
+                programs.sort();
                 if (arg === '-l') {
                     for (var i in programs) {
                         var program = programs[i];

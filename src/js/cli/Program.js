@@ -105,6 +105,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
                     suggestions.push(answer);
                 }
             }
+            suggestions.sort();
             return suggestions;
         },
         _autocompleteCommand: function(regexp) {
@@ -118,6 +119,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
                     suggestions.push(commandName);
                 }
             }
+            suggestions.sort();
             return suggestions;
         },
         /**

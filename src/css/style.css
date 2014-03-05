@@ -67,4 +67,7 @@ img {
 	/*padding: 	1em 1em 0em 0em;*/
 	border: 0.3em solid lime;
 	margin: 0.5em 0.5em 0em 0em;
+	background-color: black;
+	width: 300px;
+	height: 200px;
 }

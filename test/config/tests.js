@@ -15,4 +15,6 @@ var tests = [
     'test/js/cli/input-test',
 
     'test/js/cli/tasks-test'
+
+    // 'test/js/gui/photoViewer-test'
 ];
