@@ -1,10 +1,12 @@
 require(['cli/input', 'cli/output', 'cli/tasks',
-    'programs/defaultShell', 'programs/all', 'events/link'],
-    function(input, output, tasks, defaultShell, allPrograms, link) {
+    'programs/defaultShell', 'programs/all', 'events/link', 'gui/photoViewer'],
+    function(input, output, tasks, defaultShell, allPrograms, link,
+        photoViewer) {
 
     link.init();
 
     var inputElement = document.getElementById('input');
+    var outputElement = document.getElementById('console-output');
     inputElement.focus();
 
     document.onclick = function(event) {
@@ -16,7 +18,7 @@ require(['cli/input', 'cli/output', 'cli/tasks',
         formElement: document.getElementById('input-form'),
         prefixElement: document.getElementById('input-prefix'),
     });
-    output.init(document.getElementById('console-output'));
+    output.init(outputElement);
 
     defaultShell.init();
     for (var i in allPrograms) {
@@ -28,4 +30,6 @@ require(['cli/input', 'cli/output', 'cli/tasks',
         shell: defaultShell
     });
 
+    var photoViewerElement = document.getElementById('photo-viewer');
+    photoViewer.init(photoViewerElement, outputElement);
 });

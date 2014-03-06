@@ -64,6 +64,14 @@ define(['events/events'], function(events) {
 
             events.listen('active-program', this._onActiveProgram, this);
             events.listen('autocomplete', this._onAutocomplete, this);
+            events.listen('input-disable', function() {
+                this._inputElement.setAttribute('disabled', true);
+            }, this);
+            events.listen('input-enable', function() {
+                var inputElement = this._inputElement;
+                inputElement.removeAttribute('disabled', false);
+                inputElement.focus();
+            }, this);
         },
         _onAutocomplete: function(suggestions) {
             var inputElement = this._inputElement;

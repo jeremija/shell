@@ -40,7 +40,7 @@ body {
 
 body * {
 	font-family: 'fsex300-webfont';
-	background-color: #222;
+	/*background-color: #222;*/
 	color: lime;
 	font-size: 16px;
 }
@@ -51,6 +51,7 @@ p.error {
 
 input {
 	border: none;
+	background-color: #222;
 }
 
 input:focus {
@@ -65,9 +66,53 @@ p, input {
 
 img {
 	/*padding: 	1em 1em 0em 0em;*/
-	border: 0.3em solid lime;
+	/*border: 0.3em solid lime;*/
+	border: 0.3em solid #555;
 	margin: 0.5em 0.5em 0em 0em;
 	background-color: black;
-	width: 300px;
-	height: 200px;
+	width: 90px;
+	height: 90px;
+	cursor: pointer;
+}
+
+img:hover,
+img:focus {
+	border-color: lime;
+}
+
+#photo-viewer {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+#photo-viewer .photo-viewer-nav {
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.2);
+	text-align: center;
+}
+
+#photo-viewer .photo-viewer-nav a {
+	text-decoration: none;
+}
+
+#photo-viewer .photo-viewer-nav a:hover {
+	text-decoration: underline;
+}
+
+#photo-viewer .photo-viewer-nav .nav-left {
+	float: left;
+}
+
+#photo-viewer .photo-viewer-nav .nav-right {
+	float: right;
 }

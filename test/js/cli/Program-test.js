@@ -109,7 +109,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
                 program.input('non-existing-command');
                 expect(errors.length).to.be(1);
                 expect(errors[0]).to.be('invalid command: ' +
-                    'non-existing-command');
+                    '"non-existing-command"');
             });
         });
         describe('output()', function() {

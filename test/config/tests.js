@@ -14,7 +14,7 @@ var tests = [
     'test/js/cli/output-test',
     'test/js/cli/input-test',
 
-    'test/js/cli/tasks-test'
+    'test/js/cli/tasks-test',
 
-    // 'test/js/gui/photoViewer-test'
+    'test/js/gui/photoViewer-test'
 ];

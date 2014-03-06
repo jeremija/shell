@@ -36,6 +36,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
         _getArgsFromText: function(text) {
             // merge multiple spaces into one
             text = text.replace(/' {2,}/, ' ');
+            text = text.trim();
             // filter commands by spaces
             var args = text.split(' ');
             return args;
@@ -51,7 +52,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
                 }
             }
             if (!callback) {
-                this.error('invalid argument ' + arg);
+                this.error('invalid argument "' + arg + '"');
                 return;
             }
             // number of expected arguments for function
@@ -152,6 +153,9 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
             }
             if (this.questions.length > 0) {
                 this._answerQuestion(text);
+                if (this.questions.length === 0) {
+                    this.exit();
+                }
                 return;
             }
             this._callCommand(text);
@@ -219,7 +223,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
                 }
             }
             if (!command) {
-                this.error('invalid command: ' + name);
+                this.error('invalid command: "' + name + '"');
                 return;
             }
             command.apply(this, args);

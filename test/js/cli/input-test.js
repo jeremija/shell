@@ -78,6 +78,15 @@ define(['cli/input', 'events/events'], function(input, events) {
                 expect(input._inputElement.value).to.be('');
                 expect(lastOutput).to.be('abcd   ef');
             });
+            it('should listen to `input-disable` event', function() {
+                events.dispatch('input-disable');
+                expect(input._inputElement.getAttribute('disabled')).to.be.ok();
+            });
+            it('should listen to `input-enable` event', function() {
+                events.dispatch('input-enable');
+                expect(input._inputElement.getAttribute('disabled')).
+                    to.not.be.ok();
+            });
         });
         describe('inputElement onkeydown event', function() {
             it('should trigger the `input` event on enter key', function() {
