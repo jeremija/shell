@@ -53,7 +53,7 @@ define(['events/events'], function(events) {
                 return;
             }
             data.index = index;
-            this._viewerElement.style['background-image'] =
+            this._viewerElement.style.backgroundImage =
                 'url("' + data.urls[index] + '")';
         },
         data: {

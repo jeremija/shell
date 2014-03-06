@@ -112,7 +112,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 expect(viewerElement.style.display).to.be('block');
             });
             it('should set the viewer\'s background image', function() {
-                expect(viewerElement.style['background-image']).to.match(
+                expect(viewerElement.style.backgroundImage).to.match(
                     /^url\(.*?image2\.jpg.*?\)$/);
             });
             it('should dispatch `input-disable` event', function() {
@@ -124,14 +124,14 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.next();
                 var data = photoViewer.data;
                 expect(data.index).to.be(2);
-                expect(viewerElement.style['background-image']).to.match(
+                expect(viewerElement.style.backgroundImage).to.match(
                     /^url\(.*?image3\.jpg.*?\)$/);
             });
             it('should stop moving after no next image', function() {
                 var data = photoViewer.data;
                 photoViewer.next();
                 expect(data.index).to.be(2);
-                expect(viewerElement.style['background-image']).to.match(
+                expect(viewerElement.style.backgroundImage).to.match(
                     /^url\(.*?image3\.jpg.*?\)$/);
             });
         });
@@ -140,19 +140,19 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.previous();
                 var data = photoViewer.data;
                 expect(data.index).to.be(1);
-                expect(viewerElement.style['background-image']).to.match(
+                expect(viewerElement.style.backgroundImage).to.match(
                     /^url\(.*?image2\.jpg.*?\)$/);
 
                 photoViewer.previous();
                 expect(data.index).to.be(0);
-                expect(viewerElement.style['background-image']).to.match(
+                expect(viewerElement.style.backgroundImage).to.match(
                     /^url\(.*?image1\.jpg.*?\)$/);
             });
             it('sould stop going back after 0', function() {
                 var data = photoViewer.data;
                 photoViewer.previous();
                 expect(data.index).to.be(0);
-                expect(viewerElement.style['background-image']).to.match(
+                expect(viewerElement.style.backgroundImage).to.match(
                     /^url\(.*?image1\.jpg.*?\)$/);
             });
         });
