@@ -91,6 +91,7 @@ define(['events/events'], function(events) {
             addListener(document, 'keydown', this._onKeyDown);
 
             this._viewerElement.style.display = 'block';
+            this._viewerElement.focus();
             this._switchImage(index);
         },
         _onKeyDown: function(event) {
