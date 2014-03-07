@@ -77,11 +77,11 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 var as = nav.getElementsByTagName('a');
                 expect(as.length).to.be(3);
 
-                expect(as[0].innerHTML).to.be('[&lt;]');
+                expect(as[0].className).to.be('nav-left');
                 expect(as[0].onclick).to.be(photoViewer.previous);
-                expect(as[1].innerHTML).to.be('[close]');
+                expect(as[1].className).to.be('nav-close');
                 expect(as[1].onclick).to.be(photoViewer.close);
-                expect(as[2].innerHTML).to.be('[&gt;]');
+                expect(as[2].className).to.be('nav-right');
                 expect(as[2].onclick).to.be(photoViewer.next);
             });
         });
@@ -128,6 +128,13 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 expect(data.index).to.be(2);
                 expect(imgElement.getAttribute('src')).to.be('image3.jpg');
             });
+            it('should hide the next link', function() {
+                var as =
+                    viewerElement.getElementsByClassName('photo-viewer-nav')[0];
+
+                var next = as.getElementsByClassName('nav-right')[0];
+                expect(next.style.visibility).to.be('hidden');
+            });
             it('should stop moving after no next image', function() {
                 var data = photoViewer.data;
                 photoViewer.next();
@@ -145,6 +152,20 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.previous();
                 expect(data.index).to.be(0);
                 expect(imgElement.getAttribute('src')).to.be('image1.jpg');
+            });
+            it('should make the next link visible' ,function() {
+                var as =
+                    viewerElement.getElementsByClassName('photo-viewer-nav')[0];
+
+                var next = as.getElementsByClassName('nav-right')[0];
+                expect(next.style.visibility).to.not.be.ok();
+            });
+            it('should hide the previous link', function() {
+                var as =
+                    viewerElement.getElementsByClassName('photo-viewer-nav')[0];
+
+                var next = as.getElementsByClassName('nav-left')[0];
+                expect(next.style.visibility).to.be('hidden');
             });
             it('sould stop going back after 0', function() {
                 var data = photoViewer.data;

@@ -47,16 +47,20 @@ define(['events/events'], function(events) {
         _listenElement: undefined,
         _viewerElement: undefined,
         _imgElement: undefined,
+        _nextElement: undefined,
+        _prevElement: undefined,
 
         _switchImage: function(index) {
             var data = this.data;
+            var urls = data.urls;
             if (index >= data.urls.length || index < 0) {
                 return;
             }
             data.index = index;
-            // this._viewerElement.style.backgroundImage =
-            //     'url("' + data.urls[index] + '")';
-            this._imgElement.setAttribute('src', data.urls[index]);
+            this._imgElement.setAttribute('src', urls[index]);
+            this._prevElement.style.visibility = index === 0 ? 'hidden' : '';
+            this._nextElement.style.visibility = index + 1 === urls.length ?
+                'hidden' : '';
         },
         data: {
             index: -1,
@@ -149,15 +153,18 @@ define(['events/events'], function(events) {
             var nav = document.createElement('div');
             nav.className = 'photo-viewer-nav';
 
-            nav.appendChild(this._addLink('[<]', this.previous, 'nav-left'));
-            nav.appendChild(this._addLink('[close]', this.close, 'nav-close'));
-            nav.appendChild(this._addLink('[>]', this.next, 'nav-right'));
+            this._prevElement = this._link('[&lt;]', this.previous, 'nav-left');
+            this._nextElement= this._link('[&gt;]', this.next, 'nav-right');
+
+            nav.appendChild(this._prevElement);
+            nav.appendChild(this._link('[close]', this.close, 'nav-close'));
+            nav.appendChild(this._nextElement);
 
             var img = this._imgElement = document.createElement('img');
             viewerElement.appendChild(nav);
             viewerElement.appendChild(img);
         },
-        _addLink: function(text, clickCallback, className) {
+        _link: function(text, clickCallback, className) {
             var a = document.createElement('a');
             a.innerHTML = text;
             a.onclick = clickCallback;
