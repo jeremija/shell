@@ -61,7 +61,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
 
                 imgElement = photoViewer._imgElement;
 
-                expect(viewerElement.style.display).to.be('none');
+                expect(viewerElement.className).to.be('invisible');
             });
             it('should start listening to `photos` event', function() {
                 expect(events._listeners.photos.length).to.be(1);
@@ -112,7 +112,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 expect(data.urls[2]).to.be('image3.jpg');
             });
             it('should make the viewer visible', function() {
-                expect(viewerElement.style.display).to.be('block');
+                expect(viewerElement.className).to.be('');
             });
             it('should set the viewer\'s background image', function() {
                 expect(imgElement.getAttribute('src')).to.be('image2.jpg');
@@ -225,7 +225,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
             });
             it('should hide the viewerElement', function() {
                 photoViewer.close();
-                expect(viewerElement.style.display).to.be('none');
+                expect(viewerElement.className).to.be('invisible');
                 expect(photoViewer.data.index).to.be(-1);
                 expect(photoViewer.data.urls.length).to.be(0);
             });

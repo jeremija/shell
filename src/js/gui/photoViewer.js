@@ -95,8 +95,8 @@ define(['events/events'], function(events) {
             }
             removeListener(document, 'keydown', exports._onKeyDown);
 
-            exports._viewerElement.style.display = 'none';
-            exports._imgElement.removeAttribute('src');
+            exports._viewerElement.className = 'invisible';
+            // exports._imgElement.removeAttribute('src');
             exports.data.index = -1;
             exports.data.urls = [];
 
@@ -105,9 +105,11 @@ define(['events/events'], function(events) {
         show: function(index) {
             events.dispatch('input-disable');
             addListener(document, 'keydown', this._onKeyDown);
+            exports._imgElement.removeAttribute('src');
 
-            this._viewerElement.style.display = 'block';
+            this._viewerElement.className = '';
             this._viewerElement.focus();
+            // this._viewerElement.scrollIntoView();
             this._switchImage(index);
         },
         _onKeyDown: function(event) {
@@ -151,7 +153,7 @@ define(['events/events'], function(events) {
 
             addListener(listenElement, 'click', this._onClick);
             this.initLayout();
-            viewerElement.style.display = 'none';
+            viewerElement.className = 'invisible';
 
             events.listen('photos', this._onPhotos);
         },

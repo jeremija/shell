@@ -16,17 +16,19 @@
 
 	<!-- <input type="text" id="real-input" autofocus> -->
 
-	<div id="photo-viewer" tabindex="1"></div>
+	<div id="photo-viewer" class="hidden" tabindex="-1"></div>
 
-	<div id="console-output" class="pre"></div>
+	<div class="console">
+		<div id="console-output" class="pre"></div>
 
-	<div id="console-input">
-		<span id="input-prefix"></span><span>$&nbsp;</span>
-		<!--<span id="input-display" class="pre"></span><span id="cursor">&nbsp;</span>-->
-		<form id="input-form">
-			<input type="text" id="input" autocomplete="off">
-			<input type="submit" class="hidden-submit">
-		</form>
+		<div id="console-input">
+			<span id="input-prefix"></span><span>$&nbsp;</span>
+			<!--<span id="input-display" class="pre"></span><span id="cursor">&nbsp;</span>-->
+			<form id="input-form">
+				<input type="text" id="input" autocomplete="off">
+				<input type="submit" class="hidden-submit">
+			</form>
+		</div>
 	</div>
 
 	<!-- SCRIPT START -->
