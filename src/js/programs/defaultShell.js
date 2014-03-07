@@ -5,7 +5,7 @@ define(['cli/Shell', 'events/events'], function(Shell, events) {
 
     var exports = new Shell({
         name: '',
-        default: function() {
+        defaultAction: function() {
             this.output(new Date());
             this.output(' ');
             this.output('Hello, stranger!');
@@ -21,7 +21,7 @@ define(['cli/Shell', 'events/events'], function(Shell, events) {
         },
         commands: {
             'intro': function() {
-                this.default();
+                this.defaultAction();
             },
             'clear': function(arg) {
                 if (arg === '--help') {

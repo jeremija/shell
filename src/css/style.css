@@ -64,7 +64,7 @@ p, input {
 	padding: 0;
 }
 
-img {
+img.gallery {
 	/*padding: 	1em 1em 0em 0em;*/
 	/*border: 0.3em solid lime;*/
 	border: 0.3em solid #555;
@@ -75,8 +75,8 @@ img {
 	cursor: pointer;
 }
 
-img:hover,
-img:focus {
+img.gallery:hover,
+img.gallery:focus {
 	border-color: lime;
 }
 
@@ -91,14 +91,21 @@ img:focus {
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: contain;
-	background-color: #000;
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: #333;
+	background-color: rgba(51, 51, 51, 0.5);
+	text-align: center;
+	padding: 2em;
 }
 
 #photo-viewer .photo-viewer-nav {
-	background-color: #000;
-	background-color: rgba(0, 0, 0, 0.2);
+	/*background-color: #000;*/
+	/*background-color: rgba(0, 0, 0, 0.3);*/
 	text-align: center;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 8px;
 }
 
 #photo-viewer .photo-viewer-nav a {
@@ -110,9 +117,15 @@ img:focus {
 }
 
 #photo-viewer .photo-viewer-nav .nav-left {
-	float: left;
+	margin-right: 1em;
 }
 
 #photo-viewer .photo-viewer-nav .nav-right {
-	float: right;
+	margin-left: 1em;
+}
+
+#photo-viewer img {
+	max-width: 100%;
+	max-height: 100%;
+	box-shadow: 0 0 2em black;
 }

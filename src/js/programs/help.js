@@ -18,7 +18,7 @@ define(['cli/Program'], function(Program) {
 
     var exports = new Program({
         name: 'help',
-        default: function() {
+        defaultAction: function() {
             var texts = text.split('\n');
 
             for (var i in texts) {

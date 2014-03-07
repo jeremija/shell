@@ -27,7 +27,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             before(function() {
                 params = {
                     name: 'test',
-                    default: function() {
+                    defaultAction: function() {
                         this.data.defaultArguments = arguments;
                     },
                     args: {
@@ -46,8 +46,8 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             it('should set name', function() {
                 expect(program.name).to.be('test');
             });
-            it('should set default function', function() {
-                expect(program.default).to.be(params.default);
+            it('should set defaultAction function', function() {
+                expect(program.defaultAction).to.be(params.defaultAction);
             });
             it('should set commands', function() {
                 expect(program.commands).to.be(params.commands);
@@ -67,7 +67,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             it('should be a function', function() {
                 expect(program.init).to.be.a('function');
             });
-            it('should call default() if defined', function() {
+            it('should call defaultAction() if defined', function() {
                 // initText = 'test --help testArg A B';
                 program.init('--help', 'testArg', 'A', 'B');
                 expect(program.data.defaultArguments).to.be.ok();

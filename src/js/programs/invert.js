@@ -12,7 +12,7 @@ define(['cli/Program'], function(Program) {
 
     var exports = new Program({
         name: 'invert',
-        default: function(arg) {
+        defaultAction: function(arg) {
             var theme = document.getElementById('theme');
             if (theme) {
                 document.getElementsByTagName('head')[0].removeChild(theme);

@@ -2,7 +2,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
 
     var exports = new Program({
         name: 'view-source',
-        default: function(args) {
+        defaultAction: function(args) {
             if (args) {
                 return;
             }

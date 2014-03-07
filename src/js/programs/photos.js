@@ -72,7 +72,8 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         var html = '';
         selectedPhotos.forEach(function(photo) {
             var thumb = photo.replace(/\.jpg$/, 's.jpg');
-            html += '<img src="' + thumb + '" data-fullsrc="' + photo + '" />';
+            html += '<img class="gallery" src="' + thumb + '"' +
+                'data-fullsrc="' + photo + '" />';
         });
         exports.output(captions[location]);
         exports.output(html);
@@ -80,7 +81,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
 
     var exports = new Program({
         name: 'photos',
-        default: function(args) {
+        defaultAction: function(args) {
             if (args) {
                 return;
             }

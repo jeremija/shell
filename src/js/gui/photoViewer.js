@@ -46,6 +46,7 @@ define(['events/events'], function(events) {
         KEY_ESCAPE: 27,
         _listenElement: undefined,
         _viewerElement: undefined,
+        _imgElement: undefined,
 
         _switchImage: function(index) {
             var data = this.data;
@@ -53,8 +54,9 @@ define(['events/events'], function(events) {
                 return;
             }
             data.index = index;
-            this._viewerElement.style.backgroundImage =
-                'url("' + data.urls[index] + '")';
+            // this._viewerElement.style.backgroundImage =
+            //     'url("' + data.urls[index] + '")';
+            this._imgElement.setAttribute('src', data.urls[index]);
         },
         data: {
             index: -1,
@@ -81,6 +83,7 @@ define(['events/events'], function(events) {
             removeListener(document, 'keydown', exports._onKeyDown);
 
             exports._viewerElement.style.display = 'none';
+            exports._imgElement.removeAttribute('src');
             exports.data.index = -1;
             exports.data.urls = [];
 
@@ -150,7 +153,9 @@ define(['events/events'], function(events) {
             nav.appendChild(this._addLink('[close]', this.close, 'nav-close'));
             nav.appendChild(this._addLink('[>]', this.next, 'nav-right'));
 
+            var img = this._imgElement = document.createElement('img');
             viewerElement.appendChild(nav);
+            viewerElement.appendChild(img);
         },
         _addLink: function(text, clickCallback, className) {
             var a = document.createElement('a');

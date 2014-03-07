@@ -17,14 +17,14 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
      * @name cli/Program
      * @param {Object} params
      * @param {String} params.name
-     * @param {Function} params.default           default function which will
+     * @param {Function} params.defaultAction  defaultAction function which will
      * be executed upon program initialization
      * @param {Array.<command>} params.commands
      * @param {Array.<args>} params.args
      */
     function Program(params) {
         this.name = params.name;
-        this.default = params.default;
+        this.defaultAction = params.defaultAction;
         this.commands = params.commands;
         this.args = params.args;
 
@@ -76,8 +76,8 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
             this.data = {};
             this.questions = [];
 
-            if (this.default) {
-                this.default.apply(this, arguments);
+            if (this.defaultAction) {
+                this.defaultAction.apply(this, arguments);
             }
 
             // var args = this._getArgsFromText(text);

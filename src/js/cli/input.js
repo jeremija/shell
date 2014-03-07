@@ -5,7 +5,7 @@
 define(['events/events'], function(events) {
 
     // var BACKSPACE_KEY = 8;
-    // var ENTER_KEY = 13;
+    var ENTER_KEY = 13;
     var TAB_KEY = 9;
     var UP_KEY = 38;
     var DOWN_KEY = 40;
@@ -37,9 +37,11 @@ define(['events/events'], function(events) {
                 }
             };
 
+            // in case onkeydown with enter did nothing
             this._formElement.onsubmit = function(event) {
                 event.preventDefault();
                 self._onEnter();
+                return false;
             };
 
         },

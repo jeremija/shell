@@ -3,7 +3,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
     describe('test/js/gui/photoViewer-test.js', function() {
 
         var div, img1, img2, img3, listener;
-        var viewerElement;
+        var viewerElement, imgElement;
 
         function fakeKeyDown(obj, keyCode) {
             var e = document.createEvent('Event');
@@ -57,6 +57,9 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
 
                 expect(photoViewer._viewerElement).to.be(viewerElement);
                 expect(photoViewer._listenElement).to.be(listener);
+                expect(photoViewer._imgElement.tagName).to.be('IMG');
+
+                imgElement = photoViewer._imgElement;
 
                 expect(viewerElement.style.display).to.be('none');
             });
@@ -112,8 +115,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 expect(viewerElement.style.display).to.be('block');
             });
             it('should set the viewer\'s background image', function() {
-                expect(viewerElement.style.backgroundImage).to.match(
-                    /^url\(.*?image2\.jpg.*?\)$/);
+                expect(imgElement.getAttribute('src')).to.be('image2.jpg');
             });
             it('should dispatch `input-disable` event', function() {
                 expect(inputDisabled).to.be(true);
@@ -124,15 +126,13 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.next();
                 var data = photoViewer.data;
                 expect(data.index).to.be(2);
-                expect(viewerElement.style.backgroundImage).to.match(
-                    /^url\(.*?image3\.jpg.*?\)$/);
+                expect(imgElement.getAttribute('src')).to.be('image3.jpg');
             });
             it('should stop moving after no next image', function() {
                 var data = photoViewer.data;
                 photoViewer.next();
                 expect(data.index).to.be(2);
-                expect(viewerElement.style.backgroundImage).to.match(
-                    /^url\(.*?image3\.jpg.*?\)$/);
+                expect(imgElement.getAttribute('src')).to.be('image3.jpg');
             });
         });
         describe('previous()', function() {
@@ -140,20 +140,17 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.previous();
                 var data = photoViewer.data;
                 expect(data.index).to.be(1);
-                expect(viewerElement.style.backgroundImage).to.match(
-                    /^url\(.*?image2\.jpg.*?\)$/);
+                expect(imgElement.getAttribute('src')).to.be('image2.jpg');
 
                 photoViewer.previous();
                 expect(data.index).to.be(0);
-                expect(viewerElement.style.backgroundImage).to.match(
-                    /^url\(.*?image1\.jpg.*?\)$/);
+                expect(imgElement.getAttribute('src')).to.be('image1.jpg');
             });
             it('sould stop going back after 0', function() {
                 var data = photoViewer.data;
                 photoViewer.previous();
                 expect(data.index).to.be(0);
-                expect(viewerElement.style.backgroundImage).to.match(
-                    /^url\(.*?image1\.jpg.*?\)$/);
+                expect(imgElement.getAttribute('src')).to.be('image1.jpg');
             });
         });
         describe('key bindings', function() {

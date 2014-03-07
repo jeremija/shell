@@ -2,7 +2,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
 
     var exports = new Program({
         name: 'snake',
-        default: function() {
+        defaultAction: function() {
             events.dispatch('link', 'http://steinerize.com/snake');
         }
     });

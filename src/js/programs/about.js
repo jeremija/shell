@@ -173,7 +173,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
 
     var exports = new Program({
         name: 'about',
-        default: function(args) {
+        defaultAction: function(args) {
             if (args) {
                 return;
             }
