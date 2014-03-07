@@ -1,3 +1,13 @@
+(function() {
+    if (typeof Object.create !== 'function') {
+        var output =
+            'Please <a href="http://browsehappy.com/">update your browser</a>.' +
+            '<br>You are running an old browser and you may not have ' +
+            'the best experience.';
+        document.getElementById('console-output').innerHTML = output;
+    }
+}());
+
 require(['cli/input', 'cli/output', 'cli/tasks',
     'programs/defaultShell', 'programs/all', 'events/link', 'gui/photoViewer'],
     function(input, output, tasks, defaultShell, allPrograms, link,
