@@ -95,17 +95,24 @@ img.gallery:focus {
 	background-color: rgba(51, 51, 51, 0.5);
 	text-align: center;
 	padding: 2em;
+	outline: none;
 }
 
 #photo-viewer .photo-viewer-nav {
-	/*background-color: #000;*/
-	/*background-color: rgba(0, 0, 0, 0.3);*/
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.3);
 	text-align: center;
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	right: 0;
 	padding: 8px;
+	padding-top: 3px;
+}
+
+#photo-viewer .photo-container {
+	position: relative;
+	display: inline-block;
 }
 
 #photo-viewer .photo-viewer-nav a {

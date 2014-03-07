@@ -67,7 +67,10 @@ define(['events/events'], function(events) {
             urls: []
         },
 
-        next: function() {
+        next: function(event) {
+            if (event) {
+                event.preventDefault();
+            }
             var data = exports.data;
             if (data.index + 1 >= data.urls.length) {
                 // prevent out of bounds
@@ -75,7 +78,10 @@ define(['events/events'], function(events) {
             }
             exports._switchImage(++data.index);
         },
-        previous: function() {
+        previous: function(event) {
+            if (event) {
+                event.preventDefault();
+            }
             var data = exports.data;
             if (data.index === 0) {
                 // prevent out of bounds
@@ -83,7 +89,10 @@ define(['events/events'], function(events) {
             }
             exports._switchImage(--data.index);
         },
-        close: function() {
+        close: function(event) {
+            if (event) {
+                event.preventDefault();
+            }
             removeListener(document, 'keydown', exports._onKeyDown);
 
             exports._viewerElement.style.display = 'none';
@@ -161,8 +170,11 @@ define(['events/events'], function(events) {
             nav.appendChild(this._nextElement);
 
             var img = this._imgElement = document.createElement('img');
-            viewerElement.appendChild(nav);
-            viewerElement.appendChild(img);
+            var container = document.createElement('div');
+            container.className = 'photo-container';
+            container.appendChild(nav);
+            container.appendChild(img);
+            viewerElement.appendChild(container);
         },
         _link: function(text, clickCallback, className) {
             var a = document.createElement('a');

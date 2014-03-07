@@ -2,7 +2,7 @@
  * Handles user input
  * @module cli/input
  */
-define(['events/events'], function(events) {
+define(['events/events', 'cli/util'], function(events, util) {
 
     // var BACKSPACE_KEY = 8;
     var ENTER_KEY = 13;
@@ -96,11 +96,16 @@ define(['events/events'], function(events) {
         _onTab: function() {
             var text = this._inputElement.value;
             // trigger input event with autocomplete
-            events.dispatch('input', text, true);
+            this._input(text, true);
             this._scrollToBottom();
         },
         _output: function(text) {
+            text = util.escape(text);
             events.dispatch('output', this._activeProgramName + '$ ' + text);
+        },
+        _input: function(text, autocomplete) {
+            text = util.escape(text);
+            events.dispatch('input', text, autocomplete);
         },
         _onEnter: function() {
             var inputElement = this._inputElement;
@@ -113,7 +118,7 @@ define(['events/events'], function(events) {
             }
 
             this._output(text);
-            events.dispatch('input', text);
+            this._input(text);
         },
         _onUp: function() {
             --this.historyIndex;

@@ -145,6 +145,11 @@ define(['cli/input', 'events/events'], function(input, events) {
                 expect(lastInputAutocomplete).to.be(true);
             });
         });
+        describe('escaping input', function() {
+            it('should escape outputted input', function() {
+
+            });
+        });
     });
 
 });
