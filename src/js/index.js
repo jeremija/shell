@@ -1,5 +1,6 @@
 (function() {
-    if (typeof Object.create !== 'function') {
+    if (typeof Object.create !== 'function' ||
+        typeof Array.prototype.forEach !== 'function') {
         var output =
             'Please <a href="http://browsehappy.com/">update your browser</a>.' +
             '<br>You are running an old browser and you may not have ' +

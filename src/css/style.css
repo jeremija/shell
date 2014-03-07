@@ -128,4 +128,5 @@ img.gallery:focus {
 	max-width: 100%;
 	max-height: 100%;
 	box-shadow: 0 0 2em black;
+	background-color: black;
 }
