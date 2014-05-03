@@ -19,8 +19,18 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         'work': function() {
             exports.output('WORK INFO');
             exports.output('=========');
-            exports.output('2011 - present');
+            exports.output('2014 - present :: Senior Software Developer');
             exports.output('Privredna Banka Zagreb, a bank of Intesa SanPaolo');
+            exports.output(' ');
+            exports.output(' * RESTful API development (Java, Spring Framework)');
+            exports.output(' ');
+            exports.output(' * Mobile applications research and development');
+            exports.output(' ');
+            exports.output(' * Rich HTML5/JavaScript applications');
+            exports.output(' ');
+            exports.output('2011 - 2014 :: Software Developer');
+            exports.output('Privredna Banka Zagreb, a bank of Intesa SanPaolo');
+            exports.output(' ');
             exports.output(' * Lead developer of a mobile application for locating');
             exports.output('   nearby ATMs and offices.');
             exports.output(' ');
