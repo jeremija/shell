@@ -17,6 +17,9 @@ define(['cli/Program', 'events/events', 'services/imgur'],
     }, {
         name: 'amsterdam',
         id: 'shi1f'
+    }, {
+        name: 'nyc3',
+        id: 'gToZU'
     }];
 
     function photoCallback(id) {

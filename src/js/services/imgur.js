@@ -15,7 +15,10 @@ define(['services/ajax'], function(ajax) {
                     callback(err);
                     return;
                 }
-
+                var protocol = window.location.protocol;
+                response.data.images.forEach(function(image) {
+                    image.link = image.link.replace('http:', protocol);
+                });
                 callback(undefined, response.data);
             });
         },
