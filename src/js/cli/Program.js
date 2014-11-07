@@ -148,6 +148,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
          */
         input: function(text) {
             if (text === 'exit') {
+                window.location.hash = '';
                 this.exit();
                 return;
             }
@@ -226,6 +227,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
                 this.error('invalid command: "' + name + '"');
                 return;
             }
+            window.location.hash = encodeURIComponent(text);
             command.apply(this, args);
         }
     };

@@ -18,6 +18,7 @@ require(['cli/input', 'cli/output', 'cli/tasks',
 
     var inputElement = document.getElementById('input');
     var outputElement = document.getElementById('console-output');
+    var formElement = document.getElementById('input-form');
     inputElement.focus();
 
     document.onclick = function(event) {
@@ -26,7 +27,7 @@ require(['cli/input', 'cli/output', 'cli/tasks',
 
     input.init({
         inputElement: inputElement,
-        formElement: document.getElementById('input-form'),
+        formElement: formElement,
         prefixElement: document.getElementById('input-prefix'),
     });
     output.init(outputElement);
@@ -43,4 +44,10 @@ require(['cli/input', 'cli/output', 'cli/tasks',
 
     var photoViewerElement = document.getElementById('photo-viewer');
     photoViewer.init(photoViewerElement, outputElement);
+
+    var hash = decodeURIComponent(window.location.hash);
+    if (hash) {
+        inputElement.value = hash.substring(1, hash.length);
+        input._onEnter();
+    }
 });
