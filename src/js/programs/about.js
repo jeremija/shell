@@ -95,7 +95,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         'references': function() {
             exports.output('REFERENCES');
             exports.output('==========');
-            exports.output(' * ' + link('http://steinerize.com/snake', 'Snake'));
+            exports.output(' * ' + link('http://steiner.website/snake', 'Snake'));
             exports.output(' * ' + link('http://github.com/jeremija', 'Github'));
             exports.output(' * ' + link('http://cromedicor.com', 'CroMedicor'));
             exports.output(' * ' + link('http://www.linkedin.com/in/jerkosteiner', 'LinkedIn'));
