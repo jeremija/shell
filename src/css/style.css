@@ -1,5 +1,9 @@
 @import url('fonts.css');
 
+.html {
+	display: none;
+}
+
 .nowrap {
 	white-space: nowrap;
 }
