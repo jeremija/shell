@@ -75,16 +75,14 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 expect(nav.tagName).to.be('DIV');
 
                 var as = nav.getElementsByTagName('a');
-                expect(as.length).to.be(4);
+                expect(as.length).to.be(3);
 
                 expect(as[0].className).to.be('nav-left');
                 expect(as[0].onclick).to.be(photoViewer.previous);
                 expect(as[1].className).to.be('nav-close');
                 expect(as[1].onclick).to.be(photoViewer.close);
-                expect(as[2].className).to.be('nav-full');
-                expect(as[2].onclick).to.be(photoViewer.fullscreen);
-                expect(as[3].className).to.be('nav-right');
-                expect(as[3].onclick).to.be(photoViewer.next);
+                expect(as[2].className).to.be('nav-right');
+                expect(as[2].onclick).to.be(photoViewer.next);
             });
         });
         describe('listener click', function() {
