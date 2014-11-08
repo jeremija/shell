@@ -3,7 +3,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
     describe('test/js/gui/photoViewer-test.js', function() {
 
         var div, img1, img2, img3, listener;
-        var viewerElement, imgElement;
+        var viewerElement, imgElement, description;
 
         function fakeKeyDown(obj, keyCode) {
             var e = document.createEvent('Event');
@@ -24,10 +24,13 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
             div = document.createElement('div');
             img1 = document.createElement('img');
             img1.setAttribute('data-fullsrc', 'image1.jpg');
+            img1.setAttribute('data-description', 'image1');
             img2 = document.createElement('img');
             img2.setAttribute('data-fullsrc', 'image2.jpg');
+            img2.setAttribute('data-description', 'image2');
             img3 = document.createElement('img');
             img3.setAttribute('data-fullsrc', 'image3.jpg');
+            img3.setAttribute('data-description', 'image3');
 
             div.appendChild(img1);
             div.appendChild(img2);
@@ -60,6 +63,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 expect(photoViewer._imgElement.tagName).to.be('IMG');
 
                 imgElement = photoViewer._imgElement;
+                description = photoViewer._description;
 
                 expect(viewerElement.className).to.be('invisible');
             });
@@ -68,7 +72,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 expect(events._listeners.photos[0].callback).to.be(
                     photoViewer._onPhotos);
             });
-            it('should have navigation toolbar', function() {
+            it('should have navigation buttons', function() {
                 var nav =
                     viewerElement.getElementsByClassName('photo-viewer-nav')[0];
                 expect(nav).to.be.ok();
@@ -107,15 +111,25 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 expect(data.index).to.be(1);
                 expect(data.urls.length).to.be(3);
 
-                expect(data.urls[0]).to.be('image1.jpg');
-                expect(data.urls[1]).to.be('image2.jpg');
-                expect(data.urls[2]).to.be('image3.jpg');
+                expect(data.urls[0]).to.eql({
+                    link: 'image1.jpg',
+                    description: 'image1'
+                });
+                expect(data.urls[1]).to.eql({
+                    link: 'image2.jpg',
+                    description: 'image2'
+                });
+                expect(data.urls[2]).to.eql({
+                    link: 'image3.jpg',
+                    description: 'image3'
+                });
             });
             it('should make the viewer visible', function() {
                 expect(viewerElement.className).to.be('');
             });
             it('should set the viewer\'s background image', function() {
                 expect(imgElement.getAttribute('src')).to.be('image2.jpg');
+                expect(description.innerHTML).to.be('image2');
             });
             it('should dispatch `input-disable` event', function() {
                 expect(inputDisabled).to.be(true);
@@ -127,6 +141,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 var data = photoViewer.data;
                 expect(data.index).to.be(2);
                 expect(imgElement.getAttribute('src')).to.be('image3.jpg');
+                expect(description.innerHTML).to.be('image3');
             });
             it('should hide the next link', function() {
                 var as =
@@ -140,6 +155,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.next();
                 expect(data.index).to.be(2);
                 expect(imgElement.getAttribute('src')).to.be('image3.jpg');
+                expect(description.innerHTML).to.be('image3');
             });
         });
         describe('previous()', function() {
@@ -148,10 +164,12 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 var data = photoViewer.data;
                 expect(data.index).to.be(1);
                 expect(imgElement.getAttribute('src')).to.be('image2.jpg');
+                expect(description.innerHTML).to.be('image2');
 
                 photoViewer.previous();
                 expect(data.index).to.be(0);
                 expect(imgElement.getAttribute('src')).to.be('image1.jpg');
+                expect(description.innerHTML).to.be('image1');
             });
             it('should make the next link visible' ,function() {
                 var as =
@@ -172,6 +190,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.previous();
                 expect(data.index).to.be(0);
                 expect(imgElement.getAttribute('src')).to.be('image1.jpg');
+                expect(description.innerHTML).to.be('image1');
             });
         });
         describe('key bindings', function() {
@@ -245,7 +264,13 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.show = showOrig;
             });
             it('should update urls', function() {
-                photos = ['test1.jpg', 'test2.jpg'];
+                photos = [{
+                    description: 'test1',
+                    link: 'test1.jpg'
+                }, {
+                    link: 'test2.jpg',
+                    description: 'test2'
+                }];
                 events.dispatch('photos', photos);
 
                 expect(photoViewer.data.urls).to.be(photos);

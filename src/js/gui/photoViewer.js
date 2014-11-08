@@ -35,9 +35,24 @@ define(['events/events', 'gui/isIframe'], function(events, isIframe) {
         var urls = [];
         for(var i = 0; i < elements.length; i++) {
             var el = elements[i];
-            urls.push(el.getAttribute('data-fullsrc'));
+            urls.push({
+                link: el.getAttribute('data-fullsrc'),
+                description: el.getAttribute('data-description')
+            });
         }
         return urls;
+    }
+
+    /**
+     * firefox fix
+     */
+    function fixOffset(event) {
+        if (event.hasOwnProperty('offsetX')) return event;
+        var left = (event.target && event.target.offsetLeft) || 0,
+            top = (event.target && event.target.offsetTop) || 0;
+        event.offsetX = event.layerX - left;
+        event.offsetY = event.layerY - top;
+        return event;
     }
 
     var exports = {
@@ -57,7 +72,10 @@ define(['events/events', 'gui/isIframe'], function(events, isIframe) {
                 return;
             }
             data.index = index;
-            this._imgElement.setAttribute('src', urls[index]);
+            var image = urls[index];
+            this._imgElement.setAttribute('src', image.link);
+            this._description.style.display = image.description ? '' : 'none';
+            this._description.innerHTML = image.description || '';
             this._prevElement.style.visibility = index === 0 ? 'hidden' : '';
             this._nextElement.style.visibility = index + 1 === urls.length ?
                 'hidden' : '';
@@ -165,19 +183,30 @@ define(['events/events', 'gui/isIframe'], function(events, isIframe) {
             var nav = document.createElement('div');
             nav.className = 'photo-viewer-nav';
 
-            this._prevElement = this._link('[&lt;]', this.previous, 'nav-left');
-            this._nextElement= this._link('[&gt;]', this.next, 'nav-right');
+            this._prevElement = this._link('&lt;', this.previous, 'nav-left');
+            this._nextElement= this._link('&gt;', this.next, 'nav-right');
 
             nav.appendChild(this._prevElement);
-            nav.appendChild(this._link('[close]', this.close, 'nav-close'));
+            nav.appendChild(this._link('x', this.close, 'nav-close'));
             nav.appendChild(this._nextElement);
+
+            var descriptionContainer = document.createElement('span');
+            descriptionContainer.setAttribute('class', 'description');
+            this._description = document.createElement('span');
+            descriptionContainer.appendChild(this._description);
 
             var img = this._imgElement = document.createElement('img');
             var container = document.createElement('div');
             container.className = 'photo-container';
             container.appendChild(nav);
+            container.appendChild(descriptionContainer);
             container.appendChild(img);
             viewerElement.appendChild(container);
+            var self = this;
+            addListener(img, 'click', function(event) {
+                var x = fixOffset(event).offsetX;
+                if (x/img.offsetWidth <= 0.5) self.previous(); else self.next();
+            });
         },
         _link: function(text, clickCallback, className) {
             var a = document.createElement('a');

@@ -22,6 +22,14 @@ define(['cli/Program', 'events/events', 'services/imgur'],
         id: 'gToZU'
     }];
 
+    function getDescription(image) {
+        var title = image.title, description = image.description;
+        if (title && description) return title + ': ' + description;
+        if (title && !description) return title;
+        if (!title && description) return description;
+        return '';
+    }
+
     function photoCallback(id) {
         exports.output('Loading...');
         imgur.getImages(id, function(err, album) {
@@ -36,8 +44,14 @@ define(['cli/Program', 'events/events', 'services/imgur'],
             var html = '';
             album.images.forEach(function(image) {
                 var thumb = image.link.replace(/\.jpg$/, 's.jpg');
-                html += '<img class="gallery" src="' + thumb + '"' +
-                'data-fullsrc="' + image.link + '" />';
+                var img = document.createElement('img');
+                var parent = document.createElement('div');
+                img.setAttribute('class', 'gallery');
+                img.setAttribute('src', thumb);
+                img.setAttribute('data-fullsrc', image.link || '');
+                img.setAttribute('data-description', getDescription(image));
+                parent.appendChild(img);
+                html += parent.innerHTML;
             });
             exports.output(html);
         });
@@ -84,7 +98,11 @@ define(['cli/Program', 'events/events', 'services/imgur'],
                     }
                     exports.output('Done');
                     events.dispatch('photos', album.images.map(function(img) {
-                        return img.link;
+                        return {
+                            link: img.link,
+                            title: img.title,
+                            description: img.description
+                        };
                     }), index);
                 });
             }
