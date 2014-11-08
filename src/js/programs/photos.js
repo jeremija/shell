@@ -49,7 +49,7 @@ define(['cli/Program', 'events/events', 'services/imgur'],
             if (args) {
                 return;
             }
-            this.output('Usage:  photos [view] &lt;location&gt;');
+            this.output('Usage:  photos [view] &lt;location&gt; [index]');
             this.output(' ');
 
             this.output('Available locations: \n' + albums.map(function(album) {
@@ -58,11 +58,12 @@ define(['cli/Program', 'events/events', 'services/imgur'],
             this.output('Examples:');
             this.output('  show thumbnails from NYC:          photos nyc');
             this.output('  view full-size photos from NYC:    photos view nyc');
+            this.output('  view third photo from NYC:         photos view nyc 3');
             this.output(' \nUse the [LEFT] and [RIGHT] keys to navigate' +
                 'or press [ESC] key.');
         },
         args: {
-            'view': function(name){
+            'view': function(name, index) {
                 var albumId;
                 albums.some(function(album) {
                     if (album.name === name) {
@@ -84,7 +85,7 @@ define(['cli/Program', 'events/events', 'services/imgur'],
                     exports.output('Done');
                     events.dispatch('photos', album.images.map(function(img) {
                         return img.link;
-                    }));
+                    }), index);
                 });
             }
         }

@@ -143,9 +143,10 @@ define(['events/events'], function(events) {
 
             exports.show(index);
         },
-        _onPhotos: function(photos) {
+        _onPhotos: function(photos, index) {
             exports.data.urls = photos;
-            exports.show(0);
+            index = (index > 0 && index <= photos.length) ? index - 1 : 0;
+            exports.show(index);
         },
         init: function(viewerElement, listenElement) {
             this._viewerElement = viewerElement;
@@ -166,9 +167,11 @@ define(['events/events'], function(events) {
 
             this._prevElement = this._link('[&lt;]', this.previous, 'nav-left');
             this._nextElement= this._link('[&gt;]', this.next, 'nav-right');
+            this._fullElement = this._link('[full]', this.fullscreen, 'nav-full');
 
             nav.appendChild(this._prevElement);
             nav.appendChild(this._link('[close]', this.close, 'nav-close'));
+            nav.appendChild(this._fullElement);
             nav.appendChild(this._nextElement);
 
             var img = this._imgElement = document.createElement('img');
@@ -189,6 +192,18 @@ define(['events/events'], function(events) {
         clear: function() {
             events.unlisten('photos', this._onPhotos);
             this._viewerElement.innerHTML = '';
+        },
+        fullscreen: function(event) {
+            var elem = exports._viewerElement;
+            if (elem.requestFullscreen) {
+              elem.requestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+              elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+              elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+              elem.webkitRequestFullscreen();
+            }
         }
     };
 
