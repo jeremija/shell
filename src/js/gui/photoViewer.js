@@ -44,6 +44,7 @@ define(['events/events'], function(events) {
         KEY_LEFT: 37,
         KEY_RIGHT: 39,
         KEY_ESCAPE: 27,
+        KEY_F: 70,
         _listenElement: undefined,
         _viewerElement: undefined,
         _imgElement: undefined,
@@ -115,7 +116,7 @@ define(['events/events'], function(events) {
         _onKeyDown: function(event) {
             var keyCode = event.keyCode;
             if (keyCode !== exports.KEY_LEFT && keyCode !== exports.KEY_RIGHT &&
-                keyCode !== exports.KEY_ESCAPE) {
+                keyCode !== exports.KEY_ESCAPE && keyCode !== exports.KEY_F) {
                 return;
             }
             event.preventDefault();
@@ -125,6 +126,10 @@ define(['events/events'], function(events) {
             }
             if (keyCode === exports.KEY_RIGHT) {
                 exports.next();
+                return;
+            }
+            if (keyCode === exports.KEY_F) {
+                exports.fullscreen();
                 return;
             }
             // ESCAPE
