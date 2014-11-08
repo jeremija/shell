@@ -3,7 +3,8 @@ define(['cli/Program', 'services/ajax', 'events/events'],
 {
 
     function getFeed(callback) {
-        var url = 'http://steiner.website/blog/rss';
+        // var url = 'http://steiner.website/blog/rss';
+        var url = '/blog/rss';
         // var url = '/example.rss';
         ajax.xml(url, {}, function(err,xml) {
             if (err) {
@@ -75,7 +76,7 @@ define(['cli/Program', 'services/ajax', 'events/events'],
                             .map(catMapper).join(', ');
                         url = item.querySelector('linker').innerHTML;
                         link(url, i + '. ' + title);
-                        if (categories) self.output('  in ' + categories);
+                        if (categories) self.output('  on ' + categories);
                         output('  ' + date);
                         output(' ');
                         i++;
