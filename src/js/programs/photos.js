@@ -100,8 +100,7 @@ define(['cli/Program', 'events/events', 'services/imgur'],
                     events.dispatch('photos', album.images.map(function(img) {
                         return {
                             link: img.link,
-                            title: img.title,
-                            description: img.description
+                            description: getDescription(img)
                         };
                     }), index);
                 });

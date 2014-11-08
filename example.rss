@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Living and Coding Abroad]]></title><description><![CDATA[An expat's insights into living in Amsterdam]]></description><link>http://steiner.website/blog/</link><generator>Ghost 0.5</generator><lastBuildDate>Sat, 08 Nov 2014 16:27:09 GMT</lastBuildDate><atom:link href="http://steiner.website/blog/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Photos From New York]]></title><description><![CDATA[<p>A while ago I made a JavaScript command prompt which resembled a linux shell. Today I upgraded it's photos app to dynamically load images.</p>
+
+<p>Here it is displaying photos I took a few weeks ago during my last visit to New York:</p>
+
+<iframe width="100%" height="400px" style="border:none;" src='http://steiner.website/shell/' #photos%20view%20nyc3"></iframe>
+
+<p>Click <a href='http://steiner.website/shell/' >here</a> to see it full screen.</p>]]></description><link>http://steiner.website/blog/embedded-javascript-shell/</link><guid isPermaLink="false">48ca4502-9232-4a96-ba65-2be4b07d8084</guid><category><![CDATA[linux]]></category><category><![CDATA[photos]]></category><category><![CDATA[javascript]]></category><category><![CDATA[shell]]></category><category><![CDATA[embedded]]></category><category><![CDATA[new york]]></category><dc:creator><![CDATA[Jerko Steiner]]></dc:creator><pubDate>Fri, 07 Nov 2014 23:12:22 GMT</pubDate></item><item><title><![CDATA[Super Mario In New York]]></title><description><![CDATA[<p>Here is a something I made from a photo I took on my latest trip to NYC.</p>
+
+<p><img src='http://steiner.website/blog/content/images/2014/Oct/IMGP5569_super_mario-1.jpg'  alt="" /></p>]]></description><link>http://steiner.website/blog/super-mario-in-new-york/</link><guid isPermaLink="false">cbf71bfe-affa-4f64-9559-7c1471bfdb3a</guid><dc:creator><![CDATA[Jerko Steiner]]></dc:creator><pubDate>Thu, 30 Oct 2014 23:26:10 GMT</pubDate></item><item><title><![CDATA[Confidence Man (Jeff Healey Cover)]]></title><description><![CDATA[<p>I stumbled upon an old recording I made with my old phone. It's a cover of a song by Jeff Healey, Confidence Man. Don't mind my bad singing!</p>
+
+<iframe width="100%" height="300" scrolling="no" frameborder="no" src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/173656864&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true' ></iframe>]]></description><link>http://steiner.website/blog/confidence-man-jeff-healey-cover/</link><guid isPermaLink="false">dbbcef1b-706e-468d-ba57-3be4be4b4dc3</guid><category><![CDATA[cover]]></category><category><![CDATA[blues rock]]></category><category><![CDATA[electric guitar]]></category><dc:creator><![CDATA[Jerko Steiner]]></dc:creator><pubDate>Sat, 25 Oct 2014 00:19:18 GMT</pubDate></item><item><title><![CDATA[Beef Stew Recipe]]></title><description><![CDATA[<p>I made a beef stew today. I didn't expect it would turn out to be so delicious. Take a look a the photos below.</p>
+
+<p><img src='http://i.imgur.com/oH7bUCo.jpg'  alt="" />
+<img src='http://i.imgur.com/GZBcZKR.jpg'  alt="" />
+<img src='http://i.imgur.com/O7Mjppp.jpg'  alt="" /></p>
+
+<h3 id="ingredients">Ingredients</h3>
+
+<ul>
+<li>olive oil</li>
+<li><code>0.3kg</code> beef strips</li>
+<li><code>2</code> mid-sized onions</li>
+<li><code>1</code> <code>.33cl</code> bottle of Murphy's Irish Red</li>
+<li><code>1</code> tomato</li>
+</ul>
+
+<h3 id="spices">Spices</h3>
+
+<ul>
+<li>salt</li>
+<li>pepper</li>
+<li>basil</li>
+<li>red paprika (it would be even better if it was smoked paprika)</li>
+<li>a couple of chili peppers</li>
+</ul>
+
+<h3 id="procedure">Procedure</h3>
+
+<p>I put the two sliced onions on a preheated pan with olive oil and added salt. When they turned yellow, I put the meat on top and closed the pan. Shortly there after I also put one sliced tomato on top of everything and let everything boil a little.</p>
+
+<p>Once I was sure the meat was cooked I put in all of the above mentioned spices. I don't remember the exact ratio as I used my taste to guide me.</p>
+
+<p>Just before the whole sauce evaporated I poured in around <code>0.15cl</code> of Irish Red and let it cook a few minutes more.</p>
+
+<p>And that's it!</p>]]></description><link>http://steiner.website/blog/beef-stew-recipe/</link><guid isPermaLink="false">1a03c30a-a54b-4e2c-8bfa-d988710b5efb</guid><category><![CDATA[food]]></category><category><![CDATA[recipe]]></category><category><![CDATA[stew]]></category><dc:creator><![CDATA[Jerko Steiner]]></dc:creator><pubDate>Sun, 05 Oct 2014 07:51:54 GMT</pubDate></item><item><title><![CDATA[Amsterdam on Saturday]]></title><description><![CDATA[<p>I went for a walk with my camera today. It was a really warm sunny day. Hopefully there will be more days like this this fall...</p>
+
+<p><img src='http://i.imgur.com/aG6YhgI.jpg'  alt="A canal about 5 minutes away from my place" />
+<img src='http://i.imgur.com/YpNRVJQ.jpg'  alt="Typical street in the city" />
+<img src='http://i.imgur.com/JDeSlKb.jpg'  alt="" />
+<img src='http://i.imgur.com/8IbYUem.jpg'  alt="Canal crossing" />
+<img src='http://i.imgur.com/o2ZwLi9.jpg'  alt="Thorbeckplein" />
+<img src='http://i.imgur.com/Q9HvvMz.jpg'  alt="Not exactly sure what happened here" />
+<img src='http://i.imgur.com/Z42KfjB.jpg'  alt="A view towards Munttoren" /></p>
+
+<p>From <a href='http://en.wikipedia.org/wiki/Munttoren' >Wikipedia</a>:</p>
+
+<blockquote>
+  <p>The Munttoren ("Coin Tower") or Munt is a tower in Amsterdam, the Netherlands. It stands on the busy Muntplein square, where the Amstel river and the Singel canal meet, near the flower market and the eastern end of the Kalverstraat shopping street.</p>
+  
+  <p>The tower was originally part of the Regulierspoort, one of the main gates in Amsterdam's medieval city wall. The gate, built in the years 1480, consisted of two towers and a guard house.</p>
+</blockquote>
+
+<p><img src='http://i.imgur.com/tmta2wV.jpg'  alt="" />
+<img src='http://i.imgur.com/tHplcH1.jpg'  alt="Slightly out of focus, but I liked it" />
+<img src='http://i.imgur.com/Far1dHc.jpg'  alt="" />
+<img src='http://i.imgur.com/PL1pb1y.jpg'  alt="One of the busiest shopping streets in Amsterdam, Kalverstraat" />
+<img src='http://i.imgur.com/IBs9gGs.jpg'  alt="Going home" />
+<img src='http://i.imgur.com/TarLXio.jpg'  alt="" />
+<img src='http://i.imgur.com/nq4JHIV.jpg'  alt="Café Brecht, a Berlin-living-room-styled bar" />
+<img src='http://i.imgur.com/e090fUv.jpg'  alt="" /></p>
+
+<p>They have all kinds of beers here :)</p>]]></description><link>http://steiner.website/blog/amsterdam-saturday/</link><guid isPermaLink="false">0c528a67-ba3e-4ba2-a00e-a231eb12f090</guid><dc:creator><![CDATA[Jerko Steiner]]></dc:creator><pubDate>Sat, 27 Sep 2014 13:56:38 GMT</pubDate></item><item><title><![CDATA[How to batch resize images and add watermarks]]></title><description><![CDATA[<p>I've been an <a href='http://www.imagemagick.org/' >ImageMagick</a> user for a long time. As the web site says:</p>
+
+<blockquote>
+  <p>ImageMagick® is a software suite to create, edit, compose, or convert bitmap images. It can read and write images in a variety of formats (over 100) including DPX, EXR, GIF, JPEG, JPEG-2000, PDF, PNG, Postscript, SVG, and TIFF. Use ImageMagick to resize, flip, mirror, rotate, distort, shear and transform images, adjust image colors, apply various special effects, or draw text, lines, polygons, ellipses and Bézier curves.</p>
+</blockquote>
+
+<p>This is the basic comand I use to resize a single image:</p>
+
+<pre><code class="language-bash">convert source.png -resize x720 output.png  
+</code></pre>
+
+<p>It takes the <code>source.png</code>, resizes it's height to <code>720px</code>, keeps the proportions, and saves it as <code>output.png</code>. You could also specify the desired width instead of height with <code>1280x</code>, or specific dimensions with <code>1280x720</code>.</p>
+
+<p>If I wanted to do the same for all images in the current directory, I would make use of the <a href='http://linux.die.net/man/1/find' >find</a> command:</p>
+
+<pre><code class="language-bash line-numbers">mkdir resized  
+find *.png -exec convert {} -resize x720 resized/{} \;  
+</code></pre>
+
+<p>This will convert all <code>png</code> files in the current directory and output them to the <code>resized/</code> subdirectory. The <code>\;</code> part is a delimiter which tells <code>find</code> where is the end of the command to execute.</p>
+
+<p>To add the watermark to the bottom-right corner of an image you can use:</p>
+
+<pre><code class="language-bash">composite -gravity southeast -geometry +10+10 watermark.png source.png output.png  
+</code></pre>
+
+<p>To resize the image and automatically add the watermark:</p>
+
+<pre><code class="language-bash">convert source.png -resize x720 miff:- | composite -gravity southeast -geometry +10+10 watermark.png miff:- output.png  
+</code></pre>
+
+<p>Here we made use of the <code>miff</code>, ImageMagick's intermediary file format which enables image pipelining between multiple commands.</p>
+
+<p>It's a bit more complicated to do pipes with the find command, so I created a <code>bash</code> script which does that:</p>
+
+<script src='https://gist.github.com/jeremija/1a24c3aa1d51cec5ede7.js' ></script>
+
+<p>The basic syntax is:</p>
+
+<pre><code class="language-bash">resize.sh &lt;source image&gt; &lt;dimensions&gt; &lt;destination folder&gt;  
+</code></pre>
+
+<p>So to automatically scale the height of all images in current folder to <code>720px</code>, keep their proportions, and add watermarks we can use:</p>
+
+<pre><code class="language-bash line-numbers">mkdir watermarked/  
+find *.png -exec /path/to/resize.sh {} x720 watermarked/ \;  
+</code></pre>]]></description><link>http://steiner.website/blog/how-to-batch-resize-images-and-add-watermarks/</link><guid isPermaLink="false">4467f310-b50f-4dd6-884b-4801a7e06352</guid><category><![CDATA[linux]]></category><category><![CDATA[imagemagick]]></category><category><![CDATA[image processing]]></category><dc:creator><![CDATA[Jerko Steiner]]></dc:creator><pubDate>Wed, 17 Sep 2014 19:33:38 GMT</pubDate></item><item><title><![CDATA["Do you know of any XYZ developers?"]]></title><description><![CDATA[<p>One of the first things I noticed when I moved to Amsterdam was that there is a lot of businesses going on. A lot more than in my home country.</p>
+
+<p>Just a week before I moved here, I was offered an interview for a senior position at Booking.com. When I said was already coming there next week, but for another job, I was asked if I can recommend anybody else. They seemed desperate to find somebody.</p>
+
+<p>The first thing on my To Do list was to find a gym nearby where I could weightlift after work. During the first few visits I met a guy who worked for another start-up. He said they are constantly looking for developers.</p>
+
+<p>A few days ago I met a tourist from Paris who owns a French startup. As soon as he realized I do software, he said they are looking for good JavaScript developers and also asked me for a recommendation.</p>
+
+<p>All of this is really new to me because these kinds of things never happened to me in Zagreb. Sure, every now and then I would hear about an open position, but I didn't get the impression there was a constant demand for Software Engineers.</p>
+
+<p>I'm really curious if all of this has just been a series of coincidences, or there really are a lot more open positions here. And if there are, I wonder what would be the right steps to take to make a similar atmosphere back home?</p>]]></description><link>http://steiner.website/blog/know-of-any-good-developers/</link><guid isPermaLink="false">673b5926-03f1-4d61-a6b9-4387cd69c47e</guid><category><![CDATA[amsterdam]]></category><category><![CDATA[jobs]]></category><dc:creator><![CDATA[Jerko Steiner]]></dc:creator><pubDate>Tue, 16 Sep 2014 17:51:14 GMT</pubDate></item><item><title><![CDATA[About me]]></title><description><![CDATA[<p>I'm a 26 year old Software Developer from Zagreb recently moved to Amsterdam to work for a start-up company which is about to shake up the retail industry.</p>
+
+<p>I am also an amateur photographer, a guitar player and a music lover.</p>
+
+<p>I recently discovered this nice blog platform called <a href='http://ghost.org/' >Ghost</a> which I really like as it is lightweight and enables me to write posts in Markdown notation.</p>
+
+<p>Here are a few pictures I took during my first visit to Amsterdam:</p>
+
+<p><img src='http://i.imgur.com/GJ6RmkC.jpg'  alt="Lots of bicycles everwhere" />
+<img src='http://i.imgur.com/cOsiS5p.jpg'  alt="An old bike in Sarphatipark" />
+<img src='http://i.imgur.com/pqwVxno.jpg'  alt="Sarphatipark" />
+<img src='http://i.imgur.com/iJ2kTom.jpg'  alt="" />
+<img src='http://i.imgur.com/j3gO2Mw.jpg'  alt="Hotel Notting Hill" />
+<img src='http://i.imgur.com/I39pWpO.jpg'  alt="Bikes again..." /></p>
+
+<p>Stay tuned for more!</p>]]></description><link>http://steiner.website/blog/about/</link><guid isPermaLink="false">3be0241f-58c9-4e27-b073-1dfe68e0e28f</guid><category><![CDATA[about]]></category><category><![CDATA[photos]]></category><dc:creator><![CDATA[Jerko Steiner]]></dc:creator><pubDate>Sat, 13 Sep 2014 12:10:00 GMT</pubDate></item></channel></rss>

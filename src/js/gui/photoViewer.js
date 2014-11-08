@@ -75,7 +75,7 @@ define(['events/events', 'gui/isIframe'], function(events, isIframe) {
             var image = urls[index];
             this._imgElement.setAttribute('src', image.link);
             this._description.style.display = image.description ? '' : 'none';
-            this._description.innerHTML = image.description || '';
+            this._description.innerText = image.description || '';
             this._prevElement.style.visibility = index === 0 ? 'hidden' : '';
             this._nextElement.style.visibility = index + 1 === urls.length ?
                 'hidden' : '';

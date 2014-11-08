@@ -45,6 +45,15 @@ define([], function() {
 				}
 				callback(undefined, json);
 			});
+		},
+		xml: function(url, config, callback) {
+			this.get(url, config, function(err, response) {
+				if (err) {
+					callback(err);
+					return;
+				}
+				callback(undefined, response);
+			});
 		}
 	};
 

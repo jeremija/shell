@@ -4,7 +4,8 @@ define([
     'programs/about',
     'programs/photos',
     'programs/snake',
-    'programs/view-source'],
+    'programs/view-source',
+    'programs/blog'],
 
     function(/**/) {
 

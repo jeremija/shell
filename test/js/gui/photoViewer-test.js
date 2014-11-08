@@ -129,7 +129,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
             });
             it('should set the viewer\'s background image', function() {
                 expect(imgElement.getAttribute('src')).to.be('image2.jpg');
-                expect(description.innerHTML).to.be('image2');
+                expect(description.innerText).to.be('image2');
             });
             it('should dispatch `input-disable` event', function() {
                 expect(inputDisabled).to.be(true);
@@ -141,7 +141,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 var data = photoViewer.data;
                 expect(data.index).to.be(2);
                 expect(imgElement.getAttribute('src')).to.be('image3.jpg');
-                expect(description.innerHTML).to.be('image3');
+                expect(description.innerText).to.be('image3');
             });
             it('should hide the next link', function() {
                 var as =
@@ -155,7 +155,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.next();
                 expect(data.index).to.be(2);
                 expect(imgElement.getAttribute('src')).to.be('image3.jpg');
-                expect(description.innerHTML).to.be('image3');
+                expect(description.innerText).to.be('image3');
             });
         });
         describe('previous()', function() {
@@ -164,12 +164,12 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 var data = photoViewer.data;
                 expect(data.index).to.be(1);
                 expect(imgElement.getAttribute('src')).to.be('image2.jpg');
-                expect(description.innerHTML).to.be('image2');
+                expect(description.innerText).to.be('image2');
 
                 photoViewer.previous();
                 expect(data.index).to.be(0);
                 expect(imgElement.getAttribute('src')).to.be('image1.jpg');
-                expect(description.innerHTML).to.be('image1');
+                expect(description.innerText).to.be('image1');
             });
             it('should make the next link visible' ,function() {
                 var as =
@@ -190,7 +190,7 @@ define(['gui/photoViewer', 'events/events'], function(photoViewer, events) {
                 photoViewer.previous();
                 expect(data.index).to.be(0);
                 expect(imgElement.getAttribute('src')).to.be('image1.jpg');
-                expect(description.innerHTML).to.be('image1');
+                expect(description.innerText).to.be('image1');
             });
         });
         describe('key bindings', function() {
