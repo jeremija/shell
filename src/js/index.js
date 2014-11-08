@@ -10,16 +10,17 @@
 }());
 
 require(['cli/input', 'cli/output', 'cli/tasks',
-    'programs/defaultShell', 'programs/all', 'events/link', 'gui/photoViewer'],
+    'programs/defaultShell', 'programs/all', 'events/link', 'gui/photoViewer',
+    'gui/isIframe'],
     function(input, output, tasks, defaultShell, allPrograms, link,
-        photoViewer) {
+        photoViewer, isIframe) {
 
     link.init();
 
     var inputElement = document.getElementById('input');
     var outputElement = document.getElementById('console-output');
     var formElement = document.getElementById('input-form');
-    inputElement.focus();
+    if (!isIframe) inputElement.focus();
 
     document.onclick = function(event) {
         inputElement.focus();

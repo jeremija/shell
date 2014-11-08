@@ -2,7 +2,7 @@
  * Module for displaying full size photos
  * @module gui/photoViewer
  */
-define(['events/events'], function(events) {
+define(['events/events', 'gui/isIframe'], function(events, isIframe) {
 
     function addListener(element, name, callback) {
         if (element.attachEvent) {
@@ -108,7 +108,7 @@ define(['events/events'], function(events) {
             exports._imgElement.removeAttribute('src');
 
             this._viewerElement.className = '';
-            this._viewerElement.focus();
+            if (!isIframe) this._viewerElement.focus();
             // this._viewerElement.scrollIntoView();
             this._switchImage(index);
         },
