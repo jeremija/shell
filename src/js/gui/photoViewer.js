@@ -143,9 +143,10 @@ define(['events/events'], function(events) {
 
             exports.show(index);
         },
-        _onPhotos: function(photos) {
+        _onPhotos: function(photos, index) {
             exports.data.urls = photos;
-            exports.show(0);
+            index = (index > 0 && index <= photos.length) ? index - 1 : 0;
+            exports.show(index);
         },
         init: function(viewerElement, listenElement) {
             this._viewerElement = viewerElement;
