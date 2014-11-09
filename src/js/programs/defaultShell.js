@@ -32,6 +32,8 @@ define(['cli/Shell', 'events/events'], function(Shell, events) {
             this.output('This is a unix-like shell I made to showcase my programming skills.');
             this.output('Here you can find information about my background, skills, work experience and more.');
             this.output(' ');
+            this.output('You can also view some of the photos I took and listen to my music.');
+            this.output(' ');
             this.output('Type "help" and press enter to get started. Follow the instructions along the way.');
             this.output(' ');
             this.output('Enjoy your stay!');
