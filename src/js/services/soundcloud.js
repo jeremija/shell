@@ -32,9 +32,9 @@ define(['services/ajax'], function(ajax) {
                 body: {
                     format: 'json',
                     url: url,
-                    auto_play: !!config.autoPlay,
+                    auto_play: !!config.auto_play,
                     // maxwidth: 450,
-                    maxheight: 150,
+                    maxheight: config.maxheight,
                 }
             };
             ajax.post(URL_EMBED, cfg, cbJson(callback));

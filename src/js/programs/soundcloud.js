@@ -36,7 +36,8 @@ define(['cli/Program', 'services/soundcloud', 'events/events'],
                 var list = playlists[index];
                 exports.output('Playing playlist "' + list.title + '"');
                 sc.embed(list.permalink_url, {
-                    autoPlay: true
+                    auto_play: true,
+                    maxheight: 300
                 }, function(err, res) {
                     if (isError(err)) return;
                     embed(res.html);
@@ -50,7 +51,8 @@ define(['cli/Program', 'services/soundcloud', 'events/events'],
                 var track = tracks[index];
                 exports.output('Playing track "' + track.title + '"');
                 sc.embed(track.permalink_url, {
-                    autoPlay: true
+                    auto_play: true,
+                    maxheight: 200
                 }, function(err, res) {
                     if (isError(err)) return;
                     embed(res.html);
