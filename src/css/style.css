@@ -200,3 +200,13 @@ img.gallery:focus {
 	box-shadow: 0 0 2em black;
 	background-color: black;
 }
+
+.embedded-content.soundcloud {
+	width: 450px;
+}
+
+@media(max-width: 500px) {
+	.embedded-content.soundcloud {
+		width: 100%;
+	}
+}

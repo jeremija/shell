@@ -33,7 +33,7 @@ define(['services/ajax'], function(ajax) {
                     format: 'json',
                     url: url,
                     auto_play: !!config.autoPlay,
-                    maxwidth: 450,
+                    // maxwidth: 450,
                     maxheight: 150,
                 }
             };
