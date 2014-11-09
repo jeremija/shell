@@ -105,7 +105,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
             exports.output('  open track &lt;index&gt;     loads and plays the specific track');
             exports.output('  pause                  pauses the playback');
             exports.output('  play                   starts the playback. Note that a track');
-            exports.output('                         or playlist needs to be loaded');
+            exports.output('                         or a playlist needs to be loaded first');
             exports.output('  previous               skips to previous track');
             exports.output('  profile                opens my SoundCloud profile');
             exports.output('  stop                   stops the playback');
@@ -123,7 +123,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
                     });
                     exports.output(' ');
                     exports.output('To play, type: music open playlist ' +
-                        ' &lt;number&gt;');
+                        '&lt;number&gt;');
                 });
             },
             'tracks': function() {
@@ -136,7 +136,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
                     });
                     exports.output(' ');
                     exports.output('To play, type: music open track ' +
-                        ' &lt;number&gt;');
+                        '&lt;number&gt;');
                 });
             },
             'open': function(what, index) {
