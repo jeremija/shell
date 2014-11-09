@@ -50,6 +50,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
             });
         },
         track: function(index) {
+            index--;
             sc.tracks(function(err, tracks) {
                 if (isError(err)) return;
                 if (isInvalidIndex(index, tracks)) return;
