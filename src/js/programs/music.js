@@ -62,12 +62,12 @@ define(['cli/Program', 'services/soundcloud', 'events/events'],
     };
 
     var exports = new Program({
-        name: 'soundcloud',
+        name: 'music',
         defaultAction: function(args) {
             if (args) return;
             exports.output('This program plays my music from my SoundCloud ' +
                 '<a href="https://soundcloud.com/jeremija" target="_blank">account</a>');
-            exports.output('Usage: soundcloud &lt;command&gt; [index]');
+            exports.output('Usage: music &lt;command&gt; [index]');
             exports.output(' ');
             exports.output('where &lt;command&gt; is one of:');
             exports.output('  playlists              lists all playlists');
@@ -86,7 +86,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events'],
                             ' (' + list.tracks.length + ' tracks)');
                     });
                     exports.output(' ');
-                    exports.output('To play, type: soundcloud play playlist ' +
+                    exports.output('To play, type: music play playlist ' +
                         ' &lt;number&gt;');
                 });
             },
@@ -99,7 +99,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events'],
                         exports.output((index + 1) + '. ' + track.title);
                     });
                     exports.output(' ');
-                    exports.output('To play, type: soundcloud play track ' +
+                    exports.output('To play, type: music play track ' +
                         ' &lt;number&gt;');
                 });
             },
