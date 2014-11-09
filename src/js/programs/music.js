@@ -27,7 +27,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
         exports.output(dummy.innerHTML);
     }
 
-    var play = {
+    var open = {
         playlist: function(index) {
             index--;
             sc.playlists(function(err, playlists) {
@@ -38,7 +38,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
                 exports.output('Playing track: ' + list.tracks[index].title);
                 audio.playlist(list.tracks).next(0);
                 exports.output('If you are on a mobile device, you might ' +
-                    'have to type "music play" with no arguments again');
+                    'have to type "music play" for this to work');
                 exports.output('Type "music status" to see more info');
                 // sc.embed(list.permalink_url, {
                 //     auto_play: true,
@@ -57,7 +57,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
                 exports.output('Playing single track: ' + track.title);
                 audio.playlist([track]).next(0);
                 exports.output('If you are on a mobile device, you might ' +
-                    'have to type "music play" with no arguments again');
+                    'have to type "music play" for this to work');
                 exports.output('Type "music status" to see more info');
                 // sc.embed(track.permalink_url, {
                 //     auto_play: true,
@@ -97,8 +97,19 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
             exports.output('where &lt;command&gt; is one of:');
             exports.output('  playlists              lists all playlists');
             exports.output('  tracks                 lists all tracks');
-            exports.output('  play playlist &lt;index&gt;  plays the specific playlist');
-            exports.output('  play track &lt;index&gt;     plays the specific track');
+            exports.output('  status                 prints playback status');
+            exports.output(' ');
+            exports.output('  next                   skips to next track');
+            exports.output('  next &lt;index&gt;           skips to a track defined by index');
+            exports.output('  open playlist &lt;index&gt;  loads and plays the specific playlist');
+            exports.output('  open track &lt;index&gt;     loads and plays the specific track');
+            exports.output('  pause                  pauses the playback');
+            exports.output('  play                   starts the playback. Note that a track');
+            exports.output('                         or playlist needs to be loaded');
+            exports.output('  previous               skips to previous track');
+            exports.output('  profile                opens my SoundCloud profile');
+            exports.output('  stop                   stops the playback');
+            exports.output('  seek &lt;percent&gt;         seeks to percent');
         },
         args: {
             'playlists': function() {
@@ -128,16 +139,8 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
                         ' &lt;number&gt;');
                 });
             },
-            'play': function(what, index) {
+            'open': function(what, index) {
                 var len = arguments.length;
-                if (!len) {
-                    if (!audio.status().total) {
-                        exports.error('Cannot play, no playlist set.');
-                        return;
-                    }
-                    audio.play();
-                    return;
-                }
                 if (len !== 2) {
                     exports.error('expected two arguments, got ' + len);
                     return;
@@ -152,7 +155,15 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
                     exports.error('Invalid index, should start from 1');
                     return;
                 }
-                play[what](index);
+                open[what](index);
+            },
+            'play': function() {
+                if (!audio.status().total) {
+                    exports.error('Cannot play, no playlist set.');
+                    return;
+                }
+                audio.play();
+                return;
             },
             'pause': function() {
                 audio.pause();
