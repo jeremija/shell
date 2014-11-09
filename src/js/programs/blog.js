@@ -4,8 +4,8 @@ define(['cli/Program', 'services/ajax', 'events/events', 'services/xml'],
 
     function getFeed(callback) {
         // var url = 'http://steiner.website/blog/rss';
-        // var url = '/blog/rss';
-        var url = '/example.rss';
+        var url = '/blog/rss';
+        // var url = '/example.rss';
         ajax.xml(url, {}, function(err,xml) {
             if (err) {
                 exports.error('Error while loading feed: ' + err.message);

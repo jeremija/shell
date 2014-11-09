@@ -122,7 +122,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
                             ' (' + list.tracks.length + ' tracks)');
                     });
                     exports.output(' ');
-                    exports.output('To play, type: music play playlist ' +
+                    exports.output('To play, type: music open playlist ' +
                         ' &lt;number&gt;');
                 });
             },
@@ -135,7 +135,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
                         exports.output((index + 1) + '. ' + track.title);
                     });
                     exports.output(' ');
-                    exports.output('To play, type: music play track ' +
+                    exports.output('To play, type: music open track ' +
                         ' &lt;number&gt;');
                 });
             },
