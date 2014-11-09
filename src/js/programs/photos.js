@@ -60,9 +60,7 @@ define(['cli/Program', 'events/events', 'services/imgur'],
     var exports = new Program({
         name: 'photos',
         defaultAction: function(args) {
-            if (args) {
-                return;
-            }
+            if (args) return;
             this.output('Usage:  photos [view] &lt;location&gt; [index]');
             this.output(' ');
 

@@ -5,7 +5,9 @@ define([
     'programs/photos',
     'programs/snake',
     'programs/view-source',
-    'programs/blog'],
+    'programs/blog',
+    'programs/home',
+    'programs/soundcloud'],
 
     function(/**/) {
 

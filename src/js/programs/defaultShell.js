@@ -3,10 +3,29 @@
  */
 define(['cli/Shell', 'events/events'], function(Shell, events) {
 
+    var ONE_DAY = 1000 * 60 * 60 * 24;
+
+    function getLastVisit() {
+        var lastVisit = localStorage ? localStorage.getItem('date') : undefined;
+        if (localStorage) localStorage.setItem('date', Date.now());
+        if (!lastVisit) return 'This is your first visit.';
+        var diff = (Date.now() - parseInt(lastVisit));
+        if (diff < 0) return 'Wow, you travelled through time!';
+        if (diff < 1000 * 60 * 15) {
+            return 'Your last visit was a few minutes ago.';
+        }
+        var days = diff / ONE_DAY;
+        if (days < 1) return 'Your last visit was within the last 24 hours.';
+        days = Math.round(days);
+        var daysString = days < 2 ? 'day' : 'days';
+        return 'Your last visit was ' + days + ' ' + daysString + ' ago.';
+    }
+
     var exports = new Shell({
         name: '',
         defaultAction: function() {
             this.output(new Date());
+            this.output(getLastVisit());
             this.output(' ');
             this.output('Hello, stranger!');
             this.output(' ');
