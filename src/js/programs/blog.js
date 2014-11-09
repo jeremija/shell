@@ -1,39 +1,44 @@
-define(['cli/Program', 'services/ajax', 'events/events'],
-    function(Program, ajax, events)
+define(['cli/Program', 'services/ajax', 'events/events', 'services/xml'],
+    function(Program, ajax, events, parseXml)
 {
 
     function getFeed(callback) {
         // var url = 'http://steiner.website/blog/rss';
-        var url = '/blog/rss';
-        // var url = '/example.rss';
+        // var url = '/blog/rss';
+        var url = '/example.rss';
         ajax.xml(url, {}, function(err,xml) {
             if (err) {
                 exports.error('Error while loading feed: ' + err.message);
                 return;
             }
-            xml = xml.replace(/<link>/g, '<linker>')
-                .replace(/<\/link>/g, '</linker>');
-            var element = document.createElement('div');
-            element.innerHTML = xml;
-            callback(null, element);
+            xml = parseXml(xml);
+            callback(null, xml);
         });
     }
 
-    function format(text) {
-        return text.replace('&lt;![CDATA[', '')
-            .replace('<!--[CDATA[', '')
-            .replace(']]&gt;', '')
-            .replace(']]-->', '');
-    }
-
-    function output(text) {
-        exports.output(format(text));
-    }
-
     function link(url, title) {
-        title = title ? format(title) : url;
+        title = title || url;
         exports.output(
             '<a href="' + url + '" target="_blank">' + title + '</a>');
+    }
+
+    function findByTag(node, tag) {
+        var found;
+        [].slice.call(node.children).some(function(child) {
+            if (child.tagName === tag) {
+                found = child;
+                return true;
+            }
+        });
+        return found;
+    }
+
+    function hideParserErrors(node) {
+        var errors = node.querySelectorAll('parsererror');
+        [].slice.call(errors).forEach(function(error) {
+            error.parentNode.removeChild(error);
+        });
+        return node;
     }
 
     var exports = new Program({
@@ -46,61 +51,90 @@ define(['cli/Program', 'services/ajax', 'events/events'],
             this.output('Examples:');
             this.output('  blog list                 shows all posts');
             this.output('  blog view 1               displays latest post');
+            this.output('  blog read 1               opens the post in a new window');
         },
         args: {
             'list': function() {
-                var self = this;
                 getFeed(function(err, feed) {
                     var slice = [].slice;
                     var channel = feed.querySelector('rss channel');
-                    var title = channel.querySelector('title').innerHTML;
-                    var description = channel.querySelector('description').innerHTML;
-                    var url = channel.querySelector('linker').innerHTML;
+                    var title = channel.querySelector('title').textContent;
+                    var description = channel.querySelector('description').textContent;
+                    var url = channel.querySelector('link').textContent;
                     link(url, title);
-                    output(description);
-                    self.output(' ');
+                    exports.output(description);
+                    exports.output(' ');
 
                     function catMapper(cat) {
-                        return format(cat.innerHTML);
+                        return cat.textContent;
                     }
 
-                    var items = channel.querySelectorAll('atom\\:link item');
+                    var items = channel.querySelectorAll('item');
                     var i = 1;
                     slice.call(items).forEach(function(item) {
-                        title = item.querySelector('title').innerHTML;
-                        var date = item.querySelector('pubdate').innerHTML;
-                        var author = item.querySelector('dc\\:creator').innerHTML;
-                        date = new Date(date).toString() + ' by ' + format(author);
-                        var categories = item.querySelectorAll('category');
-                        categories = slice.call(categories)
-                            .map(catMapper).join(', ');
-                        url = item.querySelector('linker').innerHTML;
+                        title = item.querySelector('title').textContent;
+                        var date = item.querySelector('pubDate').textContent;
+                        // var author = item.querySelector('dc\\:creator').textContent;
+                        var author = findByTag(item, 'dc:creator').textContent;
+                        date = new Date(date).toString() + ' by ' + author;
+                        var cats = item.querySelectorAll('category');
+                        cats = slice.call(cats).map(catMapper).join(', ');
+                        url = item.querySelector('link').textContent;
                         link(url, i + '. ' + title);
-                        if (categories) self.output('  on ' + categories);
-                        output('  ' + date);
-                        output(' ');
+                        if (cats) exports.output('  on ' + cats);
+                        exports.output('  ' + date);
+                        exports.output(' ');
                         i++;
                     });
                 });
             },
-            'view': function(index) {
+            'read': function(index) {
                 index = parseInt(index);
                 if (isNaN(index) || index < 1) {
                     this.error('Invalid index, should be an integer from 1');
                     return;
                 }
                 index--;
-                var self = this;
                 getFeed(function(err, feed) {
-                    var slice = [].slice;
-                    var links = feed.querySelectorAll(
-                        'rss channel atom\\:link item linker');
+                    var links = feed.querySelectorAll('rss channel item link');
                     var len = links.length;
                     if (index >= len) {
-                        self.error('Index out of bounds, max is ' + len);
+                        exports.error('Index out of bounds, max is ' + len);
                         return;
                     }
-                    events.dispatch('link', links[index].innerHTML);
+                    events.dispatch('link', links[index].textContent);
+                });
+            },
+            'view': function(index) {
+                var slice = [].slice;
+                index = parseInt(index);
+                if (isNaN(index) || index < 1) {
+                    this.error('Invalid index, should be an integer from 1');
+                    return;
+                }
+                index--;
+                getFeed(function(err, feed) {
+                    var items = feed.querySelectorAll('rss channel item');
+                    var len = items.length;
+                    if (index >= len) {
+                        exports.error('Index out of bounds, max is ' + len);
+                        return;
+                    }
+                    exports.output(' ');
+                    var item = items[index];
+                    var title = item.querySelector('title').textContent;
+                    var href = item.querySelector('link').textContent;
+                    link(href, title);
+                    exports.output(slice.call(title).map(function(letter) {
+                        return '=';
+                    }).join(''));
+                    exports.output(' ');
+                    var desc = item.querySelector('description').textContent;
+                    desc = '<div>' + desc + '</div>';
+                    desc = parseXml(desc);
+                    var text = hideParserErrors(desc.firstChild).textContent;
+                    exports.output(text.replace(/\n\s*\n/g, '\n\n'));
+                    exports.output(' ');
                 });
             }
         }
