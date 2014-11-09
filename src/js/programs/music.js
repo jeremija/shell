@@ -1,5 +1,5 @@
-define(['cli/Program', 'services/soundcloud', 'events/events'],
-    function(Program, sc, events)
+define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio'],
+    function(Program, sc, events, audio)
 {
 
     function isError(err) {
@@ -34,14 +34,19 @@ define(['cli/Program', 'services/soundcloud', 'events/events'],
                 if (isError(err)) return;
                 if (isInvalidIndex(index, playlists)) return;
                 var list = playlists[index];
-                exports.output('Playing playlist "' + list.title + '"');
-                sc.embed(list.permalink_url, {
-                    auto_play: true,
-                    maxheight: 300
-                }, function(err, res) {
-                    if (isError(err)) return;
-                    embed(res.html);
-                });
+                exports.output('Playing playlist: ' + list.title);
+                exports.output('Playing track: ' + list.tracks[index].title);
+                audio.playlist(list.tracks).next(0);
+                exports.output('If you are on a mobile device, you might ' +
+                    'have to type "music play" with no arguments again');
+                exports.output('Type "music status" to see more info');
+                // sc.embed(list.permalink_url, {
+                //     auto_play: true,
+                //     maxheight: 300
+                // }, function(err, res) {
+                //     if (isError(err)) return;
+                //     embed(res.html);
+                // });
             });
         },
         track: function(index) {
@@ -49,17 +54,37 @@ define(['cli/Program', 'services/soundcloud', 'events/events'],
                 if (isError(err)) return;
                 if (isInvalidIndex(index, tracks)) return;
                 var track = tracks[index];
-                exports.output('Playing track "' + track.title + '"');
-                sc.embed(track.permalink_url, {
-                    auto_play: true,
-                    maxheight: 200
-                }, function(err, res) {
-                    if (isError(err)) return;
-                    embed(res.html);
-                });
+                exports.output('Playing single track: ' + track.title);
+                audio.playlist([track]).next(0);
+                exports.output('If you are on a mobile device, you might ' +
+                    'have to type "music play" with no arguments again');
+                exports.output('Type "music status" to see more info');
+                // sc.embed(track.permalink_url, {
+                //     auto_play: true,
+                //     maxheight: 200
+                // }, function(err, res) {
+                //     if (isError(err)) return;
+                //     embed(res.html);
+                // });
             });
         }
     };
+
+    function drawProgressBar(percent) {
+        var count = 20;
+        var current = percent / 100 * count;
+        var progress = '[';
+        var first = true;
+        for(var i = 0; i < count; i++) {
+            if (current > i) progress += '=';
+            else if (first) {
+                progress += '>';
+                first = false;
+            }
+            else progress += ' ';
+        }
+        exports.output(progress + ']');
+    }
 
     var exports = new Program({
         name: 'music',
@@ -105,6 +130,14 @@ define(['cli/Program', 'services/soundcloud', 'events/events'],
             },
             'play': function(what, index) {
                 var len = arguments.length;
+                if (!len) {
+                    if (!audio.status().total) {
+                        exports.error('Cannot play, no playlist set.');
+                        return;
+                    }
+                    audio.play();
+                    return;
+                }
                 if (len !== 2) {
                     exports.error('expected two arguments, got ' + len);
                     return;
@@ -120,6 +153,71 @@ define(['cli/Program', 'services/soundcloud', 'events/events'],
                     return;
                 }
                 play[what](index);
+            },
+            'pause': function() {
+                audio.pause();
+            },
+            'stop': function() {
+                audio.stop();
+            },
+            'next': function(index) {
+                if (arguments.length) {
+                    index = parseInt(index) - 1;
+                    if (isNaN(index)) {
+                        exports.error('Invalid parameter, expected an integer');
+                        return;
+                    }
+                    audio.next(index);
+                }
+                else audio.next();
+                var status = audio.status();
+                if (status.title)
+                    exports.output('Playing ' + audio.status().title);
+                else
+                    exports.output('No next track');
+            },
+            'previous': function() {
+                audio.previous();
+                var status = audio.status();
+                if (status.title)
+                    exports.output('Playing ' + audio.status().title);
+                else
+                    exports.output('No previous track');
+            },
+            'seek': function(percent) {
+                if (!arguments.length) {
+                    exports.error('Expected seek percent argument');
+                    return;
+                }
+                percent = parseInt(percent);
+                if (isNaN(percent) || percent < 0 || percent > 100) {
+                    exports.error('Seek argument should be between 0 and 100');
+                    return;
+                }
+                audio.seek(percent);
+            },
+            'status': function() {
+                var status = audio.status();
+                exports.output('Playback status: ' + status.status);
+                exports.output('Current track: ' +
+                    (status.title ? status.current + '. ' + status.title :
+                        '&lt;not set&gt;'));
+                if (!isNaN(status.percent)) {
+                    drawProgressBar(status.percent);
+                }
+                if (status.total) {
+                    exports.output(' ');
+                    status.playlist.forEach(function(track, index) {
+                        var prefix = status.index === index ? ' =&gt; ':'    ';
+                        var text = prefix + (index + 1) + '. ' + track.title;
+                        exports.output(text);
+                    });
+                    exports.output(' ');
+                    exports.output('Total ' + status.total + ' tracks');
+                }
+                else {
+                    exports.output('No playlist set');
+                }
             },
             'profile': function() {
                 events.dispatch('link', 'https://soundcloud.com/jeremija');

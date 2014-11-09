@@ -2,23 +2,9 @@
  * Module for displaying full size photos
  * @module gui/photoViewer
  */
-define(['events/events', 'gui/isIframe'], function(events, isIframe) {
-
-    function addListener(element, name, callback) {
-        if (element.attachEvent) {
-            element.attachEvent(name, callback);
-            return;
-        }
-        element.addEventListener(name, callback);
-    }
-
-    function removeListener(element, name, callback) {
-        if (element.detachEvent) {
-            element.detachEvent(name, callback);
-            return;
-        }
-        element.removeEventListener(name, callback);
-    }
+define(['events/events', 'gui/isIframe', 'events/html'],
+    function(events, isIframe, htmlEvents)
+{
 
     function findIndex(element, elements) {
         var all = elements;
@@ -111,7 +97,7 @@ define(['events/events', 'gui/isIframe'], function(events, isIframe) {
             if (event) {
                 event.preventDefault();
             }
-            removeListener(document, 'keydown', exports._onKeyDown);
+            htmlEvents.removeListener(document, 'keydown', exports._onKeyDown);
 
             exports._viewerElement.className = 'invisible';
             // exports._imgElement.removeAttribute('src');
@@ -122,7 +108,7 @@ define(['events/events', 'gui/isIframe'], function(events, isIframe) {
         },
         show: function(index) {
             events.dispatch('input-disable');
-            addListener(document, 'keydown', this._onKeyDown);
+            htmlEvents.addListener(document, 'keydown', this._onKeyDown);
             exports._imgElement.removeAttribute('src');
 
             this._viewerElement.className = '';
@@ -170,7 +156,7 @@ define(['events/events', 'gui/isIframe'], function(events, isIframe) {
             this._viewerElement = viewerElement;
             this._listenElement = listenElement;
 
-            addListener(listenElement, 'click', this._onClick);
+            htmlEvents.addListener(listenElement, 'click', this._onClick);
             this.initLayout();
             viewerElement.className = 'invisible';
 
@@ -203,7 +189,7 @@ define(['events/events', 'gui/isIframe'], function(events, isIframe) {
             container.appendChild(img);
             viewerElement.appendChild(container);
             var self = this;
-            addListener(img, 'click', function(event) {
+            htmlEvents.addListener(img, 'click', function(event) {
                 var x = fixOffset(event).offsetX;
                 if (x/img.offsetWidth <= 0.5) self.previous(); else self.next();
             });

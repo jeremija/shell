@@ -27,6 +27,9 @@ define(['services/ajax'], function(ajax) {
     }
 
     var exports = {
+        url: function(url) {
+            return url + '?client_id=' + CLIENT_ID;
+        },
         embed: function(url, config, callback) {
             var cfg = {
                 body: {
