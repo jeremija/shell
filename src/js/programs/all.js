@@ -7,8 +7,7 @@ define([
     'programs/view-source',
     'programs/blog',
     'programs/home',
-    'programs/music',
-    'programs/player'],
+    'programs/music'],
 
     function(/**/) {
 
