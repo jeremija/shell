@@ -48,7 +48,16 @@ require(['cli/input', 'cli/output', 'cli/tasks',
 
     var hash = decodeURIComponent(window.location.hash);
     if (hash) {
-        inputElement.value = hash.substring(1, hash.length);
+        var value = hash.substring(1, hash.length);
+        var tagsToReplace = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;'
+        };
+        inputElement.value = value.replace(/[&<>]/g, function(tag) {
+            return tagsToReplace[tag] || tag;
+        });
+        // inputElement.value = value;
         input._onEnter();
     }
 });

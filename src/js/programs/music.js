@@ -35,7 +35,7 @@ define(['cli/Program', 'services/soundcloud', 'events/events', 'services/audio']
                 if (isInvalidIndex(index, playlists)) return;
                 var list = playlists[index];
                 exports.output('Playing playlist: ' + list.title);
-                exports.output('Playing track: ' + list.tracks[index].title);
+                exports.output('Playing track: ' + list.tracks[0].title);
                 audio.playlist(list.tracks).next(0);
                 exports.output('If you are on a mobile device, you might ' +
                     'have to type "music play" for this to work');
