@@ -148,7 +148,7 @@ define(['Extendable', 'events/events'], function(Extendable, events) {
          */
         input: function(text) {
             if (text === 'exit') {
-                window.location.hash = '';
+                window.location.hash = 'exit';
                 this.exit();
                 return;
             }

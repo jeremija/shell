@@ -47,7 +47,7 @@ require(['cli/input', 'cli/output', 'cli/tasks',
     photoViewer.init(photoViewerElement, outputElement);
 
     var hash = decodeURIComponent(window.location.hash);
-    if (hash) {
+    if (hash && hash !== '#exit') {
         var value = hash.substring(1, hash.length);
         var tagsToReplace = {
             '&': '&amp;',
