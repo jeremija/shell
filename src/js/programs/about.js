@@ -174,7 +174,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         exports.output(' ');
         exports.output('  clear       Clears the screen');
         exports.output('  help        Prints the choices again');
-        exports.output('  exit        Exits the program');
+        exports.output('  exit        Exits interactive mode if in it');
     }
 
     function askForChoice() {
@@ -186,21 +186,29 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         });
     }
 
-    var args = {
+    var allArgs = {
         '--help': function() {
-            this.output('about: This program outputs various information ' +
+            this.output('This program outputs various information ' +
                 'about the author.');
+            this.output('usage: about [--help] [--interactive] &lt;[command]&gt;');
+            this.output(' ');
+            this.output('  --interactive    ask for choices');
+            this.output('  --help           prints help message');
             this.output(' ');
             this.output('You can also directly type about &lt;command&gt;.');
             this.output('Here is a list of available commands:');
             printChoices();
             this.output(' ');
             this.output('For example: about work');
+        },
+        '--interactive': function() {
+            printChoices();
+            askForChoice();
         }
     };
 
     for(var key in handlers) {
-        args[key] = handlers[key];
+        allArgs[key] = handlers[key];
     }
 
     var exports = new Program({
@@ -209,12 +217,13 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             if (args) {
                 return;
             }
-            this.output('This program outputs various information about the author.');
+            allArgs['--help'].call(this);
+            // this.output('This program outputs various information about the author.');
 
-            printChoices();
-            askForChoice();
+            // printChoices();
+            // askForChoice();
         },
-        args: args
+        args: allArgs
     });
 
     return exports;
