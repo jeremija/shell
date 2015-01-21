@@ -95,8 +95,9 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         'references': function() {
             exports.output('REFERENCES');
             exports.output('==========');
-            exports.output(' * ' + link('http://steiner.website/snake', 'Snake'));
+            exports.output(' * ' + link('http://steiner.website', 'Steiner.website'));
             exports.output(' * ' + link('http://github.com/jeremija', 'Github'));
+            exports.output(' * ' + link('http://mnlth.co', 'Monolith International BV'));
             exports.output(' * ' + link('http://cromedicor.com', 'CroMedicor'));
             exports.output(' * ' + link('http://www.linkedin.com/in/jerkosteiner', 'LinkedIn'));
             return true;
@@ -104,22 +105,22 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         'all': function() {
             exports.output(' ');
 
-            this.contact();
+            handlers.contact();
             exports.output(' ');
 
-            this.work();
+            handlers.work();
             exports.output(' ');
 
-            this.education();
+            handlers.education();
             exports.output(' ');
 
-            this.skills();
+            handlers.skills();
             exports.output(' ');
 
-            this.personal();
+            handlers.personal();
             exports.output(' ');
 
-            this.references();
+            handlers.references();
             exports.output(' ');
 
             return true;
@@ -185,6 +186,23 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         });
     }
 
+    var args = {
+        '--help': function() {
+            this.output('about: This program outputs various information ' +
+                'about the author.');
+            this.output(' ');
+            this.output('You can also directly type about &lt;command&gt;.');
+            this.output('Here is a list of available commands:');
+            printChoices();
+            this.output(' ');
+            this.output('For example: about work');
+        }
+    };
+
+    for(var key in handlers) {
+        args[key] = handlers[key];
+    }
+
     var exports = new Program({
         name: 'about',
         defaultAction: function(args) {
@@ -196,12 +214,7 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             printChoices();
             askForChoice();
         },
-        args: {
-            '--help': function() {
-                this.output('about: This program outputs various information ' +
-                    'about the author.');
-            }
-        }
+        args: args
     });
 
     return exports;
