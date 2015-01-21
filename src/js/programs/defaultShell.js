@@ -25,7 +25,12 @@ define(['cli/Shell', 'events/events'], function(Shell, events) {
         name: '',
         defaultAction: function() {
             this.output(new Date());
-            this.output(getLastVisit());
+            try {
+                this.output(getLastVisit());
+            }
+            catch(e) {
+                // do nothing
+            }
             this.output(' ');
             this.output('Hello, stranger!');
             this.output(' ');
