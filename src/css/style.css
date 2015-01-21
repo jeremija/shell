@@ -54,10 +54,11 @@ body {
 }
 
 body * {
-	font-family: 'fsex300-webfont';
+	/*font-family: 'fsex300-webfont';*/
 	/*background-color: #222;*/
+	font-family: 'terminus_ttfmedium', monospace;
 	color: lime;
-	font-size: 16px;
+	font-size: 13px;
 }
 
 p.error {

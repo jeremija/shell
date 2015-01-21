@@ -6,3 +6,17 @@
 	     url('../fonts/fsex300-webfont.ttf') format('truetype'),
 	     url('../fonts/fsex300-webfont.svg#webfont') format('svg');
  }
+
+
+@font-face {
+    font-family: 'terminus_ttfmedium';
+    src: url('terminusttf-4.39-webfont.eot');
+    src: url('terminusttf-4.39-webfont.eot?#iefix') format('embedded-opentype'),
+         url('terminusttf-4.39-webfont.woff2') format('woff2'),
+         url('terminusttf-4.39-webfont.woff') format('woff'),
+         url('terminusttf-4.39-webfont.ttf') format('truetype'),
+         url('terminusttf-4.39-webfont.svg#terminus_ttfmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
