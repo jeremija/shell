@@ -56,7 +56,7 @@ body {
 body * {
 	/*font-family: 'fsex300-webfont';*/
 	/*background-color: #222;*/
-	font-family: 'terminus_ttfmedium', monospace;
+	font-family: 'DejaVuSansMono', monospace;
 	color: lime;
 	font-size: 13px;
 }
