@@ -19,12 +19,19 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         'work': function() {
             exports.output('WORK INFO');
             exports.output('=========');
-            exports.output('2014 - present :: Lead Software Developer at Monolith');
-            exports.output('  Working on development of a RESTful web application. My responsibilities');
-            exports.output('  include the choice of technologies, planning the software architecture,');
-            exports.output('  ensuring that the software meets the design and functionality specifications,');
-            exports.output('  writing code using behavior-driven development, and delegation of duties to ');
-            exports.output('  other developers.');
+
+            exports.output('2015 - present :: Software Developer at NYU LMC');
+            exports.output(' ');
+
+            exports.output('2014 - 2015 :: Lead Software Developer at Monolith');
+            exports.output('  Leading developing of a cloud solution which assists retailers in making');
+            exports.output('  in-store decisions based on the combination of behavioral, demographic and');
+            exports.output('  sales data. My responsibilities include the choice of technologies, planning the');
+            exports.output('  software architecture, ensuring that the software meets the design and');
+            exports.output('  functionality specifications, writing code using behavior-driven development,');
+            exports.output('  and delegation of duties to other developers. My work has directly contributed to');
+            exports.output('  the company\'s ability to receive new investments, as well as work with companies');
+            exports.output('  such as Nike, Jaguar Land Rover, Timberland, and Scotch & Soda.');
             exports.output(' ');
             exports.output('2014 - 2014 :: Senior Software Developer at PBZ, a bank of Intesa SanPaolo');
             exports.output('  Worked on R&D for a mobile application. Daily work involved ');
@@ -34,17 +41,20 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             exports.output('  user experience. Also worked on development of RESTful APIs.');
             exports.output(' ');
             exports.output('2011 - 2014 :: Software Developer at PBZ, a bank of Intesa SanPaolo');
-            exports.output('  Worked as a Software Developer on an on-line banking solution. The daily');
-            exports.output('  work included writing and testing of service code in Java, connecting to');
-            exports.output('  external services, developing an in-house JavaScript framework based on');
-            exports.output('  KnockoutJS), using other micro JavaScript frameworks and creating');
-            exports.output('  modular HTML/CSS layouts.');
+
+            exports.output('  Worked as a Software Developer in an Agile Development Team which developed');
+            exports.output('  an on-line banking platform used by over 370k users. This solution set the');
+            exports.output('  standard for the whole Intesa Sanpaolo Group. The daily work included');
+            exports.output('  writing and testing of service code in Java, connecting to external');
+            exports.output('  services, developing an in-house JavaScript framework, and creating modular');
+            exports.output('  and modern HTML/CSS layouts.');
             exports.output(' ');
             exports.output('  Worked as a Software Developer on an on-line investment/stock trading web');
-            exports.output('  platform. The core was written in Java and had to be highly optimized for');
-            exports.output('  processing of many transactions in real-time. Daily work included working');
-            exports.output('  on service code which connected to external data sources such as Oracle ');
-            exports.output('  DB and coding the front-end which was mainly written in Adobe Flex and JSP.');
+            exports.output('  platform, used by over 10k users. The core was written in Java and had to be');
+            exports.output('  highly optimized for processing of many transactions in real-time. Daily work');
+            exports.output('  included working on service code which connected to external data sources and');
+            exports.output('  coding the front-end.');
+
             return true;
         },
         'education': function() {
