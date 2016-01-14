@@ -21,39 +21,30 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             exports.output('=========');
 
             exports.output('2015 - present :: Software Developer at NYU LMC');
+            exports.output('  Working as a developer at Institute for Innovations in Medical Education. Took');
+            exports.output('  ownership of migrating existing codebase to Git, introduced continuous integration,');
+            exports.output('  automated deployment, and TDD. Currently developing a system for unified evaluation');
+            exports.output('  of medical students which should eventually spread across the whole university.');
             exports.output(' ');
 
             exports.output('2014 - 2015 :: Lead Software Developer at Monolith');
-            exports.output('  Leading developing of a cloud solution which assists retailers in making');
-            exports.output('  in-store decisions based on the combination of behavioral, demographic and');
-            exports.output('  sales data. My responsibilities include the choice of technologies, planning the');
-            exports.output('  software architecture, ensuring that the software meets the design and');
-            exports.output('  functionality specifications, writing code using behavior-driven development,');
-            exports.output('  and delegation of duties to other developers. My work has directly contributed to');
-            exports.output('  the company\'s ability to receive new investments, as well as work with companies');
-            exports.output('  such as Nike, Jaguar Land Rover, Timberland, and Scotch & Soda.');
+            exports.output('  Led development of a cloud solution which assisted retailers in making in-store');
+            exports.output('  decisions based on the combination of behavioral, demographic and sales data.');
+            exports.output('  My work has directly contributed to the company\'s ability to receive new');
+            exports.output('  investments, as well as €100k+ deals with companies such as Nike, Jaguar Land Rover,');
+            exports.output('  Timberland, and Scotch & Soda.');
             exports.output(' ');
-            exports.output('2014 - 2014 :: Senior Software Developer at PBZ, a bank of Intesa SanPaolo');
-            exports.output('  Worked on R&D for a mobile application. Daily work involved ');
-            exports.output('  behavior-driven development of mobile applications using Android SDK');
-            exports.output('  and PhoneGap as a POC. PhoneGap applications relied on using a custom');
-            exports.output('  highly-optimized JavaScript framework which resulted in a smoother');
-            exports.output('  user experience. Also worked on development of RESTful APIs.');
+            exports.output('2011 - 2014 :: Senior Software Developer at PBZ, Gruppo Intesa');
+            exports.output('  Worked as a Software Developer in an Agile Development Team which developed an');
+            exports.output('  on-line banking platform used by over 300k users. This solution set the standard for');
+            exports.output('  the whole Intesa Sanpaolo Group. Daily work included writing and testing of service');
+            exports.output('  code, connecting to external services, developing a single-page Web Application, and');
+            exports.output('  creating modular and modern HTML/CSS layouts.');
             exports.output(' ');
-            exports.output('2011 - 2014 :: Software Developer at PBZ, a bank of Intesa SanPaolo');
-
-            exports.output('  Worked as a Software Developer in an Agile Development Team which developed');
-            exports.output('  an on-line banking platform used by over 370k users. This solution set the');
-            exports.output('  standard for the whole Intesa Sanpaolo Group. The daily work included');
-            exports.output('  writing and testing of service code in Java, connecting to external');
-            exports.output('  services, developing an in-house JavaScript framework, and creating modular');
-            exports.output('  and modern HTML/CSS layouts.');
-            exports.output(' ');
-            exports.output('  Worked as a Software Developer on an on-line investment/stock trading web');
-            exports.output('  platform, used by over 10k users. The core was written in Java and had to be');
-            exports.output('  highly optimized for processing of many transactions in real-time. Daily work');
-            exports.output('  included working on service code which connected to external data sources and');
-            exports.output('  coding the front-end.');
+            exports.output('  Worked as a Software Developer on an on-line investment/stock trading web platform,');
+            exports.output('  used by over 10k users. The core was written in Java and had to be highly optimized');
+            exports.output('  for processing of many transactions in real-time. Daily work included working on');
+            exports.output('  service code which connected to external data sources and coding the front-end.');
 
             return true;
         },
@@ -72,21 +63,18 @@ define(['cli/Program', 'events/events'], function(Program, events) {
         'skills': function() {
             exports.output('SKILLS');
             exports.output('======');
-            exports.output(' * Operating systems:');
-            exports.output('     Linux, Windows, Unix');
-            exports.output(' * Programming:');
-            exports.output('     Java EE, Android, JavaScript, Python, C, Flex, PHP');
+            exports.output(' * Coding:');
+            exports.output('     Java, JavaScript, Node.js, Python, Bash, C, C++, Android, Rust, Go');
             exports.output(' * Databases:');
-            exports.output('     Oracle, MongoDB, MySQL, MS SQL');
-            exports.output(' * Application servers:');
-            exports.output('     Node.js, Tomcat, WebSphere, Apache');
-            exports.output(' * Web technologies:');
-            exports.output('     HTML5, CSS3, XML, WebAPI, Socket.io, REST');
-            exports.output(' * Source code management:');
-            exports.output('     Git, Subversion, CVS');
-            exports.output(' * Behavior-driven development, TDD');
-            exports.output(' * Ability to break down a program\'s logic into smaller');
-            exports.output('   reusable and testable sub-modules.');
+            exports.output('     PostgreSQL, MySQL, SQLite, H2, Oracle Database, Mongo DB, InfluxDB');
+            exports.output(' * Web:');
+            exports.output('     HTML5, CSS3, SVG, Ajax, Streaming, WebSockets, Touch, OAuth2');
+            exports.output(' * Math:');
+            exports.output('     GNU Octave, MATLAB');
+            exports.output(' * Tools:');
+            exports.output('     Linux, Git, tmux, Vim, Zsh, fzf');
+            exports.output(' * Other:');
+            exports.output('     TDD, BDD, CI, Docker, OpenCV, Agile');
             return true;
         },
         'personal': function() {
@@ -107,9 +95,6 @@ define(['cli/Program', 'events/events'], function(Program, events) {
             exports.output('==========');
             exports.output(' * ' + link('http://steiner.website', 'Steiner.website'));
             exports.output(' * ' + link('http://github.com/jeremija', 'Github'));
-            exports.output(' * ' + link('http://mnlth.co', 'Monolith International BV'));
-            exports.output(' * ' + link('http://cromedicor.com', 'CroMedicor'));
-            exports.output(' * ' + link('http://www.linkedin.com/in/jerkosteiner', 'LinkedIn'));
             return true;
         },
         'all': function() {
