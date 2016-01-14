@@ -12,10 +12,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "requirejs": "~2.1.11",
-    "jsdoc": "~3.3.0-alpha4",
     "http-server": "~0.6.1",
+    "jsdoc": "~3.3.0-alpha4",
     "jshint": "~2.4.4",
-    "mocha-phantomjs": "~3.3.2"
+    "mocha-phantomjs": "~3.3.2",
+    "phantomjs": "^1.9.18",
+    "requirejs": "~2.1.11"
   }
 }
