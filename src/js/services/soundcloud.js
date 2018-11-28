@@ -7,8 +7,8 @@ define(['services/ajax'], function(ajax) {
         return API + url + '?client_id=' + CLIENT_ID;
     }
 
-    var URL_PLAYLISTS = api('/users/jeremija/playlists.json'),
-        URL_TRACKS = api('/users/jeremija/tracks.json');
+    var URL_PLAYLISTS = api('/users/80749339/playlists.json'),
+        URL_TRACKS = api('/users/80749339/tracks.json');
 
     function parse(json) {
         try {
