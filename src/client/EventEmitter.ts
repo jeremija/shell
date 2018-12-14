@@ -1,10 +1,8 @@
-import {EventEmitter} from 'events'
+import {EventEmitter as EE} from 'events'
 
-class EventEmitter2 extends EventEmitter {
+export class EventEmitter extends EE {
   emit(event: string | symbol, ...args: any[]): boolean {
     super.emit('*', event, ...args)
     return super.emit(event, ...args)
   }
 }
-
-export const events = new EventEmitter2()

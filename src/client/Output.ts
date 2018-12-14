@@ -1,32 +1,26 @@
-import * as c from './constants'
 import {DOM} from './$'
-import {EventEmitter} from 'events'
 
 export class Output {
   protected element: Element
   constructor(
     protected readonly $element: DOM,
-    protected readonly events: EventEmitter,
   ) {
     this.element = $element.element()
-    events.on(c.EVENT_STDOUT, this.handleStdOut)
-    events.on(c.EVENT_STDERR, this.handleStdErr)
-    events.on(c.EVENT_CLEAR, this.handleClear)
   }
 
-  handleStdOut = (text: string) => {
-    const p = this.createTextElement(text)
+  print = (...text: string[]) => {
+    const p = this.createTextElement(text.join(' '))
     this.element.appendChild(p)
     this.scrollToBottom()
   }
 
-  handleStdErr = (text: string) => {
-    const p = this.createTextElement(text, 'error')
+  error = (...text: string[]) => {
+    const p = this.createTextElement(text.join(' '), 'error')
     this.element.appendChild(p)
     this.scrollToBottom()
   }
 
-  handleClear = () => {
+  clear = () => {
     this.element.innerHTML = ''
   }
 
