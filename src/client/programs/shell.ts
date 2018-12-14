@@ -27,7 +27,13 @@ export const shell: IProgramDef = {
     help: p => p.output.print(help),
     clear: p => p.output.clear(),
     exit: p => p.exit(),
-
+    ls: (p, args, argsMap) => {
+      if (argsMap['-l']) {
+        p.output.print(Object.keys(programs).join('\n'))
+      } else {
+        p.output.print(Object.keys(programs).join('    '))
+      }
+    },
     ...programs,
   },
   options: {

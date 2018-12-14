@@ -2,9 +2,10 @@ import * as c from './constants'
 import {ICommands} from './ICommands'
 import {IProgramDef} from './programs/IProgramDef'
 import {Input} from './Input'
+import {Logger} from './Logger'
 import {OS} from './OS'
 import {Output} from './Output'
-import {Logger} from './Logger'
+import {argsToMap} from './util'
 
 const logger = new Logger('shell:program')
 
@@ -64,7 +65,7 @@ export class Program {
       this.output.error('Invalid command:', command)
       return false
     }
-    this.commands[command](this, args)
+    this.commands[command](this, args, argsToMap(args))
     return true
   }
   handleEnter = (input: string) => {
