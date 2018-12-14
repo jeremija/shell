@@ -5,17 +5,10 @@
 	<title>interactive shell</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.gif">
-
-	<!-- CUSTOM SNIPPETS -->
-
-
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="{{contextRoot}}style.css">
 </head>
 
 <body>
-
-	<!-- <input type="text" id="real-input" autofocus> -->
-
 	<div id="photo-viewer" class="hidden" tabindex="-1"></div>
 
 	<div class="console">
@@ -23,17 +16,13 @@
 
 		<div id="console-input">
 			<span id="input-prefix"></span><span>$&nbsp;</span>
-			<!--<span id="input-display" class="pre"></span><span id="cursor">&nbsp;</span>-->
 			<form id="input-form">
-				<input type="text" id="input" autocomplete="off">
+				<input type="text" id="input" autocomplete="off" autofocus>
 				<input type="submit" class="hidden-submit">
 			</form>
 		</div>
 	</div>
 
-	<!-- SCRIPT START -->
-	<script type="text/javascript" src="js/require/config.js"></script>
-	<script type="text/javascript" data-main="js/index.js" src="bower/requirejs/require.js"></script>
-	<!-- SCRIPT END -->
+	<script src="{{contextRoot}}client.js"></script>
 </body>
 </html>

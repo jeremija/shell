@@ -6,21 +6,24 @@
   "scripts": {
     "test": "jest",
     "watch": "npm-run-all build:html build:css _watch",
-    "_watch": "npm-run-all -p watch:*",
+    "server": "http-server build/",
+    "_watch": "npm-run-all -p server watch:*",
     "lint": "tslint --project .",
     "build": "npm-run-all build:* minify:*",
-    "build:js": "browserify src/client/index.tsx -p [ tsify --project .] -g [ loose-envify purge --NODE_ENV production ] -v -o build/client.js",
+    "build:js": "browserify src/client/index.ts -p [ tsify --project .] -g [ loose-envify purge --NODE_ENV production ] -v -o build/client.js",
     "rollup:js": "rollup -c ./rollup.config.js",
     "rollup:js:watch": "rollup -c ./rollup.config.js -w",
     "minify:js": "terser --ecma 5 --compress -o build/client.min.js --mangle -- build/client.js",
-    "watch:js": "watchify src/client/index.tsx -p [tsify --project .] -v -d -o build/client.js",
+    "watch:js": "watchify src/client/index.ts -p [tsify --project .] -v -d -o build/client.js",
     "build:css": "node-sass -o build/ --output-style compressed src/scss/style.scss",
     "watch:css": "node-sass -o build/ --source-map true --source-map-contents true -w src/scss/style.scss",
-    "build:html": "mustache src/views/index.json src/views/index.mustache > build/index.html"
+    "build:html": "mustache src/views/index.json src/views/index.html > build/index.html"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.15",
     "browserify": "^16.2.3",
     "http-server": "^0.11.1",
     "jest": "^23.6.0",
