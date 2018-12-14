@@ -31,6 +31,10 @@ export class Input extends EventEmitter {
     this.$input.value(value)
   }
 
+  setPrefix(value: string) {
+    this.$prefix.text(value)
+  }
+
   getValue() {
     return this.$input.value()
   }

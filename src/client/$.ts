@@ -66,6 +66,14 @@ export class DOM {
     this.elements.forEach(el => (el as HTMLInputElement).value = text)
     return text
   }
+
+  text(text?: string): string {
+    if (text === undefined) {
+      return this.elements[0].textContent || ''
+    }
+    this.elements.forEach(el => el.textContent = text)
+    return text
+  }
 }
 
 export const $ = (elements: Element | Element[]) => new DOM(elements)

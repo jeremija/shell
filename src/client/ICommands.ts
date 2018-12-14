@@ -1,5 +1,7 @@
-import {Output} from './Output'
+import {Program} from './Program'
+
+export type ICommandHandler = (output: Program, args: string[]) => void
 
 export interface ICommands {
-  [command: string]: (output: Output, args: string[]) => void
+  [command: string]: ICommandHandler
 }
