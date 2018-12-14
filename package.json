@@ -1,22 +1,41 @@
 {
   "name": "shelly",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "make test"
+    "test": "jest",
+    "watch": "npm-run-all build:html build:css _watch",
+    "_watch": "npm-run-all -p watch:*",
+    "lint": "tslint --project .",
+    "build": "npm-run-all build:* minify:*",
+    "build:js": "browserify src/client/index.tsx -p [ tsify --project .] -g [ loose-envify purge --NODE_ENV production ] -v -o build/client.js",
+    "rollup:js": "rollup -c ./rollup.config.js",
+    "rollup:js:watch": "rollup -c ./rollup.config.js -w",
+    "minify:js": "terser --ecma 5 --compress -o build/client.min.js --mangle -- build/client.js",
+    "watch:js": "watchify src/client/index.tsx -p [tsify --project .] -v -d -o build/client.js",
+    "build:css": "node-sass -o build/ --output-style compressed src/scss/style.scss",
+    "watch:css": "node-sass -o build/ --source-map true --source-map-contents true -w src/scss/style.scss",
+    "build:html": "mustache src/views/index.json src/views/index.mustache > build/index.html"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "~0.6.1",
-    "jsdoc": "~3.3.0-alpha4",
-    "jshint": "~2.4.4",
-    "mocha-phantomjs": "~3.3.2",
-    "phantomjs": "^1.9.18",
-    "requirejs": "~2.1.11"
-  }
+    "browserify": "^16.2.3",
+    "http-server": "^0.11.1",
+    "jest": "^23.6.0",
+    "loose-envify": "^1.4.0",
+    "mustache": "^3.0.1",
+    "node-sass": "^4.11.0",
+    "npm-run-all": "^4.1.5",
+    "terser": "^3.11.0",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^7.0.1",
+    "tsify": "^4.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2",
+    "typescript-tslint-plugin": "^0.2.0",
+    "watchify": "^3.11.0"
+  },
+  "dependencies": {}
 }

@@ -63,7 +63,7 @@ build:
 	@cp src/favicon* dist/
 
 	@echo replacing index.html \<script\> tags
-	@sed -e '/SCRIPT START/,/SCRIPT END/c\	<script type="text/javascript" src="js/shell.js"></script>' \
+	@gsed -e '/SCRIPT START/,/SCRIPT END/c\	<script type="text/javascript" src="js/shell.js"></script>' \
 		dist/index.src.html > dist/index.html
 
 	@rm dist/index.src.html
