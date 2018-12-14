@@ -42,6 +42,7 @@
     "watchify": "^3.11.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "debug": "^4.1.0"
   }
 }

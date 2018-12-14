@@ -2,7 +2,7 @@ import {Program} from './Program'
 import {IMapOfBool} from './util'
 
 export type ICommandHandler = (
-  output: Program,
+  program: Program,
   args: string[],
   argsMap: IMapOfBool,
 ) => void

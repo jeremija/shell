@@ -38,7 +38,7 @@ export class Program {
   constructor(
     readonly input: Input,
     readonly output: Output,
-    readonly os: OS,
+    protected readonly os: OS,
     protected readonly programDef: IProgramDef,
   ) {
     this.options = Object.assign({}, defaultOptions, programDef.options)
@@ -49,10 +49,21 @@ export class Program {
   autocomplete(input: string): string[] {
     return Object.keys(this.commands).filter(k => k.startsWith(input))
   }
-  start() {
-    logger.log('[%s]: start', this.name)
-    if (this.commands.hasOwnProperty('')) {
-      this.handleEnter('')
+  start(args: string[]) {
+    logger.log('[%s]: start, args: %o', this.name, args)
+    if (args.length >= 2) {
+      const command = args[1]
+      this.handleCommand(command, args)
+    }
+    if (this.options.autoExit) {
+      this.exit()
+    }
+  }
+  fork(program: IProgramDef, args: string[]) {
+    try {
+      this.os.startProgram(program, args)
+    } catch (err) {
+      this.output.error(err.message)
     }
   }
   protected addListener(event: string, fn: ICallback) {
@@ -60,22 +71,26 @@ export class Program {
     this.input.on(event, fn)
     this.listeners.push({ event, fn })
   }
-  protected handleCommand(command: string, args: string[]): boolean {
+  protected handleCommand(command: string, args: string[]) {
+    logger.log('[%s] handleCommand: %s %o', this.name, command, args)
     if (!this.commands.hasOwnProperty(command)) {
-      this.output.error('Invalid command:', command)
-      return false
+      throw new Error('Illegal argument: ' + command)
     }
-    this.commands[command](this, args, argsToMap(args))
-    return true
+    this.commands[command](this, args, argsToMap(args.slice(1)))
   }
   handleEnter = (input: string) => {
     logger.log('[%s] handleEnter: "%s"', this.name, input)
-    this.output.print('$ ' + input)
+    if (print) {
+      this.output.print(this.options.prefix + ' ' + input)
+    }
     const args = input.replace(/' {2,}/, ' ').trim().split(' ')
     const command = args[0]
-    this.handleCommand(command, args.slice(1))
-    if (this.options.autoExit) {
-      this.exit()
+    try {
+      this.handleCommand(command, args)
+    } finally {
+      if (this.options.autoExit) {
+        this.exit()
+      }
     }
   }
   handleAutocomplete = (input: string) => {

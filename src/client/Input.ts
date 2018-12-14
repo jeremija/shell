@@ -42,9 +42,9 @@ export class Input extends EventEmitter {
   protected handleSubmit = (event: Event) => {
     event.preventDefault()
     const value = this.$input.value()
+    this.$input.value('')
     this.emit(c.EVENT_INPUT_ENTER, value)
     this.history.add(value)
-    this.$input.value('')
   }
 
   protected handleKeyDown = (event: KeyboardEvent) => {

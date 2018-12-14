@@ -8,15 +8,19 @@ export class Output {
     this.element = $element.element()
   }
 
+  protected append(p: HTMLElement) {
+    this.element.appendChild(p)
+  }
+
   print = (...text: string[]) => {
     const p = this.createTextElement(text.join(' '))
-    this.element.appendChild(p)
+    this.append(p)
     this.scrollToBottom()
   }
 
   error = (...text: string[]) => {
     const p = this.createTextElement(text.join(' '), 'error')
-    this.element.appendChild(p)
+    this.append(p)
     this.scrollToBottom()
   }
 
@@ -24,7 +28,8 @@ export class Output {
     this.element.innerHTML = ''
   }
 
-  protected createTextElement(text: string, className = '') {
+  protected createTextElement(text: string, className = '')
+    : HTMLParagraphElement {
       const p = document.createElement('p')
       p.innerHTML = text
       p.className = className

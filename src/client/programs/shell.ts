@@ -1,15 +1,6 @@
-import {ICommands, ICommandHandler} from '../ICommands'
 import {IProgramDef} from './IProgramDef'
-import {snake} from './snake'
 
-const allPrograms: {[name: string]: IProgramDef } = {snake}
-
-const programs = Object.keys(allPrograms).reduce((o, key) => {
-  const program = allPrograms[key]
-  const handler: ICommandHandler = p => p.os.startProgram(program)
-  o[key] = handler
-  return o
-}, {} as ICommands)
+import {all} from './all'
 
 const help = `This is a list of the most useful commands:
   exit  - exits an application (you cannot exit the main shell)
@@ -28,13 +19,21 @@ export const shell: IProgramDef = {
     clear: p => p.output.clear(),
     exit: p => p.exit(),
     ls: (p, args, argsMap) => {
+      if (argsMap['-h'] || argsMap['--help']) {
+        p.output.print(`usage: ls [-l]
+
+list registered programs
+optional arguments:
+  -l shows programs in a list`)
+        return
+      }
       if (argsMap['-l']) {
-        p.output.print(Object.keys(programs).join('\n'))
+        p.output.print(Object.keys(all).join('\n'))
       } else {
-        p.output.print(Object.keys(programs).join('    '))
+        p.output.print(Object.keys(all).join('    '))
       }
     },
-    ...programs,
+    ...all,
   },
   options: {
     name: 'shell',
