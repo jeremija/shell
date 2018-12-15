@@ -16,6 +16,16 @@ function showImage(p: Program, image: IImageResponse) {
     '[p]revious, [n]ext, [e]xit')
 }
 
+function next(p: Program, args: string[]) {
+  const album = p.memory.album as IAlbumResponse
+  if (p.memory.index >= album.images.length - 1) {
+    throw new Error('No more images')
+  }
+  const index = ++p.memory.index
+  const image = album.images[index]
+  showImage(p, image)
+}
+
 export const photoViewer: IProgramDef = {
   commands: {
     open: (p, args) => {
@@ -27,15 +37,8 @@ export const photoViewer: IProgramDef = {
       p.memory.album = album
       showImage(p, image)
     },
-    n: (p, args) => {
-      const album = p.memory.album as IAlbumResponse
-      if (p.memory.index >= album.images.length - 1) {
-        throw new Error('No more images')
-      }
-      const index = ++p.memory.index
-      const image = album.images[index]
-      showImage(p, image)
-    },
+    n: next,
+    '': next,
     p: (p, args) => {
       const album = p.memory.album as IAlbumResponse
       if (p.memory.index ===  0) {
