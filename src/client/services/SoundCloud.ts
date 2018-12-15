@@ -21,12 +21,12 @@ export class SoundCloud {
 
   async getPlaylists(): Promise<IPlaylistResponse[]> {
     const { clientId } = this
-    return this.http.get(this.playlistsUrl, { clientId })
+    return this.http.get(this.playlistsUrl, { client_id: clientId })
   }
 
   async getTracks(): Promise<ITrackResponse[]> {
     const { clientId } = this
-    return this.http.get(this.tracksUrl, { clientId })
+    return this.http.get(this.tracksUrl, { client_id: clientId })
   }
 }
 

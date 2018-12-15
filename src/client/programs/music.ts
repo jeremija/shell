@@ -83,12 +83,33 @@ export const music: IProgramDef = {
     '-h': p => p.output.print(help),
     '--help': p => p.output.print(help),
     help: p => p.output.print(help),
+    async playlists(p) {
+      const playlists = await soundCloud.getPlaylists()
+      p.output.print('Found ' + playlists.length + ' playlists:')
+      p.output.print(' ')
+      playlists.forEach((list, index) => {
+        p.output.print((index + 1) + '. ' + list.title +
+          ' (' + list.tracks.length + ' tracks)')
+      })
+      p.output.print(' ')
+      p.output.print('To play, type: music open playlist &lt;number&gt;')
+    },
+    async tracks(p) {
+      const tracks = await soundCloud.getTracks()
+      p.output.print('Found ' + tracks.length + ' tracks:')
+      p.output.print(' ')
+      tracks.forEach((track, index) => {
+        p.output.print((index + 1) + '. ' + track.title)
+      })
+      p.output.print(' ')
+      p.output.print('To play, type: music open track &lt;number&gt;')
+    },
     async open(p, args) {
       const len = args.length
-      if (len !== 2) {
-        throw new Error('Expected two arguments, got ' + len)
+      if (len !== 4) {
+        throw new Error('Expected four arguments, got ' + len)
       }
-      const [what, index] = args
+      const [what, index] = args.slice(2)
       if (what !== 'track' && what !== 'playlist') {
           exports.error('first argument should be either \'track\'' +
               ' or \'playlist\'')

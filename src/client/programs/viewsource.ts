@@ -6,6 +6,6 @@ export const viewsource: IProgramDef = {
     '': p => p.output.print(link('https://github.com/jeremija/shell')),
   },
   options: {
-    name: 'viewsource',
+    name: 'view-source',
   },
 }
