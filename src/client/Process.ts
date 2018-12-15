@@ -1,10 +1,10 @@
 import * as c from './constants'
 import {ICommands} from './ICommands'
 import {ICreatableProgram, IProgram} from './programs/IProgram'
-import {Input} from './Input'
+import {IInput} from './Input'
+import {IOutput} from './Output'
 import {Logger} from './Logger'
 import {OS} from './OS'
-import {Output} from './Output'
 import {argsToMap} from './util'
 
 const logger = new Logger('shell:program')
@@ -41,8 +41,8 @@ export class Process {
   public readonly namePid: string
 
   constructor(
-    readonly input: Input,
-    readonly output: Output,
+    readonly input: IInput,
+    readonly output: IOutput,
     protected readonly os: OS,
     protected readonly Program: ICreatableProgram,
   ) {

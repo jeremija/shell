@@ -10,7 +10,15 @@ export const TAB_KEY = 9
 export const UP_KEY = 38
 export const DOWN_KEY = 40
 
-export class Input extends EventEmitter {
+export interface IInput {
+  on(event: string, fn: (...args: any[]) => void): void
+  removeListener(event: string, fn: (...args: any[]) => void): void
+  setValue(value: string): void
+  setPrefix(value: string): void
+  getValue(): string
+}
+
+export class Input extends EventEmitter implements IInput {
   protected history = new History()
 
   protected readonly $prefix: DOM

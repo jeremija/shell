@@ -1,7 +1,14 @@
 import {DOM} from './$'
 import {scrollToBottom} from './util'
 
-export class Output {
+export interface IOutput {
+  append(p: HTMLElement): void
+  print(...text: string[]): void
+  error(...text: string[]): void
+  clear(): void
+}
+
+export class Output implements IOutput {
   protected element: Element
   constructor(
     protected readonly $element: DOM,

@@ -1,6 +1,6 @@
 import {ICreatableProgram} from './programs/IProgram'
-import {Input} from './Input'
-import {Output} from './Output'
+import {IInput} from './Input'
+import {IOutput} from './Output'
 import {Process} from './Process'
 import {shell} from './programs/shell'
 import {Logger} from './Logger'
@@ -11,8 +11,8 @@ export class OS {
   protected stack: Process[] = []
 
   constructor(
-    protected readonly input: Input,
-    protected readonly output: Output,
+    protected readonly input: IInput,
+    protected readonly output: IOutput,
   ) {
     this.createShell()
   }
