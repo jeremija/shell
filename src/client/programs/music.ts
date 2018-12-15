@@ -24,7 +24,7 @@ function drawProgressBar(percent: number) {
       progress += ' '
     }
   }
-  return progress
+  return progress + ']'
 }
 
 const help = 'This program plays my music from my SoundCloud ' +
