@@ -24,7 +24,8 @@ export class OS {
     this.activateProgram()
   }
 
-  startProgram(programDef: IProgramDef, args: string[] = []) {
+  async startProgram(programDef: IProgramDef, args: string[] = []) {
+    logger.log('-- OS -- startProgram: [%s] %s', programDef.options.name, args)
     const activeProgram = this.getActiveProgram()
     if (activeProgram) {
       logger.log('-- OS -- detach %s', activeProgram.name)
@@ -37,8 +38,7 @@ export class OS {
       programDef,
     )
     this.stack.push(program)
-    logger.log('-- OS -- startProgram: %s', this.stack.map(p => p.name))
-    program.start(args)
+    await program.start(args)
     return program
   }
 

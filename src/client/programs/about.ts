@@ -120,11 +120,7 @@ const help = `
 
 export const about: IProgramDef = {
   commands: {
-    // '': (p, args, argsMap) => {
-    //   args.forEach(section => {
-    //     p.output.print(sections[section])
-    //   })
-    // },
+    '': p => p.stayOpen(),
     ...Object.keys(sections)
     .reduce((o: {[key: string]: ICommandHandler}, key) => {
       o[key] = p => p.output.print(sections[key])

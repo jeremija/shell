@@ -3,5 +3,5 @@ import {ICommands} from '../ICommands'
 
 export interface IProgramDef {
   commands: ICommands
-  options?: Partial<IProgramOptions>
+  options: Partial<IProgramOptions> & { name: string }
 }

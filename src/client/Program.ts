@@ -34,6 +34,7 @@ export class Program {
   protected readonly options: IProgramOptions
   protected readonly commands: ICommands
   public readonly name: string
+  public autoExit: boolean
 
   constructor(
     readonly input: Input,
@@ -43,23 +44,26 @@ export class Program {
   ) {
     this.options = Object.assign({}, defaultOptions, programDef.options)
     this.commands = programDef.commands
+    this.autoExit = this.options.autoExit
     this.name = this.options.name
     this.attach()
   }
   autocomplete(input: string): string[] {
     return Object.keys(this.commands).filter(k => k.startsWith(input))
   }
-  start(args: string[]) {
+  async start(args: string[]) {
     logger.log('[%s]: start, args: %o', this.name, args)
+
     if (args.length >= 2) {
-      const command = args[1]
-      this.handleCommand(command, args)
-    }
-    if (this.options.autoExit) {
-      this.exit()
+      await this.safeHandleCommand(args[1], args)
+    } else if (this.programDef.commands.hasOwnProperty('')) {
+      await this.safeHandleCommand('', args)
+    } else {
+      this.maybeExit()
     }
   }
   fork(program: IProgramDef, args: string[]) {
+    logger.log('[%s] fork [%s] %s', this.name, program.options.name, args)
     try {
       this.os.startProgram(program, args)
     } catch (err) {
@@ -71,27 +75,30 @@ export class Program {
     this.input.on(event, fn)
     this.listeners.push({ event, fn })
   }
-  protected handleCommand(command: string, args: string[]) {
+  protected async handleCommand(command: string, args: string[]) {
     logger.log('[%s] handleCommand: %s %o', this.name, command, args)
     if (!this.commands.hasOwnProperty(command)) {
       throw new Error('Illegal argument: ' + command)
     }
-    this.commands[command](this, args, argsToMap(args.slice(1)))
+    await this.commands[command](this, args, argsToMap(args.slice(1)))
   }
-  handleEnter = (input: string) => {
+  protected async safeHandleCommand(command: string, args: string[]) {
+    try {
+      await this.handleCommand(command, args)
+    } catch (err) {
+      this.output.error(err.message)
+    } finally {
+      this.maybeExit()
+    }
+  }
+  handleEnter = async (input: string) => {
     logger.log('[%s] handleEnter: "%s"', this.name, input)
     if (print) {
       this.output.print(this.options.prefix + ' ' + input)
     }
     const args = input.replace(/' {2,}/, ' ').trim().split(' ')
     const command = args[0]
-    try {
-      this.handleCommand(command, args)
-    } finally {
-      if (this.options.autoExit) {
-        this.exit()
-      }
-    }
+    await this.safeHandleCommand(command, args)
   }
   handleAutocomplete = (input: string) => {
     const values = this.autocomplete(input)
@@ -106,18 +113,30 @@ export class Program {
     this.output.print(values.join('   '))
   }
   attach() {
+    if (this.exited) {
+      throw new Error('Cannot attach to a program that has quit')
+    }
     logger.log('[%s] %s', this.name, 'attach')
     this.addListener(c.EVENT_INPUT_ENTER, this.handleEnter)
     this.addListener(c.EVENT_INPUT_TAB, this.handleAutocomplete)
     this.input.setPrefix(this.options.prefix)
   }
   detach() {
-    logger.log('%s: %s', this.name, 'detach')
+    logger.log('[%s] %s', this.name, 'detach')
     this.listeners.forEach(({ event, fn }) => {
       logger.log('[%s] removing listener "%s"', this.name, event)
       this.input.removeListener(event, fn)
     })
     this.listeners = []
+  }
+  maybeExit() {
+    if (this.autoExit) {
+      this.exit()
+    }
+  }
+  stayOpen() {
+    logger.log('[%s] stayOpen')
+    this.autoExit = false
   }
   exit() {
     this.detach()
