@@ -83,6 +83,7 @@ export const photos: IProgramDef = {
       // TODO
       throw new Error('Viewer not yet implemented!')
     },
+    '': p => p.output.print(help),
     '-h': p => p.output.print(help),
     '--help': p => p.output.print(help),
     help: p => p.output.print(help),

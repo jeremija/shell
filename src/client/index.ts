@@ -13,6 +13,9 @@ const $output = $body.select('#console-output')
 
 events.on('*', window.console.log.bind(console))
 
+const $inputText = $input.select('#input')
+document.onclick = () => $inputText.focus()
+
 export const input = new Input($input)
 export const output = new Output($output)
 export const os = new OS(input, output)

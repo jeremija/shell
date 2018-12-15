@@ -27,6 +27,13 @@ export class DOM {
     return new DOM(results)
   }
 
+  focus() {
+    const element = this.element()
+    if (element instanceof HTMLElement) {
+      element.focus()
+    }
+  }
+
   element(): Element {
     return this.elements[0]
   }
