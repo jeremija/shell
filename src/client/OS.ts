@@ -21,7 +21,10 @@ export class OS {
     this.stack = this.stack.filter(p => p.pid !== pid)
     logger.log('-- OS -- notifyExit activePrograms: %s',
       this.stack.map(p => p.name))
-    this.activateProgram()
+    const alreadyAttached = this.stack.some(p => p.isAttached())
+    if (!alreadyAttached) {
+      this.activateProgram()
+    }
   }
 
   async startProgram(programDef: IProgramDef, args: string[] = []) {

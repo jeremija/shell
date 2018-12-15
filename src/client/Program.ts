@@ -32,6 +32,7 @@ let pid = 0
 
 export class Program {
   protected listeners: IListener[] = []
+  protected attached = false
   protected exited = false
   protected readonly options: IProgramOptions
   protected readonly commands: ICommands
@@ -39,6 +40,7 @@ export class Program {
   public autoExit: boolean
   public readonly pid: number
   public readonly namePid: string
+  public readonly memory: {[key: string]: any} = {}
 
   constructor(
     readonly input: Input,
@@ -123,10 +125,14 @@ export class Program {
       throw new Error('Cannot attach a program that has quit: ' +
         this.namePid + ' (pid: ' + this.pid + ')')
     }
+    if (this.attached) {
+      throw new Error('This program is already attached! pid: ' + this.namePid)
+    }
     logger.log('[%s] %s', this.namePid, 'attach')
     this.addListener(c.EVENT_INPUT_ENTER, this.handleEnter)
     this.addListener(c.EVENT_INPUT_TAB, this.handleAutocomplete)
     this.input.setPrefix(this.options.prefix)
+    this.attached = true
   }
   detach() {
     logger.log('[%s] %s', this.namePid, 'detach')
@@ -135,6 +141,7 @@ export class Program {
       this.input.removeListener(event, fn)
     })
     this.listeners = []
+    this.attached = false
   }
   maybeExit() {
     if (this.autoExit) {
@@ -153,5 +160,8 @@ export class Program {
   }
   hasQuit() {
     return this.exited
+  }
+  isAttached() {
+    return this.attached
   }
 }

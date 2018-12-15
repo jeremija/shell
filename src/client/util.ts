@@ -20,3 +20,7 @@ export function link(href: string): string {
   openLink(href)
   return output
 }
+
+export function scrollToBottom() {
+  window.scrollTo(0, document.body.scrollHeight)
+}

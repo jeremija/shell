@@ -17,18 +17,18 @@
 }
 
 #console-input {
-  display: table;
+  display: flex;
 }
 
 
 #console-input #input-prefix {
-  width: 0.001%;
-  display: table-cell;
+  flex-shrink: 0;
+  flex-grow: 1;
 }
 
 #console-input #input-form {
-  display: table-cell;
-  width: 100%;
+  flex-shrink: 1;
+  flex-grow: 1;
 }
 
 #console-input #input-form #input {

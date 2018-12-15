@@ -1,4 +1,5 @@
 import {DOM} from './$'
+import {scrollToBottom} from './util'
 
 export class Output {
   protected element: Element
@@ -8,20 +9,20 @@ export class Output {
     this.element = $element.element()
   }
 
-  protected append(p: HTMLElement) {
+  append(p: HTMLElement) {
     this.element.appendChild(p)
   }
 
   print = (...text: string[]) => {
     const p = this.createTextElement(text.join(' '))
     this.append(p)
-    this.scrollToBottom()
+    scrollToBottom()
   }
 
   error = (...text: string[]) => {
     const p = this.createTextElement(text.join(' '), 'error')
     this.append(p)
-    this.scrollToBottom()
+    scrollToBottom()
   }
 
   clear = () => {
@@ -34,9 +35,5 @@ export class Output {
       p.innerHTML = text
       p.className = className
       return p
-  }
-
-  protected scrollToBottom() {
-    window.scrollTo(0, document.body.scrollHeight)
   }
 }
