@@ -1,6 +1,8 @@
 import {Process} from './Process'
 import {IMapOfBool} from './util'
 
+console.log('aaaaaaaaaaaa')
+
 export type ICommandHandler = (
   program: Process,
   args: string[],

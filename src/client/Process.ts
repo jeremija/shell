@@ -95,7 +95,8 @@ export class Process {
     if (!this.commands.hasOwnProperty(command)) {
       throw new Error('Illegal argument: ' + command)
     }
-    await this.commands[command](this, args, argsToMap(args.slice(1)))
+    await this.commands[command].call(this.program,
+      this, args, argsToMap(args.slice(1)))
   }
   protected async safeHandleCommand(command: string, args: string[]) {
     try {
