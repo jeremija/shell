@@ -17,8 +17,8 @@ export class OS {
     this.createShell()
   }
 
-  notifyExit() {
-    this.stack.pop()
+  notifyExit(pid: number) {
+    this.stack = this.stack.filter(p => p.pid !== pid)
     logger.log('-- OS -- notifyExit activePrograms: %s',
       this.stack.map(p => p.name))
     this.activateProgram()
