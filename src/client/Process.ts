@@ -1,6 +1,6 @@
 import * as c from './constants'
 import {ICommands} from './ICommands'
-import {IProgramDef} from './programs/IProgramDef'
+import {ICreatableProgram, IProgram} from './programs/IProgram'
 import {Input} from './Input'
 import {Logger} from './Logger'
 import {OS} from './OS'
@@ -16,43 +16,50 @@ interface IListener {
   fn: ICallback
 }
 
-export interface IProgramOptions {
-  name: string
+export interface IProcessOptions {
   autoExit: boolean
   prefix: string
 }
 
-const defaultOptions: IProgramOptions = {
-  name: '<unnamed>',
+const defaultOptions: IProcessOptions = {
   autoExit: true,
   prefix: '$',
 }
 
 let pid = 0
 
-export class Program {
+export class Process {
   protected listeners: IListener[] = []
   protected attached = false
   protected exited = false
-  protected readonly options: IProgramOptions
+  protected readonly program: IProgram
+  protected readonly options: IProcessOptions
   protected readonly commands: ICommands
   public readonly name: string
   public autoExit: boolean
   public readonly pid: number
   public readonly namePid: string
-  public readonly memory: {[key: string]: any} = {}
 
   constructor(
     readonly input: Input,
     readonly output: Output,
     protected readonly os: OS,
-    protected readonly programDef: IProgramDef,
+    protected readonly Program: ICreatableProgram,
   ) {
     this.pid = ++pid
-    this.options = Object.assign({}, defaultOptions, programDef.options)
-    this.commands = programDef.commands
+    if (typeof Program === 'function') {
+      this.program = new Program()
+    } else {
+      this.program = Program
+    }
+
+    this.program = typeof Program === 'function'
+      ? new Program()
+      : Program
+    this.options = Object.assign({}, defaultOptions, this.program.options)
+    this.commands = this.program.commands
     this.autoExit = this.options.autoExit
-    this.name = this.options.name
+    this.name = this.program.name
     this.namePid = this.name + ':' + this.pid
     this.attach()
   }
@@ -64,16 +71,16 @@ export class Program {
 
     if (args.length >= 2) {
       await this.safeHandleCommand(args[1], args)
-    } else if (this.programDef.commands.hasOwnProperty('')) {
+    } else if (this.program.commands.hasOwnProperty('')) {
       await this.safeHandleCommand('', args)
     } else {
       this.maybeExit()
     }
   }
-  fork(program: IProgramDef, args: string[]) {
-    logger.log('[%s] fork [%s] %s', this.namePid, program.options.name, args)
+  fork(program: ICreatableProgram, args: string[]) {
+    logger.log('[%s] fork [%s] %s', this.namePid, program.name, args)
     try {
-      this.os.startProgram(program, args)
+      this.os.startProcess(program, args)
     } catch (err) {
       this.output.error(err.message)
     }

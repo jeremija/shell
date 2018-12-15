@@ -1,9 +1,10 @@
-import {Program} from '../Program'
-import {IProgramDef} from './IProgramDef'
 import {IAlbumResponse, IImageResponse} from '../services/Imgur'
+import {ICommands} from '../ICommands'
+import {IProgram} from './IProgram'
+import {IProcessOptions, Process} from '../Process'
 import {scrollToBottom} from '../util'
 
-function showImage(p: Program, image: IImageResponse) {
+function showImage(p: Process, image: IImageResponse) {
   const parent = document.createElement('parent')
   const img = document.createElement('img')
   img.src = image.link
@@ -16,44 +17,50 @@ function showImage(p: Program, image: IImageResponse) {
     '[p]revious, [n]ext, [e]xit')
 }
 
-function next(p: Program, args: string[]) {
-  const album = p.memory.album as IAlbumResponse
-  if (p.memory.index >= album.images.length - 1) {
-    throw new Error('No more images')
-  }
-  const index = ++p.memory.index
-  const image = album.images[index]
-  showImage(p, image)
-}
+export class PhotoViewer implements IProgram {
+  readonly name = 'photo-viewer'
+  readonly commands: ICommands
+  readonly options: Partial<IProcessOptions>
 
-export const photoViewer: IProgramDef = {
-  commands: {
-    open: (p, args) => {
-      const [json, indexString] = args.slice(2)
-      const album = JSON.parse(json) as IAlbumResponse
-      const index = parseInt(indexString, 10) || 0
-      const image = album.images[index]
-      p.memory.index = index
-      p.memory.album = album
-      showImage(p, image)
-    },
-    n: next,
-    '': next,
-    p: (p, args) => {
-      const album = p.memory.album as IAlbumResponse
-      if (p.memory.index ===  0) {
+  constructor() {
+    this.options = {
+      autoExit: false,
+      prefix: 'photo-viewer$',
+    }
+
+    let index = 0
+    let album: IAlbumResponse | undefined
+
+    function next(p: Process, args: string[]) {
+      if (index >= album!.images.length - 1) {
         throw new Error('No more images')
       }
-      const index = --p.memory.index
-      const image = album.images[index]
+      ++index
+      const image = album!.images[index]
       showImage(p, image)
-    },
-    e: p => p.exit(),
-    exit: p => p.exit(),
-  },
-  options: {
-    name: 'photo-viewer',
-    autoExit: false,
-    prefix: 'photo-viewer$',
-  },
+    }
+
+    this.commands = {
+      open: (p, args) => {
+        const [json, indexString] = args.slice(2)
+        album = JSON.parse(json) as IAlbumResponse
+        index = parseInt(indexString, 10) || 0
+        const image = album.images[index]
+        showImage(p, image)
+      },
+      n: next,
+      '': next,
+      p: (p, args) => {
+        if (index ===  0) {
+          throw new Error('No more images')
+        }
+        --index
+        const image = album!.images[index]
+        showImage(p, image)
+      },
+      e: p => p.exit(),
+      exit: p => p.exit(),
+    }
+  }
+
 }

@@ -1,14 +1,11 @@
-import {IProgramDef} from './IProgramDef'
+import {IProgram} from './IProgram'
 import {link} from '../util'
 
-export const snake: IProgramDef = {
+export const snake: IProgram = {
   commands: {
     '': p => {
       p.output.print(link('https://steiner.website/snake'))
     },
   },
-  options: {
-    name: 'snake',
-    prefix: 'snake$',
-  },
+  name: 'snake',
 }

@@ -1,9 +1,9 @@
 // import {$} from '../$'
 import {IImageResponse} from '../services/Imgur'
-import {IProgramDef} from './IProgramDef'
+import {IProgram} from './IProgram'
 import {config} from '../config'
 import {imgur} from '../services'
-import {photoViewer} from './photoViewer'
+import {PhotoViewer} from './PhotoViewer'
 
 const help = `Usage:  photos &lt;view|thumbs|list&gt; [location] [index]
   ls             shows a list of available albums
@@ -48,7 +48,7 @@ Type "photos ls" to see available albums`)
   return await imgur.getImages(albumInfo.id)
 }
 
-export const photos: IProgramDef = {
+export const photos: IProgram = {
   commands: {
     ls(p) {
       p.output.print('Available albums:')
@@ -69,7 +69,7 @@ export const photos: IProgramDef = {
       function handleImageClick(event: MouseEvent) {
         const img = event.target as HTMLElement
         const index = img.getAttribute('data-index') || '0'
-        p.fork(photoViewer, [
+        p.fork(PhotoViewer, [
           'photo-viewer', 'open', JSON.stringify(album), index,
         ])
       }
@@ -89,7 +89,7 @@ export const photos: IProgramDef = {
     },
     async view(p, args) {
       const album = await getAlbumImages(args[2])
-      p.fork(photoViewer, [
+      p.fork(PhotoViewer, [
         'photo-viewer', 'open', JSON.stringify(album),
       ])
     },
@@ -98,7 +98,7 @@ export const photos: IProgramDef = {
     '--help': p => p.output.print(help),
     help: p => p.output.print(help),
   },
+  name: 'photos',
   options: {
-    name: 'photos',
   },
 }

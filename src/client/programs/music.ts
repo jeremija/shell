@@ -1,6 +1,6 @@
-import {IProgramDef} from './IProgramDef'
+import {IProgram} from './IProgram'
 import {player, soundCloud} from '../services'
-import {Program} from '../Program'
+import {Process} from '../Process'
 import {link} from '../util'
 
 function validateIndex(index: number, array: any[]) {
@@ -50,7 +50,7 @@ where &lt;command&gt; is one of:
 `
 
 const open = {
-  async playlist(p: Program, index: number) {
+  async playlist(p: Process, index: number) {
     index--
     const playlists = await soundCloud.getPlaylists()
     validateIndex(index, playlists)
@@ -63,7 +63,7 @@ const open = {
         'have to type "music play" for this to work')
     p.output.print('Type "music status" to see more info')
   },
-  async track(p: Program, index: number) {
+  async track(p: Process, index: number) {
     index--
     const tracks = await soundCloud.getTracks()
     validateIndex(index, tracks)
@@ -77,7 +77,7 @@ const open = {
   },
 }
 
-export const music: IProgramDef = {
+export const music: IProgram = {
   commands: {
     '': p => p.output.print(help),
     '-h': p => p.output.print(help),
@@ -195,8 +195,8 @@ export const music: IProgramDef = {
       p.output.print(link('https://soundcloud.com/jeremija'))
     },
   },
+  name: 'music',
   options: {
-    name: 'music',
     prefix: 'music$',
   },
 }

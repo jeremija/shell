@@ -1,4 +1,4 @@
-import {IProgramDef} from './IProgramDef'
+import {IProgram} from './IProgram'
 
 import {all} from './all'
 
@@ -13,7 +13,7 @@ Use the [UP] and [DOWN] keys to go through previous commands
 Most commands accept the standard --help argument for instructions
 For example: ls --help`
 
-export const shell: IProgramDef = {
+export const shell: IProgram = {
   commands: {
     help: p => p.output.print(help),
     clear: p => p.output.clear(),
@@ -35,8 +35,8 @@ optional arguments:
     },
     ...all,
   },
+  name: 'shell',
   options: {
-    name: 'shell',
     autoExit: false,
     prefix: '$',
   },

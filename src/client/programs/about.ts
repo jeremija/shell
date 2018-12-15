@@ -1,4 +1,4 @@
-import {IProgramDef} from './IProgramDef'
+import {IProgram} from './IProgram'
 import {ICommandHandler} from '../ICommands'
 // import {link as openLink} from '../util'
 
@@ -118,7 +118,7 @@ const help = `
   exit        Exits interactive mode if in itg
 `
 
-export const about: IProgramDef = {
+export const about: IProgram = {
   commands: {
     '': p => p.stayOpen(),
     ...Object.keys(sections)
@@ -136,8 +136,8 @@ export const about: IProgramDef = {
     'help': p => p.output.print(help),
     'exit': p => p.exit(),
   },
+  name: 'about',
   options: {
-    name: 'about',
     autoExit: true,
     prefix: 'about>',
   },

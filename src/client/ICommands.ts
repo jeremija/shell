@@ -1,8 +1,8 @@
-import {Program} from './Program'
+import {Process} from './Process'
 import {IMapOfBool} from './util'
 
 export type ICommandHandler = (
-  program: Program,
+  program: Process,
   args: string[],
   argsMap: IMapOfBool,
 ) => void

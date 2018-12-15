@@ -1,11 +1,9 @@
-import {IProgramDef} from './IProgramDef'
+import {IProgram} from './IProgram'
 import {link} from '../util'
 
-export const viewsource: IProgramDef = {
+export const viewsource: IProgram = {
   commands: {
     '': p => p.output.print(link('https://github.com/jeremija/shell')),
   },
-  options: {
-    name: 'view-source',
-  },
+  name: 'view-source',
 }

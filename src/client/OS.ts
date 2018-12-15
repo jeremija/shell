@@ -1,14 +1,14 @@
-import {IProgramDef} from './programs/IProgramDef'
+import {ICreatableProgram} from './programs/IProgram'
 import {Input} from './Input'
 import {Output} from './Output'
-import {Program} from './Program'
+import {Process} from './Process'
 import {shell} from './programs/shell'
 import {Logger} from './Logger'
 
 const logger = new Logger('shell:os')
 
 export class OS {
-  protected stack: Program[] = []
+  protected stack: Process[] = []
 
   constructor(
     protected readonly input: Input,
@@ -19,34 +19,37 @@ export class OS {
 
   notifyExit(pid: number) {
     this.stack = this.stack.filter(p => p.pid !== pid)
-    logger.log('-- OS -- notifyExit activePrograms: %s',
+    logger.log('-- OS -- notifyExit activeProcesses: %s',
       this.stack.map(p => p.name))
     const alreadyAttached = this.stack.some(p => p.isAttached())
     if (!alreadyAttached) {
-      this.activateProgram()
+      this.activateProcess()
     }
   }
 
-  async startProgram(programDef: IProgramDef, args: string[] = []) {
-    logger.log('-- OS -- startProgram: [%s] %s', programDef.options.name, args)
-    const activeProgram = this.getActiveProgram()
-    if (activeProgram) {
-      logger.log('-- OS -- detach %s', activeProgram.name)
-      activeProgram.detach()
+  async startProcess(
+    Program: ICreatableProgram,
+    args: string[] = [],
+  ) {
+    logger.log('-- OS -- startProcess: [%s] %s', Program.name, args)
+    const activeProcess = this.getActiveProcess()
+    if (activeProcess) {
+      logger.log('-- OS -- detach %s', activeProcess.name)
+      activeProcess.detach()
     }
-    const program = new Program(
+    const process = new Process(
       this.input,
       this.output,
       this,
-      programDef,
+      Program,
     )
-    this.stack.push(program)
-    await program.start(args)
-    return program
+    this.stack.push(process)
+    await process.start(args)
+    return process
   }
 
-  protected activateProgram(): void {
-    const program = this.getActiveProgram()
+  protected activateProcess(): void {
+    const program = this.getActiveProcess()
     if (!program) {
       this.createShell()
       return
@@ -54,11 +57,11 @@ export class OS {
     program.attach()
   }
 
-  protected getActiveProgram(): Program | undefined {
+  protected getActiveProcess(): Process | undefined {
     return this.stack[this.stack.length - 1]
   }
 
   protected createShell() {
-    this.startProgram(shell)
+    this.startProcess(shell)
   }
 }

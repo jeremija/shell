@@ -1,5 +1,5 @@
 import {ICommands, ICommandHandler} from '../ICommands'
-import {IProgramDef} from './IProgramDef'
+import {IProgram} from './IProgram'
 import {about} from './about'
 import {invert} from './invert'
 import {music} from './music'
@@ -7,7 +7,7 @@ import {photos} from './photos'
 import {snake} from './snake'
 import {viewsource} from './viewsource'
 
-const allPrograms: {[name: string]: IProgramDef } = {
+const allProcesss: {[name: string]: IProgram } = {
   about,
   invert,
   music,
@@ -16,12 +16,10 @@ const allPrograms: {[name: string]: IProgramDef } = {
   viewsource,
 }
 
-export const all = Object.keys(allPrograms).reduce((o, key) => {
-  const program = allPrograms[key]
+export const all = Object.keys(allProcesss).reduce((o, key) => {
+  const program = allProcesss[key]
   const handler: ICommandHandler = (p, args) => p.fork(program, args)
-  const name = program.options && program.options.name
-    ? program.options.name
-    : key
+  const name = program.name ? program.name : key
   o[name] = handler
   return o
 }, {} as ICommands)
