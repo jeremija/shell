@@ -7,7 +7,7 @@ export const config = {
     },
     imgur: {
       clientId: 'Client-ID 684f62d6487d2e0',
-      apiUrl: 'https://api.imgur.com/3/album/',
+      apiUrl: 'https://api.imgur.com/3',
       albums: [{
           name: 'nyc',
           id: 'dYoql',

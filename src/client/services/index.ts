@@ -1,6 +1,7 @@
 import {config} from '../config'
 import {SoundCloud} from './SoundCloud'
 import {Player} from './Player'
+import {Imgur} from './Imgur'
 
 export const soundCloud = new SoundCloud(
   config.services.soundcloud.clientId,
@@ -9,3 +10,8 @@ export const soundCloud = new SoundCloud(
 )
 
 export const player = new Player(soundCloud)
+
+export const imgur = new Imgur(
+  config.services.imgur.clientId,
+  config.services.imgur.apiUrl,
+)

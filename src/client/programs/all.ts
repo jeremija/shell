@@ -3,6 +3,7 @@ import {IProgramDef} from './IProgramDef'
 import {about} from './about'
 import {invert} from './invert'
 import {music} from './music'
+import {photos} from './photos'
 import {snake} from './snake'
 import {viewsource} from './viewsource'
 
@@ -10,6 +11,7 @@ const allPrograms: {[name: string]: IProgramDef } = {
   about,
   invert,
   music,
+  photos,
   snake,
   viewsource,
 }

@@ -1,6 +1,6 @@
 import {Http} from './Http'
 
-export class SoundCloud {
+export class Imgur {
   protected readonly http: Http
 
   constructor(
@@ -12,15 +12,19 @@ export class SoundCloud {
     })
   }
 
-  async getImages(albumId: string): Promise<IImageResponse> {
-    return this.http.get('/3/album/' + albumId)
+  async getImages(albumId: string): Promise<IAlbumResponse> {
+    return this.http.get('/album/' + albumId)
+    .then(response => response.data)
   }
 }
 
+export interface IAlbumResponse {
+  description?: string
+  images: IImageResponse[]
+}
+
 export interface IImageResponse {
-  images: Array<{
-    title?: string,
-    description?: string,
-    link: string,
-  }>
+  title?: string,
+  description?: string,
+  link: string,
 }
