@@ -1,9 +1,10 @@
 // import {$} from '../$'
-import {IImageResponse} from '../services/Imgur'
+// import {IImageResponse} from '../services/Imgur'
 import {IProgram} from './IProgram'
+import {PhotoViewer} from './PhotoViewer'
+import {Thumbnails} from './Thumbnails'
 import {config} from '../config'
 import {imgur} from '../services'
-import {PhotoViewer} from './PhotoViewer'
 
 const help = `Usage:  photos &lt;view|thumbs|list&gt; [location] [index]
   ls             shows a list of available albums
@@ -24,20 +25,20 @@ const albumsByName = albums.reduce((o, album) => {
   return o
 }, {} as {[key: string]: typeof albums[0]})
 
-function getDescription(image: IImageResponse) {
-  const title = image.title
-  const description = image.description
-  if (title && description) {
-    return title + ': ' + description
-  }
-  if (title && !description) {
-    return title
-  }
-  if (!title && description) {
-    return description
-  }
-  return ''
-}
+// function getDescription(image: IImageResponse) {
+//   const title = image.title
+//   const description = image.description
+//   if (title && description) {
+//     return title + ': ' + description
+//   }
+//   if (title && !description) {
+//     return title
+//   }
+//   if (!title && description) {
+//     return description
+//   }
+//   return ''
+// }
 
 async function getAlbumImages(name: string) {
   const albumInfo = albumsByName[name]
@@ -66,26 +67,30 @@ export const photos: IProgram = {
       if (album.description) {
         p.output.print('Description: ' + album.description)
       }
-      function handleImageClick(event: MouseEvent) {
-        const img = event.target as HTMLElement
-        const index = img.getAttribute('data-index') || '0'
-        p.fork(PhotoViewer, [
-          'photo-viewer', 'open', JSON.stringify(album), index,
-        ])
-      }
 
-      album.images.forEach((image, i) => {
-        const thumb = image.link.replace(/\.jpg$/, 's.jpg')
-        const img = document.createElement('img')
-        // const parent = document.createElement('div')
-        img.setAttribute('class', 'gallery')
-        img.setAttribute('src', thumb)
-        img.setAttribute('data-fullsrc', image.link || '')
-        img.setAttribute('data-description', getDescription(image))
-        img.setAttribute('data-index', i.toString())
-        img.onclick = handleImageClick
-        p.output.append(img)
-      })
+      p.fork(Thumbnails, [
+        'thumbnails', 'open', JSON.stringify(album.images),
+      ])
+      // function handleImageClick(event: MouseEvent) {
+      //   const img = event.target as HTMLElement
+      //   const index = img.getAttribute('data-index') || '0'
+      //   p.fork(PhotoViewer, [
+      //     'photo-viewer', 'open', JSON.stringify(album), index,
+      //   ])
+      // }
+
+      // album.images.forEach((image, i) => {
+      //   const thumb = image.link.replace(/\.jpg$/, 's.jpg')
+      //   const img = document.createElement('img')
+      //   // const parent = document.createElement('div')
+      //   img.setAttribute('class', 'gallery')
+      //   img.setAttribute('src', thumb)
+      //   img.setAttribute('data-fullsrc', image.link || '')
+      //   img.setAttribute('data-description', getDescription(image))
+      //   img.setAttribute('data-index', i.toString())
+      //   img.onclick = handleImageClick
+      //   p.output.append(img)
+      // })
     },
     async view(p, args) {
       const album = await getAlbumImages(args[2])
